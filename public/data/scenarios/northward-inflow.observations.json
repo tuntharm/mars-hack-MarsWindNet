@@ -1,0 +1,43 @@
+{
+  "layout_id": "marswindnet-400-v2",
+  "scenario_id": "northward-inflow",
+  "source": "analytic-fixture",
+  "provenance": "Virtual point observations evaluated at their exact coordinates; not measured Mars data.",
+  "readings": [
+    {
+      "sensor_id": "S1",
+      "x_m": 0,
+      "y_m": 400,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "S2",
+      "x_m": 0,
+      "y_m": 0,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "S3",
+      "x_m": 108,
+      "y_m": 100,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "S4",
+      "x_m": 400,
+      "y_m": 400,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "S5",
+      "x_m": 400,
+      "y_m": 0,
+      "u_mps": 0,
+      "v_mps": 8
+    }
+  ]
+}

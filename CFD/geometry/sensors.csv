@@ -1,0 +1,6 @@
+sensor_id,name,x_m,y_m
+S1,Northwest corner,0,400
+S2,Southwest corner,0,0
+S3,Industrial checkpoint,108,100
+S4,Northeast corner,400,400
+S5,Southeast corner,400,0

@@ -1,0 +1,283 @@
+{
+  "layout_id": "marswindnet-400-v2",
+  "note": "Authored prototype geometry, not a surveyed Mars site. Imported from marswindnet-planning/geometry-v2/city.json. Four corner inputs; S3 independent checkpoint. Solar and sensor heights unspecified.",
+  "domain": {
+    "width_m": 400,
+    "height_m": 400,
+    "origin": "SW",
+    "x": "east",
+    "y": "north",
+    "z": "up"
+  },
+  "grid": {
+    "nx": 128,
+    "ny": 128,
+    "dx_m": 3.125,
+    "dy_m": 3.125,
+    "first_centre_m": [
+      1.5625,
+      1.5625
+    ],
+    "index": "j*nx+i",
+    "i": "west_to_east",
+    "j": "south_to_north"
+  },
+  "pads": [
+    {
+      "id": "PAD_NW",
+      "name": "Northwest pad",
+      "kind": "circle",
+      "role": "visual",
+      "cx_m": 136,
+      "cy_m": 244,
+      "height_m": 0,
+      "radius_m": 36
+    },
+    {
+      "id": "PAD_SE",
+      "name": "Southeast pad",
+      "kind": "circle",
+      "role": "visual",
+      "cx_m": 264,
+      "cy_m": 96,
+      "height_m": 0,
+      "radius_m": 32
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "D1",
+      "name": "Northern dome A",
+      "kind": "dome",
+      "role": "cfd",
+      "cx_m": 156,
+      "cy_m": 300,
+      "height_m": 14,
+      "radius_m": 14
+    },
+    {
+      "id": "D2",
+      "name": "Northern dome B",
+      "kind": "dome",
+      "role": "cfd",
+      "cx_m": 188,
+      "cy_m": 300,
+      "height_m": 12,
+      "radius_m": 12
+    },
+    {
+      "id": "D3",
+      "name": "Eastern main dome",
+      "kind": "dome",
+      "role": "cfd",
+      "cx_m": 280,
+      "cy_m": 244,
+      "height_m": 26,
+      "radius_m": 30
+    },
+    {
+      "id": "D4",
+      "name": "Southern main dome",
+      "kind": "dome",
+      "role": "cfd",
+      "cx_m": 220,
+      "cy_m": 156,
+      "height_m": 26,
+      "radius_m": 30
+    },
+    {
+      "id": "D5",
+      "name": "Eastern small dome A",
+      "kind": "dome",
+      "role": "cfd",
+      "cx_m": 320,
+      "cy_m": 188,
+      "height_m": 14,
+      "radius_m": 14
+    },
+    {
+      "id": "D6",
+      "name": "Eastern small dome B",
+      "kind": "dome",
+      "role": "cfd",
+      "cx_m": 352,
+      "cy_m": 188,
+      "height_m": 14,
+      "radius_m": 14
+    },
+    {
+      "id": "HUB",
+      "name": "Central hub",
+      "kind": "box",
+      "role": "cfd",
+      "cx_m": 144,
+      "cy_m": 148,
+      "height_m": 12,
+      "width_m": 32,
+      "depth_m": 22
+    },
+    {
+      "id": "WORKSHOP",
+      "name": "Workshop",
+      "kind": "box",
+      "role": "cfd",
+      "cx_m": 112,
+      "cy_m": 132,
+      "height_m": 10,
+      "width_m": 20,
+      "depth_m": 30
+    },
+    {
+      "id": "STORE",
+      "name": "Storage",
+      "kind": "box",
+      "role": "cfd",
+      "cx_m": 144,
+      "cy_m": 116,
+      "height_m": 7,
+      "width_m": 24,
+      "depth_m": 16
+    },
+    {
+      "id": "T1",
+      "name": "Tank A",
+      "kind": "cylinder",
+      "role": "cfd",
+      "cx_m": 168,
+      "cy_m": 130,
+      "height_m": 10,
+      "radius_m": 5
+    },
+    {
+      "id": "T2",
+      "name": "Tank B",
+      "kind": "cylinder",
+      "role": "cfd",
+      "cx_m": 168,
+      "cy_m": 144,
+      "height_m": 10,
+      "radius_m": 5
+    },
+    {
+      "id": "E1",
+      "name": "Service module A",
+      "kind": "box",
+      "role": "cfd",
+      "cx_m": 322,
+      "cy_m": 228,
+      "height_m": 6,
+      "width_m": 20,
+      "depth_m": 12
+    },
+    {
+      "id": "E2",
+      "name": "Service module B",
+      "kind": "box",
+      "role": "cfd",
+      "cx_m": 350,
+      "cy_m": 228,
+      "height_m": 6,
+      "width_m": 20,
+      "depth_m": 12
+    },
+    {
+      "id": "E3",
+      "name": "Service module C",
+      "kind": "box",
+      "role": "cfd",
+      "cx_m": 378,
+      "cy_m": 228,
+      "height_m": 6,
+      "width_m": 20,
+      "depth_m": 12
+    }
+  ],
+  "solar_beds": [
+    {
+      "id": "PV1",
+      "name": "Solar bed A",
+      "kind": "box",
+      "role": "visual",
+      "cx_m": 76,
+      "cy_m": 78,
+      "height_m": null,
+      "width_m": 30,
+      "depth_m": 12
+    },
+    {
+      "id": "PV2",
+      "name": "Solar bed B",
+      "kind": "box",
+      "role": "visual",
+      "cx_m": 116,
+      "cy_m": 78,
+      "height_m": null,
+      "width_m": 30,
+      "depth_m": 12
+    },
+    {
+      "id": "PV3",
+      "name": "Solar bed C",
+      "kind": "box",
+      "role": "visual",
+      "cx_m": 76,
+      "cy_m": 58,
+      "height_m": null,
+      "width_m": 30,
+      "depth_m": 12
+    },
+    {
+      "id": "PV4",
+      "name": "Solar bed D",
+      "kind": "box",
+      "role": "visual",
+      "cx_m": 116,
+      "cy_m": 58,
+      "height_m": null,
+      "width_m": 30,
+      "depth_m": 12
+    }
+  ],
+  "sensors": [
+    {
+      "id": "S1",
+      "name": "Northwest corner",
+      "x_m": 0,
+      "y_m": 400,
+      "model_role": "prediction_input",
+      "use_for_prediction": true
+    },
+    {
+      "id": "S2",
+      "name": "Southwest corner",
+      "x_m": 0,
+      "y_m": 0,
+      "model_role": "prediction_input",
+      "use_for_prediction": true
+    },
+    {
+      "id": "S3",
+      "name": "Industrial checkpoint",
+      "x_m": 108,
+      "y_m": 100,
+      "model_role": "independent_checkpoint",
+      "use_for_prediction": false
+    },
+    {
+      "id": "S4",
+      "name": "Northeast corner",
+      "x_m": 400,
+      "y_m": 400,
+      "model_role": "prediction_input",
+      "use_for_prediction": true
+    },
+    {
+      "id": "S5",
+      "name": "Southeast corner",
+      "x_m": 400,
+      "y_m": 0,
+      "model_role": "prediction_input",
+      "use_for_prediction": true
+    }
+  ]
+}

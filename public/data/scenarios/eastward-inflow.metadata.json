@@ -1,0 +1,23 @@
+{
+  "layout_id": "marswindnet-400-v2",
+  "scenario_id": "eastward-inflow",
+  "grid": {
+    "nx": 128,
+    "ny": 128,
+    "dx_m": 3.125,
+    "dy_m": 3.125
+  },
+  "reference_provenance": "DEMO FIXTURE — NOT CFD / NOT ML",
+  "comparison_provenance": "ILLUSTRATIVE COMPARISON — NOT ML INFERENCE",
+  "model": "analytic visual fixture; not CFD or trained ML",
+  "observations_file": "eastward-inflow.observations.json",
+  "prediction_input_ids": [
+    "S1",
+    "S2",
+    "S4",
+    "S5"
+  ],
+  "checkpoint_ids": [
+    "S3"
+  ]
+}

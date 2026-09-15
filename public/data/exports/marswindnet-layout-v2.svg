@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 -28 448 456" width="900" height="920">
+  <style>
+    text { font-family: ui-sans-serif, system-ui, sans-serif; fill: #1b120c; }
+    .title { font-size: 16px; font-weight: 700; }
+    .note { font-size: 9px; fill: #5a4030; }
+    .axis { font-size: 9px; }
+    .label { font-size: 8px; }
+    .pad { fill: #e2c39a; stroke: #8a5a32; stroke-width: 0.8; }
+    .solar { fill: #2c4454; stroke: #6ec4b4; stroke-width: 0.6; }
+    .cfd { fill: #f4efe4; stroke: #1b2c38; stroke-width: 0.8; }
+    .sensor { fill: #ff7a18; stroke: #0d1b2a; stroke-width: 0.8; }
+  </style>
+  <rect x="0" y="0" width="400" height="400" fill="#c56a38"/>
+  <circle class="pad" cx="136" cy="156" r="36" />
+  <circle class="pad" cx="264" cy="304" r="32" />
+  <rect class="solar" x="61" y="316" width="30" height="12" />
+  <rect class="solar" x="101" y="316" width="30" height="12" />
+  <rect class="solar" x="61" y="336" width="30" height="12" />
+  <rect class="solar" x="101" y="336" width="30" height="12" />
+  <circle class="cfd" cx="156" cy="100" r="14" />
+  <circle class="cfd" cx="188" cy="100" r="12" />
+  <circle class="cfd" cx="280" cy="156" r="30" />
+  <circle class="cfd" cx="220" cy="244" r="30" />
+  <circle class="cfd" cx="320" cy="212" r="14" />
+  <circle class="cfd" cx="352" cy="212" r="14" />
+  <rect class="cfd" x="128" y="241" width="32" height="22" />
+  <rect class="cfd" x="102" y="253" width="20" height="30" />
+  <rect class="cfd" x="132" y="276" width="24" height="16" />
+  <circle class="cfd" cx="168" cy="270" r="5" />
+  <circle class="cfd" cx="168" cy="256" r="5" />
+  <rect class="cfd" x="312" y="166" width="20" height="12" />
+  <rect class="cfd" x="340" y="166" width="20" height="12" />
+  <rect class="cfd" x="368" y="166" width="20" height="12" />
+  <circle class="sensor" cx="0" cy="0" r="4"/><text class="label" x="6" y="14" text-anchor="start">S1 Northwest corner</text>
+  <circle class="sensor" cx="0" cy="400" r="4"/><text class="label" x="6" y="394" text-anchor="start">S2 Southwest corner</text>
+  <circle class="sensor" cx="108" cy="300" r="4"/><text class="label" x="114" y="294" text-anchor="start">S3 Industrial checkpoint</text>
+  <circle class="sensor" cx="400" cy="0" r="4"/><text class="label" x="394" y="14" text-anchor="end">S4 Northeast corner</text>
+  <circle class="sensor" cx="400" cy="400" r="4"/><text class="label" x="394" y="394" text-anchor="end">S5 Southeast corner</text>
+  <text class="label" x="156" y="103" text-anchor="middle">D1</text>
+  <text class="label" x="188" y="103" text-anchor="middle">D2</text>
+  <text class="label" x="280" y="159" text-anchor="middle">D3</text>
+  <text class="label" x="220" y="247" text-anchor="middle">D4</text>
+  <text class="label" x="320" y="215" text-anchor="middle">D5</text>
+  <text class="label" x="352" y="215" text-anchor="middle">D6</text>
+  <text class="label" x="144" y="255" text-anchor="middle">HUB</text>
+  <text class="label" x="112" y="271" text-anchor="middle">WORKSHOP</text>
+  <text class="label" x="144" y="287" text-anchor="middle">STORE</text>
+  <text class="label" x="168" y="273" text-anchor="middle">T1</text>
+  <text class="label" x="168" y="259" text-anchor="middle">T2</text>
+  <text class="label" x="322" y="175" text-anchor="middle">E1</text>
+  <text class="label" x="350" y="175" text-anchor="middle">E2</text>
+  <text class="label" x="378" y="175" text-anchor="middle">E3</text>
+  <line x1="0" y1="400" x2="400" y2="400" stroke="#1b120c"/>
+  <line x1="0" y1="0" x2="0" y2="400" stroke="#1b120c"/>
+  <text class="axis" x="0" y="414" text-anchor="middle">0 m E</text>
+  <text class="axis" x="100" y="414" text-anchor="middle">100 m E</text>
+  <text class="axis" x="200" y="414" text-anchor="middle">200 m E</text>
+  <text class="axis" x="300" y="414" text-anchor="middle">300 m E</text>
+  <text class="axis" x="400" y="414" text-anchor="middle">400 m E</text>
+  <text class="axis" x="-6" y="403" text-anchor="end">0 m N</text>
+  <text class="axis" x="-6" y="303" text-anchor="end">100 m N</text>
+  <text class="axis" x="-6" y="203" text-anchor="end">200 m N</text>
+  <text class="axis" x="-6" y="103" text-anchor="end">300 m N</text>
+  <text class="axis" x="-6" y="3" text-anchor="end">400 m N</text>
+  <text class="title" x="0" y="-12">marswindnet-400-v2 · north up</text>
+  <text class="note" x="0" y="436">Authored prototype geometry, not a surveyed Mars site. Imported from marswindnet-planning/geometry-v2/city.json. Four corner inputs; S3 independent checkpoint. Solar and sensor heights unspecified.</text>
+</svg>
