@@ -2,117 +2,80 @@
 
 **See the wind. Protect the city.**
 
-A Mars City Hackathon prototype for exploring wind around a 500 × 500 m settlement. The React application combines a procedural 3D city, animated horizontal wind, a matching 2D map and 29 virtual stations: five within the city and 24 on three regional rings.
+MarsWindNet explores how a network of environmental sensors could help people understand wind around a Martian settlement. Built for the Mars City Hackathon, it brings together an interactive city, a sensor hardware concept and the team's simulation and machine-learning results.
 
-**Ready now:** geometry, interactive visualisation and reproducible analytic demo datasets. **Still needed:** genuine CFD results and a trained prediction model. The included Python service is an inverse-distance interpolation (IDW) baseline; the Structure view shows illustrative surface colours.
+**[Visit MarsWindNet](https://marswindnet.vercel.app/)** · **[Meet the sensor](https://marswindnet.vercel.app/sensor/)** · **[View model results](https://marswindnet.vercel.app/ml-gallery/index.html)**
 
-## Start the demo
+## Explore the website
 
-Use Node.js **22.18 or newer** and npm. From a fresh checkout:
+The opening film leads into three parts of the project:
+
+| Experience | What you can explore |
+| --- | --- |
+| **Interactive city** | A 500 × 500 m settlement with 3D buildings, moving wind trails, a matching 2D map and sensor monitoring. |
+| **Sensor showcase** | The proposed field station, its instruments and an interactive 3D model that folds between transport and deployed configurations. |
+| **Model results** | Prepared simulation plots, training-data views and prediction comparisons, with explanations of what each result represents. |
+
+The city has **Mars**, **CFD** and **Structure** views. Select a sensor to inspect its readings, use **Regional view** to see the wider network, or load an illustrative comparison to explore the comparison controls. On mobile, choose **Interact with city** to enable camera gestures.
+
+Five local stations cover the settlement. A further 24 virtual stations sit on rings at 1, 5 and 10 km from its centre.
+
+## What the demonstration represents
+
+The city initially displays an **illustrative wind field**, not a live trained-model prediction. Its horizontal 2D data is visualised in 3D; the surrounding terrain and dust styling are decorative. The Structure view shows illustrative surface colours, not calculated stress or displacement.
+
+The results gallery is a separate, prepared presentation of the team's work. Those plots are not wired into the interactive city. Read each plot's provenance: synthetic simulation, model output and validated CFD are different things.
+
+The sensor is a hardware concept. The website does not receive physical telemetry or provide validated operational warnings. Live model generation is deferred; the current website works without a Python backend.
+
+## Run locally
+
+Install Node.js 22.18 or newer, then:
 
 ```bash
 git clone https://github.com/tuntharm/mars-hack-MarsWindNet.git
 cd mars-hack-MarsWindNet
 npm ci
-npm run dev -- --host 127.0.0.1
+npm run dev
 ```
 
-Open [localhost:5173](http://127.0.0.1:5173). The bundled demonstration works without Python.
+Open the address printed by Vite, normally `http://localhost:5173`.
 
-| View | Purpose |
+- City: `/`
+- Sensor: `/sensor/`
+- Results: `/ml-gallery/index.html` — include `index.html`.
+
+## Project files
+
+| Location | Contents |
 | --- | --- |
-| **Mars** | Explore the settlement, terrain and decorative wind motion. |
-| **CFD** | Inspect the supplied velocity field, contours and Reference / Prediction / Error comparison. The tab name does not certify the data source; read its provenance label. |
-| **Structure** | Inspect illustrative wind-facing surface contours, scaled 0–1. These are not stress, displacement or structural analysis. |
+| `src/` | React application, city renderer, field visualisation and monitoring. |
+| `public/sensor/` | Complete standalone sensor showcase, assets and vendored Three.js. |
+| `public/ml-gallery/` | Results page and its plot images. |
+| `public/data/` | Runtime geometry, demonstration scenarios and geometry exports. |
+| `CFD/` | Simulation contribution, geometry specification and field-import tooling. |
+| `mars_simulation_plots/` | Simulation figures contributed by the team. |
+| `inference-service/` | Prepared full-field model adapter for future integration. |
+| `predict-stub/` | Optional IDW development baseline; not a trained model. |
+| `docs/` | Dataset provenance, integration notes and verification records. |
 
-The initial **City** view includes all five local sensors. Use **Regional view** to zoom out to eight stations each at 1, 5 and 10 km from the city centre; return to **Fit city** for the local flow field. Select **Load illustrative comparison** to exercise comparison controls. On mobile, enable **Interact with city** for camera gestures and use **Done** to resume normal scrolling.
+The team's additional simulation and LSTM contributions are retained alongside the website.
 
-## Repository map
+## Simulation and model handoff
 
-```text
-CFD/
-  geometry/                 Agreed city specification, obstacle/sensor CSVs and map
-  results/                  Place actual solver exports here; none are bundled
-  import-result.mjs         Validate and import a CFD reference into the app
-  README.md                 Debdut's simulation and export instructions
-public/data/
-  city/                     Application's canonical geometry representation
-  scenarios/                Demo pairs, observations, metadata and imported fields
-  exports/                  Geometry exports derived from the runtime city
-src/
-  contracts/                Shared geometry, field, observation and surface types
-  scene3d/                  City architecture, terrain and wind renderer
-  structure/                Illustrative contour generation and validation
-  field/                    Fixtures, masks, sampling, colours and metrics
-  prediction/               Python API client and response validation
-  state/                    Scenarios, mode selection and request lifecycle
-  components/               Controls, 2D map and monitoring
-predict-stub/               Optional Python IDW baseline, not trained ML
-docs/DATASETS.md            What data is included, its provenance and limitations
-```
+Start with the [city map](CFD/geometry/city-map.svg), [geometry specification](CFD/geometry/README.md) and [CFD instructions](CFD/README.md). The city uses layout **`marswindnet-500-v3`**, 14 projected obstacles and a 128 × 128 cell-centred display grid. The solver's computational mesh may differ.
 
-## Local city and regional network
+For future model integration, see the [Python adapter contract](inference-service/README.md) and [hosted integration notes](docs/HOSTED_INFERENCE.md). A compatible numerical full-field output is required; a plot image or a single city-centre prediction cannot drive the whole city field.
 
-The 500 × 500 m city is the detailed display/CFD output area. The regional network is a separate observation layout centred at `(250,250)` m, with eight compass positions per ring. Open the [regional map](CFD/geometry/regional-map.svg) and [24 regional coordinates](CFD/geometry/regional-sensors.csv). Negative coordinates are valid outside the southwest city origin.
+See the [dataset catalogue](docs/DATASETS.md) for the bundled data and its limitations.
 
-Only S1/S2/S4/S5 feed the current local `/predict` service. S3 stays withheld; the outer 24 stations are not silently added to that API. Bundled regional readings are labelled analytic fixtures, without dust transport, warning lead times or a regional forecasting model.
-
-Version `marswindnet-500-v3` supersedes the 400 m layout. Existing buildings, pads, solar beds and S3 move +50 m east and north; their dimensions and arrangement are unchanged. The original planning files remain historical.
-
-## Debdut: begin here
-
-1. Open the [city map](CFD/geometry/city-map.svg) and [geometry specification](CFD/geometry/README.md). Use layout **`marswindnet-500-v3`**, with 14 projected CFD obstacles. The pads, solar beds and sensor markers are visual-only.
-2. Follow [CFD/README.md](CFD/README.md) to choose the solver, computational mesh, boundary conditions and any surrounding padding. Resample the result onto the agreed 128 × 128 cell-centred display grid.
-3. Export the genuine reference as `CFD/results/result.json`. Import it with optional exact-coordinate sensor observations:
-
-```bash
-npm run cfd:import -- CFD/results/result.json CFD/results/observations.json
-```
-
-Omit the final argument when observations are unavailable. Select the **CFD eastward 8 m/s** scenario in the app. Its reference stays unavailable until a solver result is imported; prediction additionally needs the four corner observations.
-
-This workflow loads an **offline CFD reference**. **Run prediction** separately calls the configured `/predict` service. The five stations are S1/S2/S4/S5 at the domain corners and S3 at `(158,150)` m. S3 is withheld from prediction for a local checkpoint comparison.
-
-## Optional prediction service
-
-For the included baseline, create a Python environment once (macOS/Linux):
-
-```bash
-python3 -m venv predict-stub/.venv
-predict-stub/.venv/bin/python -m pip install -r predict-stub/requirements.txt
-npm run predict-stub
-```
-
-The hosted field workflow uses `/api/predict`. To opt into the old IDW service for development presets only, set `VITE_PREDICTION_MODE=stub` and `VITE_PREDICT_URL=http://127.0.0.1:8000/predict`, then restart Vite. Custom wind always uses the hosted-model contract. See [.env.example](.env.example) and [hosted setup](docs/HOSTED_INFERENCE.md). S1/S2/S4/S5 supply the input vectors; failures remain explicit.
-
-## Data and development
-
-The [dataset catalogue](docs/DATASETS.md) distinguishes analytic fixtures, provided observations, imported CFD and live predictions. Two paired CSVs are bundled, each with 16,384 grid rows. They contain synthetic reference/comparison values, not a CFD training corpus or ML model weights.
+## Checks and deployment
 
 ```bash
 npm test
 npm run lint
 npm run build
 npm run check:geometry
-npm run export-city
 ```
 
-`export-city` regenerates geometry exports and labelled fixture data; it does not run CFD. Keep geometry aligned between `CFD/geometry/` and `public/data/city/`. Physical coordinates use metres, southwest origin, x east and y north; the renderer maps `(x,y,z)` to `(x,z,-y)`.
-
-This prototype visualises **2D horizontal flow in a 3D city**. Architectural roofs, generated terrain imagery and decorative haze do not establish 3D CFD, dust transport, structural validity or operational safety. Genuine engineering results need their own solver assumptions and validation.
-
-## Separate simulation contribution
-
-The team's `initial cfd` commit added `CFD/analysis.py` and `mars_city_wind_dust_training.csv`. The script describes a synthetic, unvalidated wind/dust generator with a 25 × 25 grid over 2 km and four cardinal nodes plus a central city sample. Its CSV contains point time series, not the application's 128 × 128 masked field or the new 29-station layout. These files are preserved unchanged and are not loaded automatically by the website. Debdut needs an explicit geometry/observation/export adapter before that contribution can drive this view; renaming its fields or layout ID alone is insufficient.
-
-## Demo pages
-
-- **Meet the sensor** in the video hero opens `/sensor/` in the same tab. The complete standalone showcase, including its Three.js vendor files, is in `public/sensor/`.
-- **View model results** in the masthead opens `/ml-gallery/index.html`. Keep this exact filename: `/ml-gallery/` can fall through to the React app in development.
-- The city starts with the existing illustrative settlement flow. The results gallery is a separate prepared page, not a field connected to the 3D city.
-
-The sensor folder was copied unchanged from the team's sensor project. Vite and Vercel route `/sensor/` to its static index. Both static folders ship with the production build.
-
-## Deferred hosted model integration
-
-The custom-wind panel and live generation controls are not exposed in this demo release. Prepared gateway/service work remains available for later integration; no trained full-field model or hosted backend is configured. See [hosted inference setup](docs/HOSTED_INFERENCE.md) and the [Python adapter handoff](inference-service/README.md). The existing centre-only model is not replicated across the city.
+Vercel serves the built website from `dist/`. The sensor and results pages are included as static assets. The public address is **https://marswindnet.vercel.app/**.

@@ -1,19 +1,19 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+from pathlib import Path
 
 # ============================================================
 # FAST 2-D REDUCED-ORDER MARTIAN WIND + DUST SIMULATOR
+# WITH 2-D FIELD PLOTS
 # ============================================================
 #
 # Four sensor nodes surround a central "city":
 #
 #                 N
 #                 |
-#            (0,R)
 #
 #       W ------- CITY ------- E
-#
-#       (-R,0)    (0,0)     (R,0)
 #
 #                 |
 #                 S
@@ -22,16 +22,15 @@ import pandas as pd
 # on a regular grid.
 #
 # Outputs:
-#   - time
-#   - u, v and speed at each of four nodes
-#   - dust at each node
-#   - u, v, speed and dust at the city
+#   1. CSV containing sensor/city measurements
+#   2. PNG showing velocity + dust fields at 0 s
+#   3. PNG showing velocity + dust fields at 1500 s
+#   4. PNG showing velocity + dust fields at 3000 s
 #
-# The boundary conditions vary continuously in time and contain
-# both deterministic and stochastic components.
+# The PNG files are saved in:
 #
-# This is intended as a fast synthetic-data generator for ML,
-# NOT as a validated Martian CFD model.
+#     mars_simulation_plots/
+#
 # ============================================================
 
 
@@ -41,56 +40,44 @@ import pandas as pd
 
 rng = np.random.default_rng(42)
 
-# Change the seed to obtain a different realization.
-# For example:
-#
-# rng = np.random.default_rng(12345)
-
 
 # ------------------------------------------------------------
 # 2. SIMULATION PARAMETERS
 # ------------------------------------------------------------
 
 # Spatial grid
-N = 25                  # N x N grid
-L = 2000.0              # domain width/height [m]
+N = 25
+L = 2000.0
 dx = L / (N - 1)
 
 # Time
-dt = 0.20               # internal timestep [s]
-n_steps = 15000         # number of timesteps
-output_every = 5        # save every 5 timesteps
+dt = 0.20
 
-# Therefore:
-#
-# simulated time = n_steps * dt
-#                 = 3000 seconds
-#
-# output interval = output_every * dt
-#                  = 1 second
+# Use 15000 intervals of 0.2 s = 3000 s
+n_steps = 15000
+
+# Save CSV data every 5 internal steps = every 1 second
+output_every = 5
 
 
 # ------------------------------------------------------------
 # 3. EFFECTIVE MARTIAN PARAMETERS
 # ------------------------------------------------------------
 
-# These are reduced-order / effective parameters rather than
-# a complete physical description of the Martian atmosphere.
-
-rho = 0.020             # near-surface atmospheric density [kg/m^3]
-g = 3.71                # Mars gravitational acceleration [m/s^2]
+rho = 0.020
+g = 3.71
 
 # Effective momentum diffusivity
-nu = 25.0               # [m^2/s]
+nu = 25.0
 
-# Linear drag term
-k_drag = 0.004          # [1/s]
+# Linear drag
+k_drag = 0.004
 
 # Effective dust diffusivity
-dust_diff = 18.0        # [m^2/s]
+dust_diff = 18.0
 
 # Dust removal/deposition rate
-dust_decay = 2.0e-5     # [1/s]
+dust_decay = 2.0e-5
 
 # Wind-driven dust resuspension coefficient
 dust_source_strength = 2.0e-6
@@ -99,22 +86,6 @@ dust_source_strength = 2.0e-6
 # ------------------------------------------------------------
 # 4. GRID AND SENSOR LOCATIONS
 # ------------------------------------------------------------
-
-# Array indices:
-#
-#       row = 0
-#          |
-#          v
-#
-#       +-----------+
-#       |           |
-#       |     N     |
-#       |     |     |
-#       | W - C - E |
-#       |     |     |
-#       |     S     |
-#       |           |
-#       +-----------+
 
 c = (N - 1) // 2
 
@@ -132,10 +103,6 @@ city = (c, c)
 # 5. INITIALIZE FIELDS
 # ------------------------------------------------------------
 
-# u = east-west wind component
-# v = north-south wind component
-# dust = normalized dust concentration
-
 u = np.zeros((N, N))
 v = np.zeros((N, N))
 dust = np.zeros((N, N))
@@ -145,20 +112,14 @@ dust = np.zeros((N, N))
 # 6. TRANSIENT BOUNDARY CONDITION PARAMETERS
 # ------------------------------------------------------------
 
-# Ornstein-Uhlenbeck correlation times.
-# These make the random component vary smoothly rather than
-# jumping randomly at every timestep.
+tau_wind = 180.0
+tau_dust = 240.0
 
-tau_wind = 180.0        # wind correlation time [s]
-tau_dust = 240.0        # dust correlation time [s]
-
-# Initial large-scale wind state
 wind_state = np.array([
-    4.0,                 # east-west component [m/s]
-    0.0                  # north-south component [m/s]
+    4.0,
+    0.0
 ])
 
-# Initial dust concentration
 dust_state = 0.45
 
 
@@ -167,16 +128,6 @@ dust_state = 0.45
 # ------------------------------------------------------------
 
 def ou_step(x, target, tau, sigma, dt):
-    """
-    Update a stochastic state using a simple
-    Ornstein-Uhlenbeck process.
-
-    x      : current state
-    target : slowly varying target state
-    tau    : relaxation/correlation time
-    sigma  : stochastic amplitude
-    dt     : timestep
-    """
 
     return (
         x
@@ -190,13 +141,6 @@ def ou_step(x, target, tau, sigma, dt):
 # ------------------------------------------------------------
 
 def laplacian(a):
-    """
-    Calculate the 2-D Laplacian using a five-point stencil:
-
-        d2a/dx2 + d2a/dy2
-
-    Interior cells use centered differences.
-    """
 
     out = np.empty_like(a)
 
@@ -216,14 +160,6 @@ def laplacian(a):
 # ------------------------------------------------------------
 
 def gradients(a):
-    """
-    Return:
-        ax = da/dx
-        ay = da/dy
-
-    Centered differences in the interior and one-sided
-    differences at the boundaries.
-    """
 
     ax = np.empty_like(a)
     ay = np.empty_like(a)
@@ -263,14 +199,6 @@ def gradients(a):
 # ------------------------------------------------------------
 
 def set_boundary(uu, vv, dd, wind, dlevel):
-    """
-    Set the velocity and dust boundary conditions.
-
-    The large-scale wind comes from the transient wind state,
-    with small spatial variations around the perimeter.
-
-    Dust has a spatially varying boundary concentration.
-    """
 
     wx, wy = wind
 
@@ -280,9 +208,7 @@ def set_boundary(uu, vv, dd, wind, dlevel):
         N
     )
 
-    # --------------------------------------------------------
     # WEST / EAST VELOCITY
-    # --------------------------------------------------------
 
     uu[:, 0] = (
         wx
@@ -304,9 +230,7 @@ def set_boundary(uu, vv, dd, wind, dlevel):
         + 0.20 * np.cos(phase + 0.7)
     )
 
-    # --------------------------------------------------------
     # NORTH / SOUTH VELOCITY
-    # --------------------------------------------------------
 
     uu[0, :] = (
         wx
@@ -328,9 +252,7 @@ def set_boundary(uu, vv, dd, wind, dlevel):
         + 0.20 * np.cos(phase + 1.9)
     )
 
-    # --------------------------------------------------------
     # DUST BOUNDARY CONDITIONS
-    # --------------------------------------------------------
 
     dd[:, 0] = np.maximum(
         0,
@@ -375,7 +297,6 @@ def sample_outputs(t, uu, vv, dd):
         "time": t
     }
 
-    # Four sensor nodes
     for name, (i, j) in nodes.items():
 
         node_u = uu[i, j]
@@ -391,7 +312,6 @@ def sample_outputs(t, uu, vv, dd):
 
         values[f"{name}_dust"] = dd[i, j]
 
-    # City
     ci, cj = city
 
     city_u = uu[ci, cj]
@@ -418,11 +338,55 @@ records = []
 
 
 # ------------------------------------------------------------
-# 13. MAIN SIMULATION LOOP
+# 13. STORAGE FOR FULL 2-D SNAPSHOTS
+# ------------------------------------------------------------
+#
+# We store the full fields at:
+#
+#     0 s
+#     1500 s
+#     3000 s
+#
+# Each entry contains:
+#
+#     u
+#     v
+#     dust
+#
+# These are later used to generate the PNG plots.
+
+snapshots = {}
+
+
+# ------------------------------------------------------------
+# 14. INITIAL CONDITION
+# ------------------------------------------------------------
+
+# Apply an initial boundary condition so that the 0 s snapshot
+# represents an actual initialized field.
+
+set_boundary(
+    u,
+    v,
+    dust,
+    wind_state,
+    dust_state
+)
+
+snapshots[0.0] = {
+    "u": u.copy(),
+    "v": v.copy(),
+    "dust": dust.copy()
+}
+
+
+# ------------------------------------------------------------
+# 15. MAIN SIMULATION LOOP
 # ------------------------------------------------------------
 
 for step in range(n_steps):
 
+    # Current simulation time
     t = step * dt
 
     # --------------------------------------------------------
@@ -477,13 +441,15 @@ for step in range(n_steps):
         dt
     )
 
-    # Dust cannot become negative
     dust_state = max(
         0.02,
         dust_state
     )
 
+    # --------------------------------------------------------
     # Apply current boundary conditions
+    # --------------------------------------------------------
+
     set_boundary(
         u,
         v,
@@ -493,20 +459,20 @@ for step in range(n_steps):
     )
 
     # --------------------------------------------------------
-    # Calculate velocity gradients
+    # Velocity gradients
     # --------------------------------------------------------
 
     ux, uy = gradients(u)
     vx, vy = gradients(v)
 
     # --------------------------------------------------------
-    # Calculate dust gradients
+    # Dust gradients
     # --------------------------------------------------------
 
     cx, cy = gradients(dust)
 
     # --------------------------------------------------------
-    # Calculate diffusion terms
+    # Diffusion
     # --------------------------------------------------------
 
     Lu = laplacian(u)
@@ -516,13 +482,6 @@ for step in range(n_steps):
     # --------------------------------------------------------
     # WIND ADVECTION
     # --------------------------------------------------------
-    #
-    # du/dt + u du/dx + v du/dy =
-    #       nu Laplacian(u) - drag*u
-    #
-    # dv/dt + u dv/dx + v dv/dy =
-    #       nu Laplacian(v) - drag*v
-    #
 
     adv_u = (
         u * ux
@@ -559,13 +518,6 @@ for step in range(n_steps):
     # --------------------------------------------------------
     # DUST TRANSPORT
     # --------------------------------------------------------
-    #
-    # dC/dt + u dC/dx + v dC/dy =
-    #
-    #       D Laplacian(C)
-    #       - lambda*C
-    #       + resuspension
-    #
 
     adv_c = (
         u * cx
@@ -577,8 +529,6 @@ for step in range(n_steps):
         v
     )
 
-    # Wind-driven resuspension.
-    # Dust production starts increasing above ~4 m/s.
     resuspension = (
         dust_source_strength
         * np.maximum(
@@ -601,7 +551,6 @@ for step in range(n_steps):
         )
     )
 
-    # Dust concentration must remain non-negative.
     dust = np.maximum(
         c_new,
         0.0
@@ -610,7 +559,7 @@ for step in range(n_steps):
     u = u_new
     v = v_new
 
-    # Reapply boundary conditions after updating the field.
+    # Reapply boundary conditions
     set_boundary(
         u,
         v,
@@ -620,7 +569,7 @@ for step in range(n_steps):
     )
 
     # --------------------------------------------------------
-    # SAVE DATA
+    # SAVE CSV DATA
     # --------------------------------------------------------
 
     if step % output_every == 0:
@@ -634,9 +583,39 @@ for step in range(n_steps):
             )
         )
 
+    # --------------------------------------------------------
+    # SAVE FULL FIELD AT 1500 s
+    # --------------------------------------------------------
+
+    # The simulation reaches exactly 1500 s at step 7500.
+    if step == int(1500.0 / dt):
+
+        snapshots[1500.0] = {
+            "u": u.copy(),
+            "v": v.copy(),
+            "dust": dust.copy()
+        }
+
 
 # ------------------------------------------------------------
-# 14. CREATE DATAFRAME
+# 16. SAVE FINAL 3000 s SNAPSHOT
+# ------------------------------------------------------------
+#
+# The last loop state is at 2999.8 s because step runs from
+# 0 through 14999.
+#
+# Advance the displayed timestamp to the end of the 3000 s
+# simulation window for plotting purposes.
+
+snapshots[3000.0] = {
+    "u": u.copy(),
+    "v": v.copy(),
+    "dust": dust.copy()
+}
+
+
+# ------------------------------------------------------------
+# 17. CREATE DATAFRAME
 # ------------------------------------------------------------
 
 df = pd.DataFrame(
@@ -645,7 +624,7 @@ df = pd.DataFrame(
 
 
 # ------------------------------------------------------------
-# 15. SAVE CSV
+# 18. SAVE CSV
 # ------------------------------------------------------------
 
 output_file = "mars_city_wind_dust_training.csv"
@@ -657,7 +636,456 @@ df.to_csv(
 
 
 # ------------------------------------------------------------
-# 16. REPORT
+# 19. CREATE OUTPUT DIRECTORY FOR PNG FILES
+# ------------------------------------------------------------
+
+plot_directory = Path(
+    "mars_simulation_plots"
+)
+
+plot_directory.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+
+# ------------------------------------------------------------
+# 20. PREPARE PLOT COORDINATES
+# ------------------------------------------------------------
+
+x = np.linspace(
+    -L / 2,
+    L / 2,
+    N
+)
+
+y = np.linspace(
+    L / 2,
+    -L / 2,
+    N
+)
+
+X, Y = np.meshgrid(
+    x,
+    y
+)
+
+
+# ------------------------------------------------------------
+# 21. FIND COMMON COLOR LIMITS
+# ------------------------------------------------------------
+#
+# Using common limits means the colors have the same meaning
+# at 0, 1500 and 3000 seconds.
+
+all_speeds = []
+all_dust = []
+
+for snapshot in snapshots.values():
+
+    uu = snapshot["u"]
+    vv = snapshot["v"]
+    dd = snapshot["dust"]
+
+    speed = np.hypot(
+        uu,
+        vv
+    )
+
+    all_speeds.append(
+        speed
+    )
+
+    all_dust.append(
+        dd
+    )
+
+speed_max = max(
+    np.max(s)
+    for s in all_speeds
+)
+
+dust_max = max(
+    np.max(d)
+    for d in all_dust
+)
+
+# Add a small margin
+speed_max *= 1.05
+dust_max *= 1.05
+
+
+# ------------------------------------------------------------
+# 22. PLOT FUNCTION
+# ------------------------------------------------------------
+
+def plot_snapshot(sim_time, snapshot):
+
+    uu = snapshot["u"]
+    vv = snapshot["v"]
+    dd = snapshot["dust"]
+
+    speed = np.hypot(
+        uu,
+        vv
+    )
+
+    # --------------------------------------------------------
+    # Create figure
+    # --------------------------------------------------------
+
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(15, 6)
+    )
+
+    # ========================================================
+    # LEFT: VELOCITY FIELD
+    # ========================================================
+
+    ax = axes[0]
+
+    velocity_image = ax.imshow(
+        speed,
+        extent=[
+            -L / 2,
+            L / 2,
+            -L / 2,
+            L / 2
+        ],
+        origin="upper",
+        cmap="viridis",
+        vmin=0,
+        vmax=speed_max,
+        aspect="equal"
+    )
+
+    # --------------------------------------------------------
+    # Velocity arrows
+    # --------------------------------------------------------
+    #
+    # Plot every second grid point to avoid making the plot
+    # visually overloaded.
+
+    skip = 2
+
+    ax.quiver(
+        X[::skip, ::skip],
+        Y[::skip, ::skip],
+        uu[::skip, ::skip],
+        -vv[::skip, ::skip],
+        color="white",
+        scale=35,
+        width=0.003
+    )
+
+    # --------------------------------------------------------
+    # Sensor and city markers
+    # --------------------------------------------------------
+
+    marker_style = dict(
+        marker="o",
+        markersize=8,
+        markeredgecolor="black",
+        markerfacecolor="white"
+    )
+
+    ax.plot(
+        -L / 2,
+        0,
+        **marker_style
+    )
+
+    ax.text(
+        -L / 2 + 70,
+        0,
+        "W",
+        color="white",
+        fontweight="bold"
+    )
+
+    ax.plot(
+        0,
+        L / 2,
+        **marker_style
+    )
+
+    ax.text(
+        0,
+        L / 2 - 100,
+        "N",
+        color="white",
+        fontweight="bold",
+        ha="center"
+    )
+
+    ax.plot(
+        L / 2,
+        0,
+        **marker_style
+    )
+
+    ax.text(
+        L / 2 - 70,
+        0,
+        "E",
+        color="white",
+        fontweight="bold",
+        ha="right"
+    )
+
+    ax.plot(
+        0,
+        -L / 2,
+        **marker_style
+    )
+
+    ax.text(
+        0,
+        -L / 2 + 100,
+        "S",
+        color="white",
+        fontweight="bold",
+        ha="center"
+    )
+
+    ax.plot(
+        0,
+        0,
+        marker="*",
+        markersize=14,
+        markeredgecolor="black",
+        markerfacecolor="red"
+    )
+
+    ax.text(
+        70,
+        70,
+        "CITY",
+        color="white",
+        fontweight="bold"
+    )
+
+    # --------------------------------------------------------
+    # Formatting
+    # --------------------------------------------------------
+
+    ax.set_title(
+        f"Velocity Field — t = {sim_time:.0f} s"
+    )
+
+    ax.set_xlabel(
+        "East-West position [m]"
+    )
+
+    ax.set_ylabel(
+        "North-South position [m]"
+    )
+
+    colorbar = fig.colorbar(
+        velocity_image,
+        ax=ax
+    )
+
+    colorbar.set_label(
+        "Wind speed [m/s]"
+    )
+
+
+    # ========================================================
+    # RIGHT: DUST FIELD
+    # ========================================================
+
+    ax = axes[1]
+
+    dust_image = ax.imshow(
+        dd,
+        extent=[
+            -L / 2,
+            L / 2,
+            -L / 2,
+            L / 2
+        ],
+        origin="upper",
+        cmap="inferno",
+        vmin=0,
+        vmax=dust_max,
+        aspect="equal"
+    )
+
+    # --------------------------------------------------------
+    # Sensor and city markers
+    # --------------------------------------------------------
+
+    ax.plot(
+        -L / 2,
+        0,
+        **marker_style
+    )
+
+    ax.text(
+        -L / 2 + 70,
+        0,
+        "W",
+        color="white",
+        fontweight="bold"
+    )
+
+    ax.plot(
+        0,
+        L / 2,
+        **marker_style
+    )
+
+    ax.text(
+        0,
+        L / 2 - 100,
+        "N",
+        color="white",
+        fontweight="bold",
+        ha="center"
+    )
+
+    ax.plot(
+        L / 2,
+        0,
+        **marker_style
+    )
+
+    ax.text(
+        L / 2 - 70,
+        0,
+        "E",
+        color="white",
+        fontweight="bold",
+        ha="right"
+    )
+
+    ax.plot(
+        0,
+        -L / 2,
+        **marker_style
+    )
+
+    ax.text(
+        0,
+        -L / 2 + 100,
+        "S",
+        color="white",
+        fontweight="bold",
+        ha="center"
+    )
+
+    ax.plot(
+        0,
+        0,
+        marker="*",
+        markersize=14,
+        markeredgecolor="black",
+        markerfacecolor="cyan"
+    )
+
+    ax.text(
+        70,
+        70,
+        "CITY",
+        color="white",
+        fontweight="bold"
+    )
+
+    # --------------------------------------------------------
+    # Formatting
+    # --------------------------------------------------------
+
+    ax.set_title(
+        f"Dust Field — t = {sim_time:.0f} s"
+    )
+
+    ax.set_xlabel(
+        "East-West position [m]"
+    )
+
+    ax.set_ylabel(
+        "North-South position [m]"
+    )
+
+    colorbar = fig.colorbar(
+        dust_image,
+        ax=ax
+    )
+
+    colorbar.set_label(
+        "Normalized dust concentration"
+    )
+
+
+    # --------------------------------------------------------
+    # Overall title
+    # --------------------------------------------------------
+
+    fig.suptitle(
+        f"Mars Wind + Dust Simulation — {sim_time:.0f} s",
+        fontsize=16,
+        fontweight="bold"
+    )
+
+    plt.tight_layout()
+
+
+    # --------------------------------------------------------
+    # Save PNG
+    # --------------------------------------------------------
+
+    if sim_time == 0:
+        filename = "mars_simulation_start.png"
+
+    elif sim_time == 1500:
+        filename = "mars_simulation_middle.png"
+
+    else:
+        filename = "mars_simulation_end.png"
+
+    output_path = (
+        plot_directory
+        / filename
+    )
+
+    fig.savefig(
+        output_path,
+        dpi=200,
+        bbox_inches="tight"
+    )
+
+    plt.close(fig)
+
+    print(
+        f"PNG saved       : {output_path}"
+    )
+
+
+# ------------------------------------------------------------
+# 23. GENERATE THE THREE PNG FILES
+# ------------------------------------------------------------
+
+plot_snapshot(
+    0.0,
+    snapshots[0.0]
+)
+
+plot_snapshot(
+    1500.0,
+    snapshots[1500.0]
+)
+
+plot_snapshot(
+    3000.0,
+    snapshots[3000.0]
+)
+
+
+# ------------------------------------------------------------
+# 24. REPORT
 # ------------------------------------------------------------
 
 print()
@@ -691,6 +1119,22 @@ print(
 
 print(
     f"CSV file        : {output_file}"
+)
+
+print(
+    f"Plot directory  : {plot_directory}"
+)
+
+print()
+print("PNG files:")
+print(
+    "  mars_simulation_plots/mars_simulation_start.png"
+)
+print(
+    "  mars_simulation_plots/mars_simulation_middle.png"
+)
+print(
+    "  mars_simulation_plots/mars_simulation_end.png"
 )
 
 print()
