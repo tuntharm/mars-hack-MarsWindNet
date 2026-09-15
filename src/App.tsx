@@ -104,6 +104,12 @@ export default function App() {
           </div>
         </section>
       ) : null}
+      <section className="detail-section" aria-label="Final results">
+        <div className="detail-heading">
+          <div><p className="eyebrow">Simulation &amp; machine learning</p><h2>Explore the final results.</h2><p>See the simulation plots, training data and prediction comparisons.</p></div>
+          <a className="hero-action hero-action--secondary" href="/ml-gallery/index.html">View final results <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
       <footer className="page-footer"><span>MarsWindNet</span><p>Prototype settlement · Planar wind field · Research demonstration</p></footer>
     </div>
     </>
