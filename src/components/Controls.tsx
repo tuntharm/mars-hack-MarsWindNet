@@ -21,6 +21,9 @@ export function Controls({
   onPausedChange,
   source,
   provenance,
+  hideScenario = false,
+  hideRun = false,
+  canShowReference = true,
 }: {
   scenarios: ScenarioSpec[]
   scenarioId: string
@@ -41,11 +44,14 @@ export function Controls({
   onPausedChange: (paused: boolean) => void
   source: FieldSource | null
   provenance: string | null
+  hideScenario?: boolean
+  hideRun?: boolean
+  canShowReference?: boolean
 }) {
   return (
     <section className="controls" aria-label="Scenario and prediction controls">
       <div className="controls__toolbar">
-      <label className="controls__field">
+      {!hideScenario && <label className="controls__field">
         <span>Scenario</span>
         <select value={scenarioId} onChange={(event) => onScenarioChange(event.target.value)}>
           {scenarios.map((scenario) => (
@@ -54,15 +60,16 @@ export function Controls({
             </option>
           ))}
         </select>
-      </label>
+      </label>}
 
       <fieldset className="controls__modes">
         <legend>Wind field</legend>
-        <label className={mode === 'reference' ? 'is-active' : undefined}>
+        <label className={`${mode === 'reference' ? 'is-active' : ''} ${!canShowReference ? 'is-disabled' : ''}`}>
           <input
             type="radio"
             name="view-mode"
             checked={mode === 'reference'}
+            disabled={!canShowReference}
             onChange={() => onModeChange('reference')}
           />
           Reference
@@ -93,9 +100,9 @@ export function Controls({
         <button type="button" className="btn-ghost" onClick={onLoadSaved} disabled={!savedAvailable}>
           {scenarioId === 'illustrative-obstacle-flow' ? 'Load illustrative comparison' : 'Load saved result'}
         </button>
-        <button type="button" className="btn-primary" onClick={onRun} disabled={!canRun || predicting} aria-describedby={predictionDisabledReason ? 'prediction-status' : undefined}>
+        {!hideRun && <button type="button" className="btn-primary" onClick={onRun} disabled={!canRun || predicting} aria-describedby={predictionDisabledReason ? 'prediction-status' : undefined}>
           <span aria-hidden="true">{predicting ? '◌' : '↗'}</span> {predicting ? 'Predicting…' : 'Run prediction'}
-        </button>
+        </button>}
         <label className="pause-toggle">
           <input
             type="checkbox"
@@ -108,7 +115,7 @@ export function Controls({
       </div>
       <div className="controls__foot">
       <SourcePill source={source} provenance={provenance} />
-      <p id="prediction-status" className={`controls__status${predictError ? ' is-error' : ''}`} aria-live="polite">
+      {!hideRun && <p id="prediction-status" className={`controls__status${predictError ? ' is-error' : ''}`} aria-live="polite">
         {predicting
           ? 'Requesting a new field…'
           : predictError
@@ -118,7 +125,7 @@ export function Controls({
             : savedAvailable
               ? 'Saved comparison available'
               : 'No saved comparison'}
-      </p>
+      </p>}
       </div>
     </section>
   )

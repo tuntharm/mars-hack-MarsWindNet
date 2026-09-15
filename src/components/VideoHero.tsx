@@ -62,7 +62,7 @@ export function VideoHero() {
         <p className="video-hero__lede">A new world. A clearer view of what’s coming.</p>
         <div className="video-hero__actions">
           <a className="hero-action hero-action--primary" href="#demo">Try demo <span aria-hidden="true">↓</span></a>
-          <a className="hero-action hero-action--secondary" href="https://github.com/tuntharm/mars-hack-MarsWindNet" target="_blank" rel="noopener noreferrer">View GitHub <span aria-hidden="true">↗</span></a>
+          <a className="hero-action hero-action--secondary" href="/sensor/">Meet the sensor <span aria-hidden="true">↗</span></a>
         </div>
       </div>
       <div className="video-hero__bottom">

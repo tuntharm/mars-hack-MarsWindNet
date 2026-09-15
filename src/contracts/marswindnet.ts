@@ -108,6 +108,9 @@ export type VelocityField = {
   u: Array<number | null>
   v: Array<number | null>
   is_fluid: boolean[]
+  model?: { id: string; version: string }
+  inference_ms?: number
+  wind?: { inlet_u_mps: number; inlet_v_mps: number }
 }
 
 export type ColourKind = 'speed' | 'vector-error'
@@ -165,12 +168,13 @@ export type SensorReading = {
 export type ScenarioSensorObservations = {
   layout_id: string
   scenario_id: string
-  source: 'analytic-fixture' | 'provided'
+  source: 'analytic-fixture' | 'provided' | 'simulated-uniform'
   provenance: string
   readings: SensorReading[]
 }
 
 export type PredictRequest = {
+  request_id?: string
   layout_id: string
   scenario_id: string
   grid: GridMeta
@@ -179,6 +183,10 @@ export type PredictRequest = {
 }
 
 export type PredictResponse = {
+  request_id?: string
+  model?: { id: string; version: string }
+  inference_ms?: number
+  wind?: { inlet_u_mps: number; inlet_v_mps: number }
   layout_id: string
   scenario_id: string
   grid: GridMeta
@@ -187,6 +195,23 @@ export type PredictResponse = {
   v_mps: Array<number | null>
   is_fluid?: boolean[]
   provenance?: string
+}
+
+/** Hosted dense-field capability contract. No centre-only models qualify. */
+export type ModelInfo = {
+  status: 'ready' | 'not-connected'
+  message?: string
+  model?: { id: string; version: string }
+  layout_id?: string
+  grid?: GridMeta
+  sensor_ids?: string[]
+  prediction_kind?: 'steady-field'
+  limits?: {
+    speed_min_mps: number
+    speed_max_mps: number
+    /** Null means every direction; otherwise explicit supported towards bearings. */
+    directions_deg: number[] | null
+  }
 }
 
 export type ScenarioSpec = {

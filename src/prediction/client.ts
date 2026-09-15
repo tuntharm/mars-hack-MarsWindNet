@@ -4,10 +4,10 @@ import { buildFluidMask } from '../field/mask.ts'
 import type { CityLayout } from '../contracts/marswindnet.ts'
 import { validatePredictResponse } from './validate.ts'
 
-export const DEFAULT_PREDICT_URL = 'http://127.0.0.1:8000/predict'
+export const DEFAULT_PREDICT_URL = '/api/predict'
 
 export function predictUrl(): string {
-  return import.meta.env.VITE_PREDICT_URL?.trim() || DEFAULT_PREDICT_URL
+  return (import.meta.env.DEV && import.meta.env.VITE_PREDICTION_MODE === 'stub' && import.meta.env.VITE_PREDICT_URL?.trim()) || DEFAULT_PREDICT_URL
 }
 
 export async function requestPrediction(
@@ -19,7 +19,7 @@ export async function requestPrediction(
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(request),
-    signal,
+    signal: AbortSignal.any([signal, AbortSignal.timeout(50_000)]),
   })
   if (!response.ok) {
     const detail = await response.text().catch(() => '')
@@ -54,6 +54,9 @@ export function responseToField(
       u,
       v,
       is_fluid: mask,
+      model: response.model,
+      inference_ms: response.inference_ms,
+      wind: response.wind,
     },
   }
 }

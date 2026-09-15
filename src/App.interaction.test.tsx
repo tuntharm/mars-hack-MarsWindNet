@@ -48,6 +48,8 @@ function mockCanvas() {
 
 describe('shell interactions', () => {
   beforeEach(() => {
+    vi.stubEnv('VITE_PREDICTION_MODE', 'stub')
+    vi.stubEnv('VITE_PREDICT_URL', 'http://127.0.0.1:8000/predict')
     mockCanvas()
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
@@ -105,6 +107,7 @@ describe('shell interactions', () => {
   afterEach(() => {
     cleanup()
     vi.unstubAllGlobals()
+    vi.unstubAllEnvs()
     vi.restoreAllMocks()
   })
 
@@ -127,30 +130,12 @@ describe('shell interactions', () => {
     expect(screen.queryByText(/^Live$/)).not.toBeInTheDocument()
   })
 
-  it('runs a stub prediction and selects the prediction view', async () => {
+  it('links to the prepared results and keeps hosted generation out of the demo', async () => {
     render(<App />)
-    const run = await screen.findByRole('button', { name: 'Run prediction' })
-    await screen.findByText(/ILLUSTRATIVE FLOW — ANALYTIC FIXTURE, NOT CFD/)
-    await waitFor(() => expect(run).not.toBeDisabled())
-    fireEvent.click(run)
-    await waitFor(() => {
-      expect(screen.getByText(/stub-idw — not trained ML/)).toBeInTheDocument()
-    }, { timeout: 4000 })
-    expect(screen.getByRole('radio', { name: 'Prediction' })).toBeChecked()
-  })
-
-  it('keeps the reference after a forced fail and still allows retry', async () => {
-    render(<App />)
-    const select = await screen.findByLabelText('Scenario')
-    fireEvent.change(select, { target: { value: 'eastward-inflow-fail' } })
-    await screen.findByText(/DEMO FIXTURE — NOT CFD \/ NOT ML/)
-    const run = screen.getByRole('button', { name: 'Run prediction' })
-    await waitFor(() => expect(run).not.toBeDisabled())
-    fireEvent.click(run)
-    await waitFor(() => expect(screen.getByText(/Prediction HTTP 500/)).toBeInTheDocument())
-    expect(screen.getByRole('radio', { name: 'Reference' })).toBeChecked()
-    expect(screen.getByRole('radio', { name: 'Prediction' })).toBeDisabled()
-    expect(screen.getByRole('button', { name: 'Run prediction' })).not.toBeDisabled()
+    expect(await screen.findByRole('link', { name: /View model results/ })).toHaveAttribute('href', '/ml-gallery/index.html')
+    await screen.findByLabelText('Scenario')
+    expect(screen.queryByRole('button', { name: /Run prediction|Generate prediction/ })).not.toBeInTheDocument()
+    expect(screen.queryByRole('option', { name: /Custom wind/ })).not.toBeInTheDocument()
   })
 
   it('shows direct observations and does not clamp a boundary sensor to the reconstructed grid', () => {
@@ -199,4 +184,17 @@ describe('shell interactions', () => {
     expect(mars).toHaveAttribute('aria-selected', 'true')
     expect(screen.getAllByRole('tab').filter(tab => tab.getAttribute('aria-selected') === 'true')).toHaveLength(1)
   })
+})
+
+it('labels a custom S3 estimate separately from the CFD reference', () => {
+  const city=JSON.parse(cityJson) as CityLayout
+  const reference=makeUniformFixture(city,'custom-wind',8,0)
+  const prediction=makeUniformFixture(city,'custom-wind',6,0)
+  render(<MonitoringPanel city={city} mode="prediction" reference={reference} prediction={prediction}
+    observations={{layout_id:city.layout_id,scenario_id:'custom-wind',source:'simulated-uniform',provenance:'Simulated input',readings:[]}}
+    selectedSensorId="S3" onSensorSelect={vi.fn()} />)
+  expect(screen.getByRole('img',{name:'Model estimate: 6.00 m/s'})).toBeInTheDocument()
+  expect(screen.getByText('CFD reference at S3').nextElementSibling).toHaveTextContent('8.00 m/s')
+  expect(screen.getByText('Model vs CFD at S3').nextElementSibling).toHaveTextContent('2.00 m/s')
+  expect(screen.queryByText('Observed wind speed')).not.toBeInTheDocument()
 })

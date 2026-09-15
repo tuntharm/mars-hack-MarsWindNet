@@ -5,6 +5,15 @@ export function validatePredictResponse(
   response: PredictResponse,
 ): string | null {
   if (!response || typeof response !== 'object') return 'Rejected prediction: response must be an object.'
+  if (request.request_id) {
+    if (response.request_id !== request.request_id) return 'Rejected prediction: request_id does not match.'
+    if (!response.model || typeof response.model.id !== 'string' || !response.model.id.trim() || typeof response.model.version !== 'string' || !response.model.version.trim()) return 'Rejected prediction: model identity is required.'
+    if (typeof response.inference_ms !== 'number' || !Number.isFinite(response.inference_ms) || response.inference_ms < 0) return 'Rejected prediction: inference duration must be finite and non-negative.'
+    if (!response.wind || ![response.wind.inlet_u_mps,response.wind.inlet_v_mps].every(v=>typeof v === 'number' && Number.isFinite(v)) || Math.abs(response.wind.inlet_u_mps-request.wind.inlet_u_mps)>1e-6 || Math.abs(response.wind.inlet_v_mps-request.wind.inlet_v_mps)>1e-6) return 'Rejected prediction: wind conditions do not match.'
+    if (!Array.isArray(response.is_fluid)) return 'Rejected prediction: dense model requires an explicit mask.'
+    if (!response.is_fluid.some(value => value === true)) return 'Rejected prediction: field has no valid fluid cells.'
+    if (typeof response.provenance !== 'string' || !response.provenance.trim()) return 'Rejected prediction: model provenance is required.'
+  }
   if (response.layout_id !== request.layout_id) {
     return `Rejected prediction: layout_id ${JSON.stringify(response.layout_id)} does not match ${JSON.stringify(request.layout_id)}.`
   }

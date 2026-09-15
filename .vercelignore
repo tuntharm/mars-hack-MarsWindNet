@@ -1,0 +1,13 @@
+ML/
+inference-service/
+predict-stub/
+CFD/analysis.py
+CFD/work/
+CFD/results/
+mars_city_wind_dust_training.csv
+docs/evidence/
+**/.venv/
+**/__pycache__/
+.env*
+!.env.example
+.vercel/

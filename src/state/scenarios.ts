@@ -1,6 +1,7 @@
 import type { ScenarioSpec } from '../contracts/marswindnet.ts'
 
 export const SCENARIOS: ScenarioSpec[] = [
+  { id:'custom-wind', label:'Custom wind · hosted model', inlet_u_mps:8, inlet_v_mps:0 },
   // Genuine results are imported explicitly; this case never generates a fixture.
   {
     id: 'illustrative-obstacle-flow',

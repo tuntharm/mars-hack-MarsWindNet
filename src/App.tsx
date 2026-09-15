@@ -8,8 +8,9 @@ import { useMarsWindNet } from './state/useMarsWindNet.ts'
 import { VideoHero } from './components/VideoHero.tsx'
 
 export default function App() {
-  const app = useMarsWindNet()
-  const regionalObservations = useRegionalObservations(app.city, app.scenarioId)
+  const app = useMarsWindNet('illustrative-obstacle-flow')
+  const savedRegionalObservations = useRegionalObservations(app.isCustom ? null : app.city, app.scenarioId)
+  const regionalObservations = app.isCustom ? app.regionalObservations : savedRegionalObservations
 
   return (
     <>
@@ -27,6 +28,7 @@ export default function App() {
             <p className="masthead__lede">
               Explore how incoming wind changes around a Martian settlement.
             </p>
+            <a className="results-link" href="/ml-gallery/index.html">View model results <span aria-hidden="true">↗</span></a>
           </div>
           <div className="masthead__aside"><span className="eyebrow">Settlement intelligence</span><p>500 × 500 m <span>·</span> 5 local · 24 regional stations</p><a href="#map">Explore the wind map <span aria-hidden="true">↓</span></a></div>
         </header>
@@ -51,7 +53,9 @@ export default function App() {
             />
             </div>
             <Controls
-              scenarios={app.scenarios}
+              hideRun
+              canShowReference={app.canShowReference}
+              scenarios={app.scenarios.filter(scenario => scenario.id !== 'custom-wind')}
               scenarioId={app.scenarioId}
               onScenarioChange={app.setScenarioId}
               mode={app.displayMode}

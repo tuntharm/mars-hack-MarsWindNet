@@ -83,7 +83,7 @@ predict-stub/.venv/bin/python -m pip install -r predict-stub/requirements.txt
 npm run predict-stub
 ```
 
-The default endpoint is `http://127.0.0.1:8000/predict`; API documentation is at [localhost:8000/docs](http://127.0.0.1:8000/docs). To connect a different service, set `VITE_PREDICT_URL` in `.env.local` and restart Vite. See [.env.example](.env.example) and the [shared contracts](src/contracts/marswindnet.ts). S1/S2/S4/S5 supply the input vectors; a failed request is shown explicitly.
+The hosted field workflow uses `/api/predict`. To opt into the old IDW service for development presets only, set `VITE_PREDICTION_MODE=stub` and `VITE_PREDICT_URL=http://127.0.0.1:8000/predict`, then restart Vite. Custom wind always uses the hosted-model contract. See [.env.example](.env.example) and [hosted setup](docs/HOSTED_INFERENCE.md). S1/S2/S4/S5 supply the input vectors; failures remain explicit.
 
 ## Data and development
 
@@ -104,3 +104,15 @@ This prototype visualises **2D horizontal flow in a 3D city**. Architectural roo
 ## Separate simulation contribution
 
 The team's `initial cfd` commit added `CFD/analysis.py` and `mars_city_wind_dust_training.csv`. The script describes a synthetic, unvalidated wind/dust generator with a 25 × 25 grid over 2 km and four cardinal nodes plus a central city sample. Its CSV contains point time series, not the application's 128 × 128 masked field or the new 29-station layout. These files are preserved unchanged and are not loaded automatically by the website. Debdut needs an explicit geometry/observation/export adapter before that contribution can drive this view; renaming its fields or layout ID alone is insufficient.
+
+## Demo pages
+
+- **Meet the sensor** in the video hero opens `/sensor/` in the same tab. The complete standalone showcase, including its Three.js vendor files, is in `public/sensor/`.
+- **View model results** in the masthead opens `/ml-gallery/index.html`. Keep this exact filename: `/ml-gallery/` can fall through to the React app in development.
+- The city starts with the existing illustrative settlement flow. The results gallery is a separate prepared page, not a field connected to the 3D city.
+
+The sensor folder was copied unchanged from the team's sensor project. Vite and Vercel route `/sensor/` to its static index. Both static folders ship with the production build.
+
+## Deferred hosted model integration
+
+The custom-wind panel and live generation controls are not exposed in this demo release. Prepared gateway/service work remains available for later integration; no trained full-field model or hosted backend is configured. See [hosted inference setup](docs/HOSTED_INFERENCE.md) and the [Python adapter handoff](inference-service/README.md). The existing centre-only model is not replicated across the city.

@@ -1,0 +1,13 @@
+{
+  "request_id": "example-west-to-east-8",
+  "layout_id": "marswindnet-500-v3",
+  "scenario_id": "custom-wind",
+  "grid": {"nx": 128, "ny": 128, "dx_m": 3.90625, "dy_m": 3.90625},
+  "wind": {"inlet_u_mps": 8, "inlet_v_mps": 0},
+  "sensors": [
+    {"sensor_id": "S1", "x_m": 0, "y_m": 500, "u_mps": 8, "v_mps": 0},
+    {"sensor_id": "S2", "x_m": 0, "y_m": 0, "u_mps": 8, "v_mps": 0},
+    {"sensor_id": "S4", "x_m": 500, "y_m": 500, "u_mps": 8, "v_mps": 0},
+    {"sensor_id": "S5", "x_m": 500, "y_m": 0, "u_mps": 8, "v_mps": 0}
+  ]
+}

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MarsWindNet — ML briefing gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anybody:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&family=Spline+Sans+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #140d0c;
+        --panel: #1b1412;
+        --ink: #f2eee7;
+        --mute: #a9adae;
+        --sand: #c9baa6;
+        --amber: #f0a25d;
+        --line: #e9bf9028;
+        --display: "Anybody", "Arial Narrow", sans-serif;
+        --body: "Atkinson Hyperlegible", "Segoe UI", sans-serif;
+        --mono: "Spline Sans Mono", ui-monospace, monospace;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(1200px 600px at 10% -10%, #3a2218 0%, var(--bg) 55%);
+        font-family: var(--body);
+        line-height: 1.5;
+      }
+      a { color: var(--amber); }
+      .wrap {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 32px;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 28px 24px 80px;
+      }
+      nav {
+        position: sticky;
+        top: 20px;
+        align-self: start;
+        padding: 16px 14px;
+        border: 1px solid var(--line);
+        background: #120c0bd9;
+      }
+      nav p {
+        margin: 0 0 10px;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--sand);
+      }
+      nav ol {
+        margin: 0;
+        padding: 0 0 0 18px;
+        font-size: 13px;
+      }
+      nav a { color: var(--ink); text-decoration: none; }
+      nav a:hover, nav a:focus { color: var(--amber); }
+      header h1 {
+        margin: 0 0 8px;
+        font-family: var(--display);
+        font-size: clamp(28px, 4vw, 44px);
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+      header h1 span { color: var(--amber); }
+      .lede { color: var(--mute); max-width: 62ch; }
+      .banner {
+        margin: 18px 0 36px;
+        padding: 10px 12px;
+        border-left: 3px solid var(--amber);
+        background: #2a1810;
+        font-size: 14px;
+      }
+      section {
+        margin: 0 0 56px;
+        scroll-margin-top: 20px;
+      }
+      h2 {
+        margin: 0 0 8px;
+        font-family: var(--display);
+        font-size: 22px;
+        letter-spacing: -0.03em;
+      }
+      .kicker {
+        margin: 0 0 6px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--amber);
+      }
+      figure {
+        margin: 16px 0 28px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+      }
+      figure img {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: #0b0b0b;
+      }
+      figcaption {
+        margin: 10px 2px 0;
+        color: var(--sand);
+        font-size: 14px;
+      }
+      .talk {
+        margin: 0 0 12px;
+        max-width: 70ch;
+      }
+      @media (max-width: 800px) {
+        .wrap { grid-template-columns: 1fr; }
+        nav { position: static; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Standalone briefing. Not wired into the React app.
+      Serve at /ml-gallery/ (Vite) or open this file directly.
+      Codex: do not import this into App.tsx unless asked; copy or iframe this folder.
+    -->
+    <div class="wrap">
+      <nav aria-label="Talk order">
+        <p>Talk order</p>
+        <ol>
+          <li><a href="#s1">Simulator field</a></li>
+          <li><a href="#s2">What we trained on</a></li>
+          <li><a href="#s3">What XGBoost emits</a></li>
+          <li><a href="#s4">Five-point dead end</a></li>
+          <li><a href="#s5">Field vs ML city</a></li>
+        </ol>
+      </nav>
+      <main>
+        <header>
+          <p class="kicker">Briefing · not the live city demo</p>
+          <h1>MarsWindNet <span>ML plots</span></h1>
+          <p class="lede">
+            Walk-through of the four-node synthetic nowcast. This page is a static gallery.
+            The main settlement viewer is unchanged.
+          </p>
+          <p class="banner">
+            Filled colour maps are the 25×25 <strong>simulator</strong>, same idea as
+            github.com/tuntharm/mars-hack-MarsWindNet/tree/main/mars_simulation_plots.
+            XGBoost predicts only city-centre <code>u, v, dust</code> — not that grid.
+            Provenance: CFD/analysis.py synthetic series, not CFD, not the 128×128 city layout.
+          </p>
+        </header>
+
+        <section id="s1">
+          <p class="kicker">01 · say this first</p>
+          <h2>What a real field looks like</h2>
+          <p class="talk">
+            These three frames are the reduced-order 2 km / 25×25 run: west-to-east wind,
+            dust pooling away from the fast side. This is the picture people expect from GitHub.
+          </p>
+          <figure>
+            <img src="plots/sim_field_start.png" alt="Simulator wind and dust fields at 0 seconds" />
+            <figcaption>t = 0 s — initial boundary wind, dust still on the west.</figcaption>
+          </figure>
+          <figure>
+            <img src="plots/sim_field_middle.png" alt="Simulator wind and dust fields at 1500 seconds" />
+            <figcaption>t = 1500 s — same layout as mars_simulation_middle.png on GitHub.</figcaption>
+          </figure>
+          <figure>
+            <img src="plots/sim_field_end.png" alt="Simulator wind and dust fields at 3000 seconds" />
+            <figcaption>t = 3000 s — end of the 50-minute toy run.</figcaption>
+          </figure>
+        </section>
+
+        <section id="s2">
+          <p class="kicker">02 · the CSV</p>
+          <h2>What we actually trained on</h2>
+          <p class="talk">
+            The training file is not those 625 cells. It is four perimeter nodes plus one city sample,
+            once per second. All four nodes see almost the same large-scale wind and dust.
+          </p>
+          <figure>
+            <img src="plots/node_uv_full.png" alt="Time series of u and v at west north east south nodes" />
+            <figcaption>Node winds — W/N/E/S u (blue) and v (orange), 3000 s.</figcaption>
+          </figure>
+          <figure>
+            <img src="plots/node_dust_full.png" alt="Time series of normalized dust at four nodes" />
+            <figcaption>Node dust — same pulses on every station.</figcaption>
+          </figure>
+          <figure>
+            <img src="plots/city_targets_full.png" alt="City centre targets with train validation and test shading" />
+            <figcaption>
+              City targets. Blue train / green val / orange test. Interior stays near zero until ~700 s;
+              the test window is a different wind regime.
+            </figcaption>
+          </figure>
+        </section>
+
+        <section id="s3">
+          <p class="kicker">03 · model output</p>
+          <h2>What XGBoost actually emits</h2>
+          <p class="talk">
+            Three numbers per timestep: city_u, city_v, city_dust. On the held-out end of the file
+            the u and dust models sit on a train-mean line (RMSE u 1.21, v 0.44, dust 0.44).
+          </p>
+          <figure>
+            <img src="plots/city_overview_true_vs_pred.png" alt="Full series city true versus predicted with split bands" />
+            <figcaption>Black = simulator city. Blue = nowcast. u and dust are nearly constant.</figcaption>
+          </figure>
+          <figure>
+            <img src="plots/test_true_vs_pred.png" alt="Test split true versus predicted city u v dust" />
+            <figcaption>Test only (~2550–3000 s). This is the ML product today.</figcaption>
+          </figure>
+        </section>
+
+        <section id="s4">
+          <p class="kicker">04 · why the first maps looked empty</p>
+          <h2>Five samples are not a contour</h2>
+          <p class="talk">
+            If you only colour the cells the CSV contains, you get four nodes and a city star.
+            The grey is not a failed contour — those cells were never in the model.
+          </p>
+          <figure>
+            <img src="plots/ml_nowcast_spatial_test_strip.png" alt="Sparse five-point spatial samples at three test times" />
+            <figcaption>ML city nowcast + simulator nodes — not a reconstructed grid.</figcaption>
+          </figure>
+        </section>
+
+        <section id="s5">
+          <p class="kicker">05 · show this last</p>
+          <h2>Simulator field versus interpolated ML city</h2>
+          <p class="talk">
+            Left: true 25×25 field. Right: inverse-distance fill from four CSV nodes plus the ML city.
+            The dark blob at CITY is the weak nowcast. Retrain can replace that blob; it cannot be claimed
+            as an ML wind map until the model predicts the grid.
+          </p>
+          <figure>
+            <img src="plots/sim_vs_idw_ml_t2550.png" alt="Simulator versus IDW plus ML city at 2550 seconds" />
+            <figcaption>t = 2550 s (start of test).</figcaption>
+          </figure>
+          <figure>
+            <img src="plots/sim_vs_idw_ml_t2775.png" alt="Simulator versus IDW plus ML city at 2775 seconds" />
+            <figcaption>t = 2775 s.</figcaption>
+          </figure>
+          <figure>
+            <img src="plots/sim_vs_idw_ml_t2999.png" alt="Simulator versus IDW plus ML city at 2999 seconds" />
+            <figcaption>t = 2999 s (end of test).</figcaption>
+          </figure>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -33,7 +33,8 @@ it('opens with the supplied muted film and two destination links', () => {
   const { container } = render(<VideoHero />)
   expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('MarsWindNet')
   expect(screen.getByRole('link', { name: 'Try demo' })).toHaveAttribute('href', '#demo')
-  expect(screen.getByRole('link', { name: 'View GitHub' })).toHaveAttribute('href', 'https://github.com/tuntharm/mars-hack-MarsWindNet')
+  expect(screen.getByRole('link', { name: 'Meet the sensor' })).toHaveAttribute('href', '/sensor/')
+  expect(screen.getByRole('link', { name: 'Meet the sensor' })).not.toHaveAttribute('target')
   const video = container.querySelector('video')!
   expect(video.muted).toBe(true)
   expect(video.loop).toBe(true)

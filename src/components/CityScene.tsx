@@ -59,7 +59,7 @@ export function CityScene(props: CitySceneProps) {
       <button onClick={() => control('in')} aria-label="Zoom in">+</button><button onClick={() => control('out')} aria-label="Zoom out">−</button>
     </div>}
     <div className="scene3d-bottom">
-      {regionalRadius > 0 && <div className="regional-note"><strong>24 regional stations · 8 per ring</strong><span>1 km / 5 km / 10 km from city centre</span><span>{props.regionalObservations?.source === 'analytic-fixture' ? 'Illustrative observations · no arrival forecast' : 'Regional observations · no arrival forecast'}</span><span>Not inputs to the current city prediction model</span></div>}
+      {regionalRadius > 0 && <div className="regional-note"><strong>24 regional stations · 8 per ring</strong><span>1 km / 5 km / 10 km from city centre</span><span>{props.regionalObservations?.source === 'simulated-uniform' ? 'Simulated uniform input · no arrival forecast' : props.regionalObservations?.source === 'analytic-fixture' ? 'Illustrative observations · no arrival forecast' : 'Regional observations · no arrival forecast'}</span><span>Not inputs to the current city prediction model</span></div>}
 
       {!regionalRadius && presentation === 'mars' && <div className="scene3d-atmosphere"><span>ON THE SURFACE</span><span>Decorative atmosphere · horizontal wind</span></div>}
       {!regionalRadius && presentation === 'cfd' && <div className="scene3d-legend"><div><span>{props.colour.kind === 'vector-error' ? 'Vector error' : 'Wind speed'}</span><span>m/s</span></div><div className="scene3d-gradient" style={{ background: legendGradient(props.colour.kind) }} /><div><span>{props.colour.min.toFixed(1)}</span><span>{props.colour.max.toFixed(1)}</span></div></div>}

@@ -231,3 +231,45 @@ button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible
   .video-hero__scroll { font-size: 9px; letter-spacing: .08em; }
   .video-hero__scroll span { margin-left: 8px; }
 }
+
+.wind-input { padding: 22px; border: 1px solid #e6b98c35; border-radius: 9px; background: linear-gradient(120deg,#27201aed,#121c24f5); }
+.wind-input__heading { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+.wind-input h2 { margin: 5px 0 0; font-family: var(--display); font-size: 23px; letter-spacing: -.035em; }
+.wind-input__scenario { display: grid; gap: 5px; font-size: 10px; color: var(--sand); }
+.wind-input select, .wind-input input[type=number] { display: block; width: 100%; min-height: 40px; padding: 8px 10px; color: var(--ivory); background: #121b22; border: 1px solid #ffffff25; border-radius: 4px; }
+.wind-input select { font-size: 12px; }
+.wind-input__body { display: grid; grid-template-columns: minmax(210px,1fr) 150px minmax(240px,1.2fr) minmax(220px,1fr); gap: 25px; align-items: center; padding-top: 20px; }
+.wind-input__parameters { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.wind-input__parameters label { font-size: 11px; }
+.wind-input__parameters label span { color: #adaca5; float: right; font-size: 10px; }
+.wind-input input[type=number] { margin-top: 7px; font-family: var(--mono); font-size: 21px; }
+.wind-input__summary { grid-column: 1/-1; margin: 0; color: var(--amber); font-size: 13px; }
+.wind-input__compass { position: relative; width: 150px; height: 150px; }
+.wind-input__compass svg { width: 100%; height: 100%; fill: #172832; stroke: #6e84845e; }
+.wind-input__compass .wind-input__axis { stroke: #f9dec22e; fill: none; }
+.wind-input__compass .wind-input__arrow { fill: var(--amber); stroke: none; }
+.wind-input__compass button { position: absolute; transform: translate(-50%,-50%); width: 32px; height: 32px; color: #b7c0c1; border: 0; border-radius: 4px; background: transparent; font: 10px var(--mono); }
+.wind-input__compass button.is-active { background: var(--amber); color: #20150d; }
+.wind-input__readings { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 9px; }
+.wind-input__readings > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 9px; border: 1px solid #ffffff13; border-radius: 4px; padding: 6px 8px; background: #0e1b246b; }
+.wind-input__readings strong { color: var(--amber); font-size: 11px; }
+.wind-input__readings span { color: #b4bcc0; font: 9px var(--mono); }
+.wind-input__readings span:last-child { width: 100%; font-size: 11px; color: var(--ivory); }
+.wind-input__stations > p:last-child { margin: 8px 0 0; color: #a9b3b4; font-size: 10px; }
+.wind-input__generate { display: grid; gap: 7px; }
+.model-status { color: #b9c1c4; font: 11px var(--mono); }
+.model-status::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; background: #8e9498; }
+.model-status.is-ready::before { background: var(--ok); }
+.wind-input__generate p { margin: 0; min-height: 30px; font-size: 11px; color: #9dacae; overflow-wrap: anywhere; }
+.wind-input__generate .btn-primary { min-height: 44px; justify-content: space-between; }
+.wind-input__retry { justify-self: start; color: #b4c0c5; border: 0; background: none; padding: 5px 0; text-decoration: underline; font-size: 10px; }
+.wind-input__foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; padding-top: 12px; border-top: 1px solid #ffffff12; }
+.wind-input__foot p { margin: 0; color: #b3c0c4; font-size: 11px; }
+.wind-input__upload { position: relative; overflow: hidden; flex-shrink: 0; display: inline-flex; align-items: center; min-height: 38px; padding: 8px 13px; border: 1px solid #ffffff28; border-radius: 4px; font-size: 11px; cursor: pointer; }
+.wind-input__upload input { position: absolute; inset: 0; width: 100%; opacity: 0; cursor: pointer; }
+.wind-input__upload:focus-within, .wind-input button:focus-visible, .wind-input input:focus-visible, .wind-input select:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.wind-input__reference-note, .wind-input__preset-note { font-size: 11px; color: #9ba9af; margin: 10px 0 0; }
+@media (max-width:1100px) { .wind-input__body { grid-template-columns: 1fr 150px; } .wind-input__generate { align-self: start; } }
+@media (max-width:680px) { .wind-input { padding: 16px; } .wind-input__heading { display: grid; gap: 14px; } .wind-input__body { grid-template-columns: minmax(0,1fr) 126px; gap: 18px 10px; } .wind-input__parameters { grid-template-columns: 1fr; gap: 9px; } .wind-input__compass { width: 126px; height: 150px; } .wind-input__compass button { width: 34px; height: 34px; } .wind-input__stations, .wind-input__generate { grid-column: 1/-1; } .wind-input__foot { align-items: start; flex-direction: column; gap: 10px; } .wind-input__generate .btn-primary { min-height: 46px; } }
+
+.results-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--amber); font-size: 14px; text-underline-offset: 4px; }

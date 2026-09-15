@@ -5,11 +5,13 @@ import { parseCfdReference } from '../data/cfd.ts'
 import { parsePairedCsv } from '../field/csv.ts'
 import { makeIllustrativeObstacleField, makeScenarioObservations, makeUniformFixture } from '../field/fixtures.ts'
 import { buildFluidMask } from '../field/mask.ts'
-import { requestPrediction, responseToField } from '../prediction/client.ts'
+import { predictUrl, requestPrediction, responseToField } from '../prediction/client.ts'
 import { createPredictLifecycle, isAbortError } from '../prediction/lifecycle.ts'
 import { buildPredictRequest, parseProvidedObservations } from './buildRequest.ts'
 import { activeField, canShowMode, deriveColour, effectiveViewMode } from './deriveView.ts'
 import { savedCsvPath, SCENARIOS, scenarioById } from './scenarios.ts'
+import { CUSTOM_WIND, parseCustomReference, uniformObservations, uniformWind, windSupportError } from './customWind'
+import { useModelInfo } from './useModelInfo'
 import { buildIllustrativeSurfaceOverlay } from '../structure/illustrative.ts'
 
 function fixtureForScenario(city: CityLayout, scenarioId: string): VelocityField | null {
@@ -21,10 +23,17 @@ function fixtureForScenario(city: CityLayout, scenarioId: string): VelocityField
   return makeUniformFixture(city, scenarioId, scenario.inlet_u_mps, scenario.inlet_v_mps)
 }
 
-export function useMarsWindNet() {
+export function useMarsWindNet(initialScenarioId = SCENARIOS[0]!.id) {
   const [city, setCity] = useState<CityLayout | null>(null)
   const [loadError, setLoadError] = useState<string | null>(null)
-  const [scenarioId, setScenarioId] = useState(SCENARIOS[0]!.id)
+  const [scenarioId, setScenarioId] = useState(initialScenarioId)
+  const [windSpeed, setWindSpeed] = useState('8')
+  const [windBearing, setWindBearing] = useState('90')
+  const modelStatus = useModelInfo()
+  const isCustom = scenarioId === CUSTOM_WIND
+  const wind = useMemo(() => {
+    try { return windSpeed.trim() && windBearing.trim() ? uniformWind(Number(windSpeed), Number(windBearing)) : null } catch { return null }
+  }, [windSpeed, windBearing])
   const [mode, setMode] = useState<ViewMode>('reference')
   const [presentation, setPresentation] = useState<PresentationMode>('mars')
   const [reference, setReference] = useState<VelocityField | null>(null)
@@ -38,6 +47,19 @@ export function useMarsWindNet() {
   const [predictError, setPredictError] = useState<string | null>(null)
   const [savedAvailable, setSavedAvailable] = useState(false)
   const lifecycle = useRef(createPredictLifecycle())
+  const caseRevision = useRef(0)
+  const referenceLoad = useRef(0)
+  const clearCase = useCallback(() => {
+    caseRevision.current++
+    lifecycle.current.abortInFlight()
+    setPrediction(null); setReference(null); setPredictError(null); setReferenceError(null); setPredicting(false); setMode('reference')
+  }, [])
+  const editWind = useCallback((speed: string, bearing: string) => {
+    clearCase(); setWindSpeed(speed); setWindBearing(bearing)
+  }, [clearCase])
+  const chooseScenario = useCallback((id: string) => {
+    clearCase(); setScenarioId(id)
+  }, [clearCase])
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -86,6 +108,11 @@ export function useMarsWindNet() {
       setObservations(null)
       return
     }
+    if (scenarioId === CUSTOM_WIND) {
+      setReference(null)
+      setObservations(wind ? uniformObservations(city,wind).local : null)
+      return () => { controller.abort(); manager.abortInFlight() }
+    }
     setReference(fixtureForScenario(city, scenarioId))
     const scenario = scenarioById(scenarioId)
     setObservations(makeScenarioObservations(city, scenario))
@@ -121,35 +148,47 @@ export function useMarsWindNet() {
       controller.abort()
       manager.abortInFlight()
     }
-  }, [city, scenarioId])
+  }, [city, scenarioId, wind])
+
+  const activeObservations = useMemo(() => isCustom ? city && wind ? uniformObservations(city,wind).local : null : observations,[isCustom,city,wind,observations])
 
   const requestState = useMemo(() => {
     if (observationError) return { request: null, reason: observationError }
-    if (!city || !observations) {
+    if (!city || !activeObservations) {
       return { request: null, reason: 'Waiting for scenario observations.' }
     }
     try {
-      return { request: buildPredictRequest(city, scenarioById(scenarioId), observations), reason: null }
+      if (isCustom) {
+        if (!wind) return {request:null,reason:'Enter a valid speed and direction.'}
+        const reason=windSupportError(modelStatus.info,Number(windSpeed),Number(windBearing))
+        if (reason) return {request:null,reason}
+      }
+      const scenario=isCustom && wind ? {id:CUSTOM_WIND,label:'Custom wind',...wind} : scenarioById(scenarioId)
+      return { request: buildPredictRequest(city, scenario, activeObservations), reason: null }
     } catch (error: unknown) {
       return { request: null, reason: error instanceof Error ? error.message : 'Invalid sensor observations.' }
     }
-  }, [city, observations, observationError, scenarioId])
+  }, [city, activeObservations, observationError, scenarioId, isCustom, wind, windSpeed, windBearing, modelStatus.info])
 
   const runPrediction = useCallback(async () => {
     if (!city || !requestState.request) return
-    const request = requestState.request
+    const request = { ...requestState.request, ...(isCustom || predictUrl() === '/api/predict' ? {request_id:crypto.randomUUID()} : {}) }
     const signal = lifecycle.current.start()
     setPredicting(true)
     setPredictError(null)
     try {
-      const response = await requestPrediction(request, signal)
+      const response = await requestPrediction(request, signal, isCustom ? '/api/predict' : undefined)
       if (signal.aborted) return
       const converted = responseToField(request, response, city)
       if ('error' in converted) {
         setPredictError(converted.error)
         return
       }
+      if (isCustom && (response.model?.id !== modelStatus.info?.model?.id || response.model?.version !== modelStatus.info?.model?.version)) {
+        setPredictError('Model version changed. Refresh model status and generate again.'); return
+      }
       setPrediction(converted.field)
+      if (isCustom) setPresentation('cfd')
       setMode('prediction')
     } catch (error: unknown) {
       if (signal.aborted || isAbortError(error)) return
@@ -157,7 +196,7 @@ export function useMarsWindNet() {
     } finally {
       if (!signal.aborted) setPredicting(false)
     }
-  }, [city, requestState])
+  }, [city, requestState, isCustom, modelStatus.info])
 
   const loadSaved = useCallback(async () => {
     if (!city || !savedAvailable) return
@@ -188,6 +227,21 @@ export function useMarsWindNet() {
       setPredictError(error instanceof Error ? error.message : 'Failed to load saved result')
     }
   }, [city, savedAvailable, scenarioId])
+
+  const loadCustomReference = useCallback(async (file: File) => {
+    if (!city || !wind || !isCustom) return
+    const revision=caseRevision.current
+    const load=++referenceLoad.current
+    setReferenceError(null)
+    try {
+      if (file.size > 4_000_000) throw new Error('Reference JSON must be smaller than 4 MB.')
+      const data=JSON.parse(await file.text())
+      if (revision !== caseRevision.current || load !== referenceLoad.current) return
+      setReference(parseCustomReference(data,city,wind))
+    } catch(e) { if(revision===caseRevision.current && load===referenceLoad.current) setReferenceError(e instanceof Error ? e.message : 'Invalid reference JSON.') }
+  }, [city,wind,isCustom])
+
+  const regionalObservations=useMemo(()=>city && isCustom && wind ? uniformObservations(city,wind).regional : null,[city,isCustom,wind])
 
   const selectMode = useCallback(
     (next: ViewMode) => {
@@ -225,7 +279,8 @@ export function useMarsWindNet() {
     referenceError,
     scenarios: SCENARIOS,
     scenarioId,
-    setScenarioId,
+    setScenarioId: chooseScenario,
+    isCustom, windSpeed, windBearing, wind, editWind, modelStatus, regionalObservations, loadCustomReference,
     mode,
     presentation,
     setPresentation,
@@ -234,7 +289,7 @@ export function useMarsWindNet() {
     selectMode,
     reference,
     prediction,
-    observations,
+    observations: activeObservations,
     predictionDisabledReason: requestState.reason,
     canRun: requestState.request !== null,
     field,
@@ -250,6 +305,7 @@ export function useMarsWindNet() {
     loadSaved,
     source,
     provenance,
+    canShowReference: reference !== null,
     canShowPrediction: prediction !== null,
     canShowError: reference !== null && prediction !== null,
   }

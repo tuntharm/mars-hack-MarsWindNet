@@ -23,6 +23,7 @@ describe('scenario result ownership', () => {
 
   it('discards a late saved result when the scenario changes', async () => {
     const { result } = renderHook(() => useMarsWindNet())
+    act(() => result.current.setScenarioId('illustrative-obstacle-flow'))
     await waitFor(() => expect(result.current.savedAvailable).toBe(true))
     let pending: Promise<void>
     act(() => { pending = result.current.loadSaved() })
@@ -41,6 +42,7 @@ describe('scenario result ownership', () => {
       ? new Response(city)
       : new Response('<!doctype html><html>SPA fallback</html>', { status: 200 })))
     const { result } = renderHook(() => useMarsWindNet())
+    act(() => result.current.setScenarioId('illustrative-obstacle-flow'))
     await waitFor(() => expect(result.current.reference).not.toBeNull())
     await act(async () => { await new Promise((resolve) => setTimeout(resolve, 0)) })
     expect(result.current.savedAvailable).toBe(false)
@@ -48,6 +50,7 @@ describe('scenario result ownership', () => {
 
   it('switches presentations without replacing data or losing the CFD error selection', async () => {
     const { result } = renderHook(() => useMarsWindNet())
+    act(() => result.current.setScenarioId('illustrative-obstacle-flow'))
     await waitFor(() => expect(result.current.savedAvailable).toBe(true))
     expect(result.current.presentation).toBe('mars')
     let pending: Promise<void>
