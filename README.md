@@ -103,6 +103,16 @@ npm run predict-stub
 
 The default endpoint is `http://127.0.0.1:8000/predict`; API documentation is at [localhost:8000/docs](http://127.0.0.1:8000/docs). To point the app at a different service, set `VITE_PREDICT_URL` in `.env.local` and restart Vite. See [.env.example](.env.example) and the API contracts in [src/contracts/marswindnet.ts](src/contracts/marswindnet.ts). S1/S2/S4/S5 supply the input vectors; failed requests are shown explicitly in the UI.
 
+## ML and CFD usage
+
+This project separates the two kinds of wind data it can display:
+
+- **CFD reference data**: genuine solver output is imported explicitly into the app with `npm run cfd:import -- CFD/results/result.json [CFD/results/observations.json]`. The importer validates the grid, layout ID, field arrays and observation schema before writing a scenario into `public/data/scenarios/`. The repository does not bundle a real CFD solve; the app treats imported files as an external reference source and always labels the provenance.
+- **Prediction / ML-style inference**: the app can run a live prediction call against `/predict`, but this project does not include a trained model or production inference stack. The bundled `predict-stub/` service is an inverse-distance interpolation baseline; it is a demonstration only and should be replaced by Debdut’s trained model or a real forecasting backend when available.
+- **Illustrative structure overlays**: the Structure tab uses unitless illustrative surface contours, not structural stress analysis or a validated ML surface model. Those colours are for presentation only and do not imply engineering validity.
+
+In short, the project supports a clean handoff between imported CFD references and a separate predictive service, while making it clear that neither the CFD reference nor the prediction backend is a validated operational model by default.
+
 ## Data and development
 
 The [dataset catalogue](docs/DATASETS.md) distinguishes analytic fixtures, provided observations, imported CFD and live predictions. Two bundled paired CSVs contain 16,384 grid rows each and are intended for visual comparison, not as a CFD training corpus or ML model weights.
