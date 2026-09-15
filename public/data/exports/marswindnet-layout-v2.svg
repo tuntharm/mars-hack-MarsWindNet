@@ -1,68 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 -28 448 456" width="900" height="920">
-  <style>
-    text { font-family: ui-sans-serif, system-ui, sans-serif; fill: #1b120c; }
-    .title { font-size: 16px; font-weight: 700; }
-    .note { font-size: 9px; fill: #5a4030; }
-    .axis { font-size: 9px; }
-    .label { font-size: 8px; }
-    .pad { fill: #e2c39a; stroke: #8a5a32; stroke-width: 0.8; }
-    .solar { fill: #2c4454; stroke: #6ec4b4; stroke-width: 0.6; }
-    .cfd { fill: #f4efe4; stroke: #1b2c38; stroke-width: 0.8; }
-    .sensor { fill: #ff7a18; stroke: #0d1b2a; stroke-width: 0.8; }
-  </style>
-  <rect x="0" y="0" width="400" height="400" fill="#c56a38"/>
-  <circle class="pad" cx="136" cy="156" r="36" />
-  <circle class="pad" cx="264" cy="304" r="32" />
-  <rect class="solar" x="61" y="316" width="30" height="12" />
-  <rect class="solar" x="101" y="316" width="30" height="12" />
-  <rect class="solar" x="61" y="336" width="30" height="12" />
-  <rect class="solar" x="101" y="336" width="30" height="12" />
-  <circle class="cfd" cx="156" cy="100" r="14" />
-  <circle class="cfd" cx="188" cy="100" r="12" />
-  <circle class="cfd" cx="280" cy="156" r="30" />
-  <circle class="cfd" cx="220" cy="244" r="30" />
-  <circle class="cfd" cx="320" cy="212" r="14" />
-  <circle class="cfd" cx="352" cy="212" r="14" />
-  <rect class="cfd" x="128" y="241" width="32" height="22" />
-  <rect class="cfd" x="102" y="253" width="20" height="30" />
-  <rect class="cfd" x="132" y="276" width="24" height="16" />
-  <circle class="cfd" cx="168" cy="270" r="5" />
-  <circle class="cfd" cx="168" cy="256" r="5" />
-  <rect class="cfd" x="312" y="166" width="20" height="12" />
-  <rect class="cfd" x="340" y="166" width="20" height="12" />
-  <rect class="cfd" x="368" y="166" width="20" height="12" />
-  <circle class="sensor" cx="0" cy="0" r="4"/><text class="label" x="6" y="14" text-anchor="start">S1 Northwest corner</text>
-  <circle class="sensor" cx="0" cy="400" r="4"/><text class="label" x="6" y="394" text-anchor="start">S2 Southwest corner</text>
-  <circle class="sensor" cx="108" cy="300" r="4"/><text class="label" x="114" y="294" text-anchor="start">S3 Industrial checkpoint</text>
-  <circle class="sensor" cx="400" cy="0" r="4"/><text class="label" x="394" y="14" text-anchor="end">S4 Northeast corner</text>
-  <circle class="sensor" cx="400" cy="400" r="4"/><text class="label" x="394" y="394" text-anchor="end">S5 Southeast corner</text>
-  <text class="label" x="156" y="103" text-anchor="middle">D1</text>
-  <text class="label" x="188" y="103" text-anchor="middle">D2</text>
-  <text class="label" x="280" y="159" text-anchor="middle">D3</text>
-  <text class="label" x="220" y="247" text-anchor="middle">D4</text>
-  <text class="label" x="320" y="215" text-anchor="middle">D5</text>
-  <text class="label" x="352" y="215" text-anchor="middle">D6</text>
-  <text class="label" x="144" y="255" text-anchor="middle">HUB</text>
-  <text class="label" x="112" y="271" text-anchor="middle">WORKSHOP</text>
-  <text class="label" x="144" y="287" text-anchor="middle">STORE</text>
-  <text class="label" x="168" y="273" text-anchor="middle">T1</text>
-  <text class="label" x="168" y="259" text-anchor="middle">T2</text>
-  <text class="label" x="322" y="175" text-anchor="middle">E1</text>
-  <text class="label" x="350" y="175" text-anchor="middle">E2</text>
-  <text class="label" x="378" y="175" text-anchor="middle">E3</text>
-  <line x1="0" y1="400" x2="400" y2="400" stroke="#1b120c"/>
-  <line x1="0" y1="0" x2="0" y2="400" stroke="#1b120c"/>
-  <text class="axis" x="0" y="414" text-anchor="middle">0 m E</text>
-  <text class="axis" x="100" y="414" text-anchor="middle">100 m E</text>
-  <text class="axis" x="200" y="414" text-anchor="middle">200 m E</text>
-  <text class="axis" x="300" y="414" text-anchor="middle">300 m E</text>
-  <text class="axis" x="400" y="414" text-anchor="middle">400 m E</text>
-  <text class="axis" x="-6" y="403" text-anchor="end">0 m N</text>
-  <text class="axis" x="-6" y="303" text-anchor="end">100 m N</text>
-  <text class="axis" x="-6" y="203" text-anchor="end">200 m N</text>
-  <text class="axis" x="-6" y="103" text-anchor="end">300 m N</text>
-  <text class="axis" x="-6" y="3" text-anchor="end">400 m N</text>
-  <text class="title" x="0" y="-12">marswindnet-400-v2 · north up</text>
-  <text class="note" x="0" y="436">Authored prototype geometry, not a surveyed Mars site. Imported from marswindnet-planning/geometry-v2/city.json. Four corner inputs; S3 independent checkpoint. Solar and sensor heights unspecified.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1190" viewBox="-48 -46 588 648" data-layout-id="marswindnet-500-v3">
+<style>text{font-family:Arial,sans-serif;fill:#e9dccd;font-size:9px}.title{font-size:17px;font-weight:bold}.label{font-size:8px;fill:#201811;paint-order:stroke;stroke:#f5e6d2;stroke-width:1.5px;stroke-linejoin:round}.solid{fill:#eee6d6;stroke:#30241c;stroke-width:1}.visual{fill:#936a49;stroke:#efbb79;stroke-width:1;stroke-dasharray:3 2}.sensor{fill:#ff922f;stroke:#1b242d;stroke-width:1}.checkpoint{fill:#60cbe6}.grid{stroke:#deb78c;stroke-width:.4;opacity:.3}</style>
+<rect x="-48" y="-46" width="588" height="648" fill="#171a1d"/>
+<text class="title" x="0" y="-22">MarsWindNet · 500 × 500 m local city</text>
+<text x="0" y="-7">marswindnet-500-v3 · authored footprints · north up</text>
+<rect width="500" height="500" fill="#9b4f32"/>
+<path class="grid" d="M0 0V500 M0 0H500"/><text x="0" y="518" text-anchor="middle">0</text><text x="-9" y="503" text-anchor="end">0</text>
+<path class="grid" d="M50 0V500 M0 50H500"/><text x="50" y="518" text-anchor="middle">50</text><text x="-9" y="453" text-anchor="end">50</text>
+<path class="grid" d="M100 0V500 M0 100H500"/><text x="100" y="518" text-anchor="middle">100</text><text x="-9" y="403" text-anchor="end">100</text>
+<path class="grid" d="M150 0V500 M0 150H500"/><text x="150" y="518" text-anchor="middle">150</text><text x="-9" y="353" text-anchor="end">150</text>
+<path class="grid" d="M200 0V500 M0 200H500"/><text x="200" y="518" text-anchor="middle">200</text><text x="-9" y="303" text-anchor="end">200</text>
+<path class="grid" d="M250 0V500 M0 250H500"/><text x="250" y="518" text-anchor="middle">250</text><text x="-9" y="253" text-anchor="end">250</text>
+<path class="grid" d="M300 0V500 M0 300H500"/><text x="300" y="518" text-anchor="middle">300</text><text x="-9" y="203" text-anchor="end">300</text>
+<path class="grid" d="M350 0V500 M0 350H500"/><text x="350" y="518" text-anchor="middle">350</text><text x="-9" y="153" text-anchor="end">350</text>
+<path class="grid" d="M400 0V500 M0 400H500"/><text x="400" y="518" text-anchor="middle">400</text><text x="-9" y="103" text-anchor="end">400</text>
+<path class="grid" d="M450 0V500 M0 450H500"/><text x="450" y="518" text-anchor="middle">450</text><text x="-9" y="53" text-anchor="end">450</text>
+<path class="grid" d="M500 0V500 M0 500H500"/><text x="500" y="518" text-anchor="middle">500</text><text x="-9" y="3" text-anchor="end">500</text>
+<circle data-object-id="PAD_NW" class="visual" cx="186" cy="206" r="36"/>
+<circle data-object-id="PAD_SE" class="visual" cx="314" cy="354" r="32"/>
+<rect data-object-id="PV1" class="visual" x="111" y="366" width="30" height="12"/>
+<rect data-object-id="PV2" class="visual" x="151" y="366" width="30" height="12"/>
+<rect data-object-id="PV3" class="visual" x="111" y="386" width="30" height="12"/>
+<rect data-object-id="PV4" class="visual" x="151" y="386" width="30" height="12"/>
+<circle data-object-id="D1" class="solid" cx="206" cy="150" r="14"/>
+<circle data-object-id="D2" class="solid" cx="238" cy="150" r="12"/>
+<circle data-object-id="D3" class="solid" cx="330" cy="206" r="30"/>
+<circle data-object-id="D4" class="solid" cx="270" cy="294" r="30"/>
+<circle data-object-id="D5" class="solid" cx="370" cy="262" r="14"/>
+<circle data-object-id="D6" class="solid" cx="402" cy="262" r="14"/>
+<rect data-object-id="HUB" class="solid" x="178" y="291" width="32" height="22"/>
+<rect data-object-id="WORKSHOP" class="solid" x="152" y="303" width="20" height="30"/>
+<rect data-object-id="STORE" class="solid" x="182" y="326" width="24" height="16"/>
+<circle data-object-id="T1" class="solid" cx="218" cy="320" r="5"/>
+<circle data-object-id="T2" class="solid" cx="218" cy="306" r="5"/>
+<rect data-object-id="E1" class="solid" x="362" y="216" width="20" height="12"/>
+<rect data-object-id="E2" class="solid" x="390" y="216" width="20" height="12"/>
+<rect data-object-id="E3" class="solid" x="418" y="216" width="20" height="12"/>
+<text class="label" x="186" y="209" text-anchor="middle">PAD_NW</text>
+<text class="label" x="314" y="357" text-anchor="middle">PAD_SE</text>
+<text class="label" x="126" y="375" text-anchor="middle">PV1</text>
+<text class="label" x="166" y="375" text-anchor="middle">PV2</text>
+<text class="label" x="126" y="395" text-anchor="middle">PV3</text>
+<text class="label" x="166" y="395" text-anchor="middle">PV4</text>
+<text class="label" x="206" y="153" text-anchor="middle">D1</text>
+<text class="label" x="238" y="153" text-anchor="middle">D2</text>
+<text class="label" x="330" y="209" text-anchor="middle">D3</text>
+<text class="label" x="270" y="297" text-anchor="middle">D4</text>
+<text class="label" x="370" y="265" text-anchor="middle">D5</text>
+<text class="label" x="402" y="265" text-anchor="middle">D6</text>
+<text class="label" x="194" y="305" text-anchor="middle">HUB</text>
+<text class="label" x="162" y="321" text-anchor="middle">WORKSHOP</text>
+<text class="label" x="194" y="337" text-anchor="middle">STORE</text>
+<text class="label" x="218" y="323" text-anchor="middle">T1</text>
+<text class="label" x="218" y="309" text-anchor="middle">T2</text>
+<text class="label" x="372" y="225" text-anchor="middle">E1</text>
+<text class="label" x="400" y="225" text-anchor="middle">E2</text>
+<text class="label" x="428" y="225" text-anchor="middle">E3</text>
+<circle data-sensor-id="S1" class="sensor " cx="0" cy="0" r="4"/><text x="8" y="15" text-anchor="start">S1 Northwest corner</text>
+<circle data-sensor-id="S2" class="sensor " cx="0" cy="500" r="4"/><text x="8" y="491" text-anchor="start">S2 Southwest corner</text>
+<circle data-sensor-id="S3" class="sensor checkpoint" cx="158" cy="350" r="4"/><text x="150" y="353" text-anchor="end">S3 Industrial checkpoint</text>
+<circle data-sensor-id="S4" class="sensor " cx="500" cy="0" r="4"/><text x="492" y="15" text-anchor="end">S4 Northeast corner</text>
+<circle data-sensor-id="S5" class="sensor " cx="500" cy="500" r="4"/><text x="492" y="491" text-anchor="end">S5 Southeast corner</text>
+<text x="500" y="534" text-anchor="end">x east / metres</text><text transform="translate(-34 250) rotate(-90)" text-anchor="middle">y north / metres</text>
+<path d="M478 60V28l-5 10m5-10 5 10" fill="none" stroke="#fff"/><text x="478" y="23" text-anchor="middle">N</text>
+<path d="M0 543v6h100v-6 M50 543v6" fill="none" stroke="#e9dccd"/><text x="0" y="563">0</text><text x="100" y="563" text-anchor="end">100 m</text>
+<rect class="solid" x="150" y="542" width="12" height="10"/><text x="168" y="551">14 CFD obstacles</text><rect class="visual" x="285" y="542" width="12" height="10"/><text x="303" y="551">Pads / solar: visual only</text>
+<text x="0" y="582">Orange: four local inputs · Blue S3: independent checkpoint · See regional-map.svg for 24 outer stations.</text>
 </svg>

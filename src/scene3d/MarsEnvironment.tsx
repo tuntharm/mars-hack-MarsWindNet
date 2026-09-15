@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
+import { DOMAIN_M } from '../contracts/marswindnet'
 import type { PresentationMode } from '../contracts/marswindnet'
 import { fbm, noise, terrainElevationAt } from './environmentMath'
 
@@ -14,7 +15,7 @@ function createTerrain(segments: number): THREE.PlaneGeometry {
   const position = geometry.attributes.position
   const colours = new Float32Array(position.count * 3)
   for (let index = 0; index < position.count; index++) {
-    const x = position.getX(index) + 200, z = position.getZ(index) - 200
+    const x = position.getX(index) + DOMAIN_M / 2, z = position.getZ(index) - DOMAIN_M / 2
     const elevation = terrainElevationAt(x, z)
     position.setY(index, elevation)
     const variation = fbm(x * .008 + 2.7, z * .008 - 1.3)
@@ -25,6 +26,25 @@ function createTerrain(segments: number): THREE.PlaneGeometry {
   geometry.setAttribute('color', new THREE.BufferAttribute(colours, 3))
   geometry.computeVertexNormals()
   return geometry
+}
+
+function createFarTerrain(): THREE.BufferGeometry {
+  // A regular central lattice avoids the radial streaks of long annular triangles.
+  // The hole preserves the existing, more detailed 3.2 km landscape around the city.
+  const axis = [...new Set([...Array.from({length:561},(_,i)=>-70000+i*250),-1600,1600])].sort((a,b)=>a-b)
+  const positions: number[] = [], colours: number[] = [], indices: number[] = [], uv: number[] = []
+  const n=axis.length
+  for(const z0 of axis)for(const x0 of axis){
+    const x=DOMAIN_M/2+x0,z=-DOMAIN_M/2+z0,elevation=terrainElevationAt(x,z)
+    positions.push(x,elevation,z);uv.push(x0/TERRAIN_WIDTH+.5,.5-z0/TERRAIN_WIDTH)
+    const strata=Math.sin(elevation*.28+noise(x*.012,z*.012)*2)*.018
+    const v=.73+fbm(x*.008+2.7,z*.008-1.3)*.23+strata;colours.push(v,v*.97,v*.93)
+  }
+  for(let j=0;j<n-1;j++)for(let i=0;i<n-1;i++){
+    if(axis[i]>=-1600&&axis[i+1]<=1600&&axis[j]>=-1600&&axis[j+1]<=1600)continue
+    const a=j*n+i,b=a+1,c=a+n,d=c+1;indices.push(a,c,b,b,c,d)
+  }
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setAttribute('color',new THREE.Float32BufferAttribute(colours,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(indices);g.computeVertexNormals();return g
 }
 
 function createRegolithDetail(): THREE.DataTexture {
@@ -72,13 +92,14 @@ void main() {
   #include <colorspace_fragment>
 }`
 
-export function MarsEnvironment({ presentation, mobile }: { presentation: PresentationMode; mobile: boolean }) {
+export function MarsEnvironment({ presentation, mobile, regionalRadius }: { presentation: PresentationMode; mobile: boolean; regionalRadius: number }) {
   const { scene, gl, invalidate, camera } = useThree()
   const sky = useRef<THREE.Mesh>(null)
   const terrain = useMemo(() => createTerrain(mobile ? 128 : 192), [mobile])
+  const farTerrain = useMemo(() => createFarTerrain(), [])
   const detail = useMemo(() => createRegolithDetail(), [])
   const [regolith, setRegolith] = useState<THREE.Texture | null>(null)
-  const target = useMemo(() => { const value = new THREE.Object3D(); value.position.set(200, 0, -200); return value }, [])
+  const target = useMemo(() => { const value = new THREE.Object3D(); value.position.set(DOMAIN_M / 2, 0, -DOMAIN_M / 2); return value }, [])
   const realistic = presentation === 'mars'
   const skyUniforms = useMemo(() => ({
     zenith: { value: new THREE.Color(realistic ? '#74392b' : '#353b3e') },
@@ -115,21 +136,25 @@ export function MarsEnvironment({ presentation, mobile }: { presentation: Presen
 
   useEffect(() => {
     const previous = scene.fog
-    scene.fog = new THREE.Fog(realistic ? '#ba7956' : '#8b908e', 700, 1750)
+    scene.fog = new THREE.Fog(realistic ? '#ba7956' : '#8b908e', regionalRadius ? Math.max(6000, regionalRadius * 6) : 1700, regionalRadius ? Math.max(16000, regionalRadius * 12) : 5000)
     invalidate()
     return () => { scene.fog = previous }
-  }, [scene, realistic, invalidate])
+  }, [scene, realistic, regionalRadius, invalidate])
+  useEffect(() => () => farTerrain.dispose(), [farTerrain])
   useEffect(() => () => terrain.dispose(), [terrain])
   useEffect(() => () => detail.dispose(), [detail])
   useFrame(() => { sky.current?.position.copy(camera.position) })
 
   return <group>
     <mesh ref={sky} frustumCulled={false} renderOrder={-100}>
-      <sphereGeometry args={[2400, 32, 20]} />
+      <sphereGeometry args={[120000, 32, 20]} />
       <shaderMaterial vertexShader={SKY_VERTEX} fragmentShader={SKY_FRAGMENT} uniforms={skyUniforms} side={THREE.BackSide} depthWrite={false} fog={false} />
     </mesh>
-    <mesh geometry={terrain} position={[200, 0, -200]} receiveShadow>
+    <mesh geometry={terrain} position={[DOMAIN_M / 2, 0, -DOMAIN_M / 2]} receiveShadow>
       <meshStandardMaterial key={`${presentation}-${regolith ? 'textured' : 'fallback'}`} color={realistic ? regolith ? '#ffffff' : '#a5573c' : '#8d938f'} vertexColors map={realistic ? regolith : null} bumpMap={realistic ? detail : null} bumpScale={.035} roughness={1} metalness={0} />
+    </mesh>
+    <mesh geometry={farTerrain} receiveShadow>
+      <meshStandardMaterial key={`far-${presentation}-${regolith ? 'textured' : 'fallback'}`} color={realistic ? regolith ? '#ffffff' : '#a5573c' : '#8d938f'} map={realistic ? regolith : null} vertexColors roughness={1} />
     </mesh>
     <hemisphereLight args={[realistic ? '#e9cfb3' : '#e0e5e7', realistic ? '#6c3b2a' : '#505757', realistic ? .92 : 1.12]} />
     <primitive object={target} />

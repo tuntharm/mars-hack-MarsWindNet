@@ -1,5 +1,5 @@
 {
-  "layout_id": "marswindnet-400-v2",
+  "layout_id": "marswindnet-500-v3",
   "scenario_id": "eastward-inflow",
   "source": "analytic-fixture",
   "provenance": "Virtual point observations evaluated at their exact coordinates; not measured Mars data.",
@@ -7,7 +7,7 @@
     {
       "sensor_id": "S1",
       "x_m": 0,
-      "y_m": 400,
+      "y_m": 500,
       "u_mps": 8,
       "v_mps": 0
     },
@@ -20,21 +20,21 @@
     },
     {
       "sensor_id": "S3",
-      "x_m": 108,
-      "y_m": 100,
+      "x_m": 158,
+      "y_m": 150,
       "u_mps": 8,
       "v_mps": 0
     },
     {
       "sensor_id": "S4",
-      "x_m": 400,
-      "y_m": 400,
+      "x_m": 500,
+      "y_m": 500,
       "u_mps": 8,
       "v_mps": 0
     },
     {
       "sensor_id": "S5",
-      "x_m": 400,
+      "x_m": 500,
       "y_m": 0,
       "u_mps": 8,
       "v_mps": 0

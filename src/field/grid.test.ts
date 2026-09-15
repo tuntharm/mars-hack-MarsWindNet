@@ -11,9 +11,9 @@ describe('grid index order', () => {
     expect(gridIndex(127, 127)).toBe(CELL_COUNT - 1)
   })
 
-  it('places the first cell centre at (1.5625, 1.5625)', () => {
+  it('places the first cell centre at (1.953125, 1.953125)', () => {
     expect(cellCentre(0, 0)).toEqual({ x: FIRST_CENTRE_M, y: FIRST_CENTRE_M })
-    expect(cellCentre(127, 127)).toEqual({ x: 398.4375, y: 398.4375 })
+    expect(cellCentre(127, 127)).toEqual({ x: 498.046875, y: 498.046875 })
   })
 })
 

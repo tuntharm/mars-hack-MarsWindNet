@@ -1,3 +1,4 @@
+import { useRegionalObservations } from './state/useRegionalObservations'
 import { CityScene } from './components/CityScene.tsx'
 import { Controls } from './components/Controls.tsx'
 import { Map2D } from './components/Map2D.tsx'
@@ -7,6 +8,7 @@ import { useMarsWindNet } from './state/useMarsWindNet.ts'
 
 export default function App() {
   const app = useMarsWindNet()
+  const regionalObservations = useRegionalObservations(app.city, app.scenarioId)
 
   return (
     <div className="app" data-presentation={app.presentation}>
@@ -23,7 +25,7 @@ export default function App() {
               Explore how incoming wind changes around a Martian settlement.
             </p>
           </div>
-          <div className="masthead__aside"><span className="eyebrow">Settlement intelligence</span><p>400 × 400 m <span>·</span> 5 sensor stations</p><a href="#map">Explore the wind map <span aria-hidden="true">↓</span></a></div>
+          <div className="masthead__aside"><span className="eyebrow">Settlement intelligence</span><p>500 × 500 m <span>·</span> 5 local · 24 regional stations</p><a href="#map">Explore the wind map <span aria-hidden="true">↓</span></a></div>
         </header>
 
         {app.loadError ? <p className="fatal">{app.loadError}</p> : null}
@@ -34,6 +36,7 @@ export default function App() {
             <PresentationTabs value={app.presentation} onChange={app.setPresentation} />
             <div id="settlement-presentation" role="tabpanel" aria-labelledby={`presentation-${app.presentation}`}>
             <CityScene
+              regionalObservations={regionalObservations}
               city={app.city}
               field={app.field}
               colour={app.colour}

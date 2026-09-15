@@ -55,10 +55,10 @@ function SurfaceColours({result}:{result:SurfaceOverlayResult}){
  </group>)}</group>
 }
 
-export function Settlement({city,selectedSensorId,onSensorSelect,presentation='mars',surfaceOverlay}:Pick<CitySceneProps,'city'|'selectedSensorId'|'onSensorSelect'|'presentation'|'surfaceOverlay'>){
+export function Settlement({city,selectedSensorId,onSensorSelect,presentation='mars',surfaceOverlay,regional=false}:Pick<CitySceneProps,'city'|'selectedSensorId'|'onSensorSelect'|'presentation'|'surfaceOverlay'> & {regional?:boolean}){
  const neutral=presentation==='structure'
  return <group>
-  {presentation==='cfd'&&<gridHelper args={[400,8,'#d8ad87','#d8ad87']} position={[200,.035,-200]} material-transparent material-opacity={.13}/>}
+  {presentation==='cfd'&&<gridHelper args={[city.domain.width_m,10,'#d8ad87','#d8ad87']} position={[city.domain.width_m/2,.035,-city.domain.height_m/2]} material-transparent material-opacity={.13}/>}
   {city.pads.map(p=><group key={p.id} position={toWorld(p.cx_m,p.cy_m,.08)} rotation={[-Math.PI/2,0,0]}>
    <mesh receiveShadow><circleGeometry args={[p.radius_m,96]}/><meshStandardMaterial color={neutral?'#706c64':'#665c4e'} roughness={.96}/></mesh>
    {[.77,.94].map(r=><mesh key={r} position={[0,0,.012]}><ringGeometry args={[p.radius_m*r-.22,p.radius_m*r+.22,96]}/><meshBasicMaterial color="#cfb98d" polygonOffset polygonOffsetFactor={-1}/></mesh>)}
@@ -73,10 +73,10 @@ export function Settlement({city,selectedSensorId,onSensorSelect,presentation='m
    {Array.from({length:13},(_,i)=><mesh key={i} position={[(i-6)*o.width_m/13,0,.01]}><planeGeometry args={[.11,o.depth_m]}/><meshBasicMaterial color="#809497"/></mesh>)}
    {Array.from({length:9},(_,i)=><mesh key={i} position={[0,(i-4)*o.depth_m/9,.012]}><planeGeometry args={[o.width_m,.09]}/><meshBasicMaterial color="#4e6e81"/></mesh>)}
   </group>)}
-  {city.sensors.map(s=>{const selected=s.id===selectedSensorId,check=s.id==='S3';return <group key={s.id} position={toWorld(s.x_m,s.y_m,.6)}>
+  {!regional&&city.sensors.map(s=>{const selected=s.id===selectedSensorId,check=s.id==='S3';return <group key={s.id} position={toWorld(s.x_m,s.y_m,.6)}>
    <mesh rotation={[-Math.PI/2,0,0]}><ringGeometry args={[2.9,3.3,32]}/><meshBasicMaterial color={check?'#9addef':'#f2c699'} transparent opacity={.65}/></mesh>
-   <Html center position={[0,2,0]} zIndexRange={[30,10]}><button type="button" className={`scene3d-sensor ${check?'checkpoint':''} ${selected?'selected':''}`} data-edge={s.x_m===0?'west':s.x_m===400?'east':undefined} aria-label={`${s.id}: ${s.name}`} aria-pressed={selected} onClick={()=>onSensorSelect(s.id)}><span>{s.id}</span><span className="scene3d-sensor-name">{s.name}</span></button></Html>
+   <Html center position={[0,2,0]} zIndexRange={[30,10]}><button type="button" className={`scene3d-sensor ${check?'checkpoint':''} ${selected?'selected':''}`} data-edge={s.x_m===0?'west':s.x_m===city.domain.width_m?'east':undefined} aria-label={`${s.id}: ${s.name}`} aria-pressed={selected} onClick={()=>onSensorSelect(s.id)}><span>{s.id}</span><span className="scene3d-sensor-name">{s.name}</span></button></Html>
   </group>})}
-  {presentation!=='mars'&&<><Html center position={[200,.5,-412]} zIndexRange={[4,0]}><span className="scene3d-north">N ↑</span></Html><Html center position={[200,.5,12]} zIndexRange={[4,0]}><span className="scene3d-domain">400 m · EAST →</span></Html></>}
+  {!regional&&presentation!=='mars'&&<><Html center position={[city.domain.width_m/2,.5,-city.domain.height_m-12]} zIndexRange={[4,0]}><span className="scene3d-north">N ↑</span></Html><Html center position={[city.domain.width_m/2,.5,12]} zIndexRange={[4,0]}><span className="scene3d-domain">{city.domain.width_m} m · EAST →</span></Html></>}
  </group>
 }

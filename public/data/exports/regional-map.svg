@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="980" viewBox="0 -45 720 785" data-layout-id="marswindnet-500-v3">
+<style>text{font-family:Arial,sans-serif;fill:#f1e0cc;font-size:12px}.ring{fill:none;stroke:#bc865b;stroke-dasharray:5 4}.station{fill:#ff942f;stroke:#271d17;stroke-width:2}</style>
+<rect x="0" y="-45" width="720" height="785" fill="#191b1f"/><text x="30" y="-13" font-size="22">Regional monitoring · marswindnet-500-v3</text>
+<path d="M90 60V660 M60 630H660" stroke="#353639"/><text x="90" y="686" text-anchor="middle">-10</text><text x="47" y="634" text-anchor="end">-10</text>
+<path d="M225 60V660 M60 495H660" stroke="#353639"/><text x="225" y="686" text-anchor="middle">-5</text><text x="47" y="499" text-anchor="end">-5</text>
+<path d="M360 60V660 M60 360H660" stroke="#353639"/><text x="360" y="686" text-anchor="middle">0</text><text x="47" y="364" text-anchor="end">0</text>
+<path d="M495 60V660 M60 225H660" stroke="#353639"/><text x="495" y="686" text-anchor="middle">5</text><text x="47" y="229" text-anchor="end">5</text>
+<path d="M630 60V660 M60 90H660" stroke="#353639"/><text x="630" y="686" text-anchor="middle">10</text><text x="47" y="94" text-anchor="end">10</text>
+<circle class="ring" cx="360" cy="360" r="27"/>
+<circle class="ring" cx="360" cy="360" r="135"/>
+<circle class="ring" cx="360" cy="360" r="270"/>
+<rect x="353.25" y="353.25" width="13.5" height="13.5" fill="#55cbe4"/><text x="360" y="30" text-anchor="middle">500 × 500 m city · 5 local stations</text>
+<circle data-sensor-id="R1-N" data-x-m="250" data-y-m="1250" class="station" cx="360" cy="333" r="5"/><path d="M360 333L360 278" stroke="#896f59"/><text x="369" y="269" text-anchor="start">R1-N</text>
+<circle data-sensor-id="R1-NE" data-x-m="957.106781187" data-y-m="957.106781187" class="station" cx="379.091883092049" cy="340.908116907951" r="5"/><path d="M379.091883092049 340.908116907951L417.9827560573091 302.0172439426909" stroke="#896f59"/><text x="426.9827560573091" y="293.0172439426909" text-anchor="start">R1-NE</text>
+<circle data-sensor-id="R1-E" data-x-m="1250" data-y-m="250" class="station" cx="387" cy="360" r="5"/><path d="M387 360L442 360" stroke="#896f59"/><text x="451" y="351" text-anchor="start">R1-E</text>
+<circle data-sensor-id="R1-SE" data-x-m="957.106781187" data-y-m="-457.106781187" class="station" cx="379.091883092049" cy="379.091883092049" r="5"/><path d="M379.091883092049 379.091883092049L417.9827560573091 417.9827560573091" stroke="#896f59"/><text x="426.9827560573091" y="408.9827560573091" text-anchor="start">R1-SE</text>
+<circle data-sensor-id="R1-S" data-x-m="250" data-y-m="-750" class="station" cx="360" cy="387" r="5"/><path d="M360 387L360 442" stroke="#896f59"/><text x="369" y="433" text-anchor="start">R1-S</text>
+<circle data-sensor-id="R1-SW" data-x-m="-457.106781187" data-y-m="-457.106781187" class="station" cx="340.908116907951" cy="379.091883092049" r="5"/><path d="M340.908116907951 379.091883092049L302.0172439426909 417.98275605730913" stroke="#896f59"/><text x="293.0172439426909" y="408.98275605730913" text-anchor="end">R1-SW</text>
+<circle data-sensor-id="R1-W" data-x-m="-750" data-y-m="250" class="station" cx="333" cy="360" r="5"/><path d="M333 360L278 360" stroke="#896f59"/><text x="269" y="351" text-anchor="end">R1-W</text>
+<circle data-sensor-id="R1-NW" data-x-m="-457.106781187" data-y-m="957.106781187" class="station" cx="340.908116907951" cy="340.908116907951" r="5"/><path d="M340.908116907951 340.908116907951L302.01724394269087 302.0172439426909" stroke="#896f59"/><text x="293.01724394269087" y="293.0172439426909" text-anchor="end">R1-NW</text>
+<circle data-sensor-id="R5-N" data-x-m="250" data-y-m="5250" class="station" cx="360" cy="225" r="5"/><text x="369" y="216" text-anchor="start">R5-N</text>
+<circle data-sensor-id="R5-NE" data-x-m="3785.533905933" data-y-m="3785.533905933" class="station" cx="455.459415460191" cy="264.540584539809" r="5"/><text x="464.459415460191" y="255.540584539809" text-anchor="start">R5-NE</text>
+<circle data-sensor-id="R5-E" data-x-m="5250" data-y-m="250" class="station" cx="495" cy="360" r="5"/><text x="504" y="351" text-anchor="start">R5-E</text>
+<circle data-sensor-id="R5-SE" data-x-m="3785.533905933" data-y-m="-3285.533905933" class="station" cx="455.459415460191" cy="455.459415460191" r="5"/><text x="464.459415460191" y="446.459415460191" text-anchor="start">R5-SE</text>
+<circle data-sensor-id="R5-S" data-x-m="250" data-y-m="-4750" class="station" cx="360" cy="495" r="5"/><text x="369" y="486" text-anchor="start">R5-S</text>
+<circle data-sensor-id="R5-SW" data-x-m="-3285.533905933" data-y-m="-3285.533905933" class="station" cx="264.540584539809" cy="455.459415460191" r="5"/><text x="255.540584539809" y="446.459415460191" text-anchor="end">R5-SW</text>
+<circle data-sensor-id="R5-W" data-x-m="-4750" data-y-m="250" class="station" cx="225" cy="360" r="5"/><text x="216" y="351" text-anchor="end">R5-W</text>
+<circle data-sensor-id="R5-NW" data-x-m="-3285.533905933" data-y-m="3785.533905933" class="station" cx="264.540584539809" cy="264.540584539809" r="5"/><text x="255.540584539809" y="255.540584539809" text-anchor="end">R5-NW</text>
+<circle data-sensor-id="R10-N" data-x-m="250" data-y-m="10250" class="station" cx="360" cy="90" r="5"/><text x="369" y="81" text-anchor="start">R10-N</text>
+<circle data-sensor-id="R10-NE" data-x-m="7321.067811865" data-y-m="7321.067811865" class="station" cx="550.918830920355" cy="169.081169079645" r="5"/><text x="559.918830920355" y="160.081169079645" text-anchor="start">R10-NE</text>
+<circle data-sensor-id="R10-E" data-x-m="10250" data-y-m="250" class="station" cx="630" cy="360" r="5"/><text x="639" y="351" text-anchor="start">R10-E</text>
+<circle data-sensor-id="R10-SE" data-x-m="7321.067811865" data-y-m="-6821.067811865" class="station" cx="550.918830920355" cy="550.918830920355" r="5"/><text x="559.918830920355" y="541.918830920355" text-anchor="start">R10-SE</text>
+<circle data-sensor-id="R10-S" data-x-m="250" data-y-m="-9750" class="station" cx="360" cy="630" r="5"/><text x="369" y="621" text-anchor="start">R10-S</text>
+<circle data-sensor-id="R10-SW" data-x-m="-6821.067811865" data-y-m="-6821.067811865" class="station" cx="169.081169079645" cy="550.918830920355" r="5"/><text x="160.081169079645" y="541.918830920355" text-anchor="end">R10-SW</text>
+<circle data-sensor-id="R10-W" data-x-m="-9750" data-y-m="250" class="station" cx="90" cy="360" r="5"/><text x="81" y="351" text-anchor="end">R10-W</text>
+<circle data-sensor-id="R10-NW" data-x-m="-6821.067811865" data-y-m="7321.067811865" class="station" cx="169.081169079645" cy="169.081169079645" r="5"/><text x="160.081169079645" y="160.081169079645" text-anchor="end">R10-NW</text>
+<path d="M675 96V55l-6 12m6-12 6 12" fill="none" stroke="#fff"/><text x="675" y="46" text-anchor="middle">N</text>
+<text x="360" y="710" text-anchor="middle">R1: 1 km · R5: 5 km · R10: 10 km · axes relative to city centre (250,250 m)</text><text x="360" y="731" text-anchor="middle">24 virtual regional observations · separate from local CFD / prediction inputs</text>
+</svg>

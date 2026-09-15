@@ -1,5 +1,5 @@
 {
-  "layout_id": "marswindnet-400-v2",
+  "layout_id": "marswindnet-500-v3",
   "scenario_id": "illustrative-obstacle-flow",
   "source": "analytic-fixture",
   "provenance": "Virtual point observations evaluated at their exact coordinates; not measured Mars data.",
@@ -7,37 +7,37 @@
     {
       "sensor_id": "S1",
       "x_m": 0,
-      "y_m": 400,
-      "u_mps": 8.04907494164451,
-      "v_mps": 2.3760910125024925
+      "y_m": 500,
+      "u_mps": 8.042385479396293,
+      "v_mps": 2.2553639605365627
     },
     {
       "sensor_id": "S2",
       "x_m": 0,
       "y_m": 0,
-      "u_mps": 7.817728201709445,
-      "v_mps": 1.4998699391684123
+      "u_mps": 7.891478948426254,
+      "v_mps": 1.6950474715131747
     },
     {
       "sensor_id": "S3",
-      "x_m": 108,
-      "y_m": 100,
+      "x_m": 158,
+      "y_m": 150,
       "u_mps": 8.481145592225815,
       "v_mps": -1.8648354430625202
     },
     {
       "sensor_id": "S4",
-      "x_m": 400,
-      "y_m": 400,
-      "u_mps": 8.08729703465673,
-      "v_mps": 1.4152413560642207
+      "x_m": 500,
+      "y_m": 500,
+      "u_mps": 8.01198525379103,
+      "v_mps": 1.6286343025220724
     },
     {
       "sensor_id": "S5",
-      "x_m": 400,
+      "x_m": 500,
       "y_m": 0,
-      "u_mps": 8.250415746421897,
-      "v_mps": 2.415325780784892
+      "u_mps": 8.146135329168079,
+      "v_mps": 2.294719706970329
     }
   ]
 }

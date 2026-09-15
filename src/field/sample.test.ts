@@ -8,7 +8,7 @@ describe('display-field interpolation', () => {
   it('interpolates valid interior data without inventing corner measurements', () => {
     expect(sampleVelocityAt(field, 10, 10)).toEqual({ u: 8, v: 0 })
     expect(sampleVelocityAt(field, 0, 0)).toBeNull()
-    expect(sampleVelocityAt(field, 400, 400)).toBeNull()
-    expect(sampleVelocityAt(field, 156, 300)).toBeNull()
+    expect(sampleVelocityAt(field, 500, 500)).toBeNull()
+    expect(sampleVelocityAt(field, 206, 350)).toBeNull()
   })
 })

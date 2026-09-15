@@ -154,11 +154,11 @@ describe('shell interactions', () => {
 
   it('shows direct observations and does not clamp a boundary sensor to the reconstructed grid', () => {
     const city = JSON.parse(cityJson) as CityLayout
-    city.sensors = [{ ...city.sensors[0]!, id: 'S1', x_m: 0, y_m: 400 }]
+    city.sensors = [{ ...city.sensors[0]!, id: 'S1', x_m: 0, y_m: 500 }]
     const reference = makeUniformFixture(city, 'eastward-inflow', 8, 0)
     const prediction = makeUniformFixture(city, 'eastward-inflow', 6, 1)
     render(<MonitoringPanel city={city} mode="prediction" reference={reference} prediction={prediction}
-      observations={{ layout_id: city.layout_id, scenario_id: 'eastward-inflow', source: 'provided', provenance: 'Test observations', readings: [{ sensor_id: 'S1', x_m: 0, y_m: 400, u_mps: 3, v_mps: 4 }] }}
+      observations={{ layout_id: city.layout_id, scenario_id: 'eastward-inflow', source: 'provided', provenance: 'Test observations', readings: [{ sensor_id: 'S1', x_m: 0, y_m: 500, u_mps: 3, v_mps: 4 }] }}
       selectedSensorId="S1" onSensorSelect={vi.fn()} />)
     expect(screen.getByRole('img', { name: 'Observed wind speed: 5.00 m/s' })).toBeInTheDocument()
     expect(screen.getByText('Outside reconstruction grid')).toBeInTheDocument()

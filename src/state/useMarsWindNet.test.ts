@@ -14,7 +14,7 @@ describe('scenario result ownership', () => {
       if (url.endsWith('marswindnet-layout-v2.json')) return Promise.resolve(new Response(city))
       if (url.includes('illustrative-obstacle-flow.paired.csv')) {
         if (++savedRequests > 1) return new Promise<Response>((resolve) => { resolveSaved = resolve })
-        return Promise.resolve(new Response('point_id,x_m,y_m,is_fluid,u_cfd_mps,v_cfd_mps,u_ml_mps,v_ml_mps\n0,1.5625,1.5625,1,8,2,7,1'))
+        return Promise.resolve(new Response('point_id,x_m,y_m,is_fluid,u_cfd_mps,v_cfd_mps,u_ml_mps,v_ml_mps\n0,1.953125,1.953125,1,8,2,7,1'))
       }
       return Promise.resolve(new Response('missing', { status: 404 }))
     }))
@@ -28,7 +28,7 @@ describe('scenario result ownership', () => {
     act(() => { pending = result.current.loadSaved() })
     act(() => { result.current.setScenarioId('northward-inflow') })
     await waitFor(() => expect(result.current.reference?.scenario_id).toBe('northward-inflow'))
-    const csv = 'point_id,x_m,y_m,is_fluid,u_cfd_mps,v_cfd_mps,u_ml_mps,v_ml_mps\n0,1.5625,1.5625,1,8,2,7,1'
+    const csv = 'point_id,x_m,y_m,is_fluid,u_cfd_mps,v_cfd_mps,u_ml_mps,v_ml_mps\n0,1.953125,1.953125,1,8,2,7,1'
     await act(async () => { resolveSaved(new Response(csv)); await pending! })
     expect(result.current.reference?.scenario_id).toBe('northward-inflow')
     expect(result.current.prediction).toBeNull()

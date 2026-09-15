@@ -11,9 +11,9 @@ describe('CSV missing vs zero', () => {
   it('places null and zero independently in paired fields', () => {
     const csv = [
       'point_id,x_m,y_m,is_fluid,u_cfd_mps,v_cfd_mps,u_ml_mps,v_ml_mps',
-      '0,1.5625,1.5625,1,8,0,0,',
-      '1,4.6875,1.5625,1,8,0,,1',
-      '2,7.8125,1.5625,0,,,,',
+      '0,1.953125,1.953125,1,8,0,0,',
+      '1,5.859375,1.953125,1,8,0,,1',
+      '2,9.765625,1.953125,0,,,,',
     ].join('\n')
     const paired = parsePairedCsv(csv, 'marswindnet-layout-v2', 'eastward-inflow')
     expect(paired.prediction.u[0]).toBe(0)
@@ -29,6 +29,6 @@ describe('CSV missing vs zero', () => {
   it('rejects shifted coordinates and duplicate point ids instead of silently remapping', () => {
     const header = 'point_id,x_m,y_m,is_fluid,u_cfd_mps,v_cfd_mps,u_ml_mps,v_ml_mps'
     expect(() => parsePairedCsv(`${header}\n0,0,0,1,8,0,7,1`)).toThrow(/coordinates/)
-    expect(() => parsePairedCsv(`${header}\n0,1.5625,1.5625,1,8,0,7,1\n0,1.5625,1.5625,1,8,0,7,1`)).toThrow(/duplicate/)
+    expect(() => parsePairedCsv(`${header}\n0,1.953125,1.953125,1,8,0,7,1\n0,1.953125,1.953125,1,8,0,7,1`)).toThrow(/duplicate/)
   })
 })

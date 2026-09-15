@@ -8,26 +8,26 @@ describe('mask vs footprints', () => {
   const city = loadTestCity()
 
   it('treats CFD dome and box interiors as solid', () => {
-    expect(pointInCfdObstacle(city, 156, 300)).toBe(true)
-    expect(pointInCfdObstacle(city, 144, 148)).toBe(true)
+    expect(pointInCfdObstacle(city, 206, 350)).toBe(true)
+    expect(pointInCfdObstacle(city, 194, 198)).toBe(true)
     expect(pointInCfdObstacle(city, 10, 10)).toBe(false)
   })
 
   it('does not treat visual pads or solar beds as solid', () => {
-    expect(pointInCfdObstacle(city, 136, 244)).toBe(false)
-    expect(pointInCfdObstacle(city, 264, 96)).toBe(false)
-    expect(pointInCfdObstacle(city, 76, 78)).toBe(false)
+    expect(pointInCfdObstacle(city, 186, 294)).toBe(false)
+    expect(pointInCfdObstacle(city, 314, 146)).toBe(false)
+    expect(pointInCfdObstacle(city, 126, 128)).toBe(false)
   })
 
   it('includes the closed circular obstacle boundary', () => {
-    expect(pointInCfdObstacle(city, 170, 300)).toBe(true)
+    expect(pointInCfdObstacle(city, 220, 350)).toBe(true)
   })
 
   it('masks by cell centre, not by a duplicated coordinate list', () => {
     const mask = buildFluidMask(city)
     expect(mask).toHaveLength(128 * 128)
-    const d1 = gridIndex(Math.round((156 - 1.5625) / 3.125), Math.round((300 - 1.5625) / 3.125))
-    const pad = gridIndex(Math.round((136 - 1.5625) / 3.125), Math.round((244 - 1.5625) / 3.125))
+    const d1 = gridIndex(Math.round((206 - 1.953125) / 3.90625), Math.round((350 - 1.953125) / 3.90625))
+    const pad = gridIndex(Math.round((186 - 1.953125) / 3.90625), Math.round((294 - 1.953125) / 3.90625))
     expect(mask[d1]).toBe(false)
     expect(mask[pad]).toBe(true)
   })

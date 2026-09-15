@@ -1,0 +1,177 @@
+{
+  "layout_id": "marswindnet-500-v3",
+  "scenario_id": "northward-inflow",
+  "scope": "regional",
+  "source": "analytic-fixture",
+  "provenance": "Virtual regional point observations at exact coordinates; analytic demonstration only, not CFD, measured weather or a warning forecast.",
+  "readings": [
+    {
+      "sensor_id": "R1-N",
+      "x_m": 250,
+      "y_m": 1250,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R1-NE",
+      "x_m": 957.106781187,
+      "y_m": 957.106781187,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R1-E",
+      "x_m": 1250,
+      "y_m": 250,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R1-SE",
+      "x_m": 957.106781187,
+      "y_m": -457.106781187,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R1-S",
+      "x_m": 250,
+      "y_m": -750,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R1-SW",
+      "x_m": -457.106781187,
+      "y_m": -457.106781187,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R1-W",
+      "x_m": -750,
+      "y_m": 250,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R1-NW",
+      "x_m": -457.106781187,
+      "y_m": 957.106781187,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R5-N",
+      "x_m": 250,
+      "y_m": 5250,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R5-NE",
+      "x_m": 3785.533905933,
+      "y_m": 3785.533905933,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R5-E",
+      "x_m": 5250,
+      "y_m": 250,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R5-SE",
+      "x_m": 3785.533905933,
+      "y_m": -3285.533905933,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R5-S",
+      "x_m": 250,
+      "y_m": -4750,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R5-SW",
+      "x_m": -3285.533905933,
+      "y_m": -3285.533905933,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R5-W",
+      "x_m": -4750,
+      "y_m": 250,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R5-NW",
+      "x_m": -3285.533905933,
+      "y_m": 3785.533905933,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R10-N",
+      "x_m": 250,
+      "y_m": 10250,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R10-NE",
+      "x_m": 7321.067811865,
+      "y_m": 7321.067811865,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R10-E",
+      "x_m": 10250,
+      "y_m": 250,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R10-SE",
+      "x_m": 7321.067811865,
+      "y_m": -6821.067811865,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R10-S",
+      "x_m": 250,
+      "y_m": -9750,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R10-SW",
+      "x_m": -6821.067811865,
+      "y_m": -6821.067811865,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R10-W",
+      "x_m": -9750,
+      "y_m": 250,
+      "u_mps": 0,
+      "v_mps": 8
+    },
+    {
+      "sensor_id": "R10-NW",
+      "x_m": -6821.067811865,
+      "y_m": 7321.067811865,
+      "u_mps": 0,
+      "v_mps": 8
+    }
+  ]
+}

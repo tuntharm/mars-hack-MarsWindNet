@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { DOMAIN_M } from '../contracts/marswindnet'
 
 function hash(x: number, y: number): number {
   const value = Math.sin(x * 127.1 + y * 311.7) * 43758.5453
@@ -16,8 +17,8 @@ export function fbm(x: number, y: number): number {
 }
 /** Decorative elevation only. A 100 m flat margin prevents mesh triangles sloping into the analysis domain. */
 export function terrainElevationAt(worldX: number, worldZ: number): number {
-  const dx = Math.max(0, -worldX, worldX - 400)
-  const dz = Math.max(0, worldZ, -400 - worldZ)
+  const dx = Math.max(0, -worldX, worldX - DOMAIN_M)
+  const dz = Math.max(0, worldZ, -DOMAIN_M - worldZ)
   const outside = Math.hypot(dx, dz)
   if (outside <= 100) return -.12
   const ramp = smooth(THREE.MathUtils.clamp((outside - 100) / 330, 0, 1))

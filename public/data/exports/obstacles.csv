@@ -1,15 +1,15 @@
 id,name,kind,role,cx_m,cy_m,radius_m,width_m,depth_m,height_m
-D1,Northern dome A,dome,cfd,156,300,14,,,14
-D2,Northern dome B,dome,cfd,188,300,12,,,12
-D3,Eastern main dome,dome,cfd,280,244,30,,,26
-D4,Southern main dome,dome,cfd,220,156,30,,,26
-D5,Eastern small dome A,dome,cfd,320,188,14,,,14
-D6,Eastern small dome B,dome,cfd,352,188,14,,,14
-HUB,Central hub,box,cfd,144,148,,32,22,12
-WORKSHOP,Workshop,box,cfd,112,132,,20,30,10
-STORE,Storage,box,cfd,144,116,,24,16,7
-T1,Tank A,cylinder,cfd,168,130,5,,,10
-T2,Tank B,cylinder,cfd,168,144,5,,,10
-E1,Service module A,box,cfd,322,228,,20,12,6
-E2,Service module B,box,cfd,350,228,,20,12,6
-E3,Service module C,box,cfd,378,228,,20,12,6
+D1,Northern dome A,dome,cfd,206,350,14,,,14
+D2,Northern dome B,dome,cfd,238,350,12,,,12
+D3,Eastern main dome,dome,cfd,330,294,30,,,26
+D4,Southern main dome,dome,cfd,270,206,30,,,26
+D5,Eastern small dome A,dome,cfd,370,238,14,,,14
+D6,Eastern small dome B,dome,cfd,402,238,14,,,14
+HUB,Central hub,box,cfd,194,198,,32,22,12
+WORKSHOP,Workshop,box,cfd,162,182,,20,30,10
+STORE,Storage,box,cfd,194,166,,24,16,7
+T1,Tank A,cylinder,cfd,218,180,5,,,10
+T2,Tank B,cylinder,cfd,218,194,5,,,10
+E1,Service module A,box,cfd,372,278,,20,12,6
+E2,Service module B,box,cfd,400,278,,20,12,6
+E3,Service module C,box,cfd,428,278,,20,12,6

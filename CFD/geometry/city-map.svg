@@ -1,152 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="1120" viewBox="0 0 1360 1120" role="img" aria-labelledby="map-title map-description">
-<title id="map-title">MarsWindNet — marswindnet-400-v2 corner-sensor geometry</title>
-<desc id="map-description">North-up 400 by 400 metre plan. Fourteen CFD obstacles, six visual-only footprints, four orange corner input sensors and one blue interior checkpoint S3. No wind or prediction data.</desc>
-<metadata>{"layout_id": "marswindnet-400-v2", "source": "city.json", "source_sha256": "79b9568c1a8ee0bbedaa6b25f60c99a9e57dd3bd22cc6aaee2beab2a55a53d54", "coordinate_transform": "translate(100 980) scale(2 -2)", "display_domain_m": [0, 400, 0, 400]}</metadata>
-<style>text{font-family:Arial,Helvetica,sans-serif;fill:#182e38}.muted{fill:#586c70}.id{font-family:monospace;font-weight:700;font-size:14px}.small{font-size:15px}.label{font-size:16px;font-weight:700}.halo{paint-order:stroke;stroke:#fbf6ed;stroke-width:5px;stroke-linejoin:round}</style>
-<rect width="1360" height="1120" fill="#fbf6ed" />
-<text x="70" y="66" font-size="40" font-weight="800">Mars</text>
-<text x="165" y="66" font-size="40" style="fill:#c5582e" font-weight="800">WindNet</text>
-<text x="70" y="103" font-size="17" class="muted" letter-spacing="2">CITY GEOMETRY / SHARED HANDOFF</text>
-<text x="1290" y="56" font-size="18" text-anchor="end" font-family="monospace" font-weight="700">marswindnet-400-v2</text>
-<text x="1290" y="87" font-size="16" text-anchor="end" class="muted">400 × 400 m  ·  authored prototype</text>
-<line x1="70" y1="125" x2="1290" y2="125" stroke="#cdbfb0" />
-<text x="100" y="158" font-size="15" class="muted" letter-spacing="1.5">NORTH-UP PLAN</text>
-<g id="physical-map" transform="translate(100 980) scale(2 -2)">
-<rect id="display-domain" x="0" y="0" width="400" height="400" fill="#f1e1cb" stroke="#8e7965" stroke-width="1" />
-<path d="M 25 0 V 400 M 0 25 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 50 0 V 400 M 0 50 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 75 0 V 400 M 0 75 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 100 0 V 400 M 0 100 H 400" fill="none" stroke="#c5b49e" stroke-width="0.5" />
-<path d="M 125 0 V 400 M 0 125 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 150 0 V 400 M 0 150 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 175 0 V 400 M 0 175 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 200 0 V 400 M 0 200 H 400" fill="none" stroke="#c5b49e" stroke-width="0.5" />
-<path d="M 225 0 V 400 M 0 225 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 250 0 V 400 M 0 250 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 275 0 V 400 M 0 275 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 300 0 V 400 M 0 300 H 400" fill="none" stroke="#c5b49e" stroke-width="0.5" />
-<path d="M 325 0 V 400 M 0 325 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 350 0 V 400 M 0 350 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<path d="M 375 0 V 400 M 0 375 H 400" fill="none" stroke="#dbccb8" stroke-width="0.5" />
-<circle id="footprint-PAD_NW" data-object-id="PAD_NW" data-cfd-obstacle="false" fill="#cfc3b0" stroke="#9b643e" stroke-width="1" stroke-dasharray="3 2" cx="136" cy="244" r="36" />
-<circle id="footprint-PAD_SE" data-object-id="PAD_SE" data-cfd-obstacle="false" fill="#cfc3b0" stroke="#9b643e" stroke-width="1" stroke-dasharray="3 2" cx="264" cy="96" r="32" />
-<circle id="footprint-D1" data-object-id="D1" data-cfd-obstacle="true" fill="#f9f8ed" stroke="#273e46" stroke-width="1" cx="156" cy="300" r="14" />
-<circle id="footprint-D2" data-object-id="D2" data-cfd-obstacle="true" fill="#f9f8ed" stroke="#273e46" stroke-width="1" cx="188" cy="300" r="12" />
-<circle id="footprint-D3" data-object-id="D3" data-cfd-obstacle="true" fill="#f9f8ed" stroke="#273e46" stroke-width="1" cx="280" cy="244" r="30" />
-<circle id="footprint-D4" data-object-id="D4" data-cfd-obstacle="true" fill="#f9f8ed" stroke="#273e46" stroke-width="1" cx="220" cy="156" r="30" />
-<circle id="footprint-D5" data-object-id="D5" data-cfd-obstacle="true" fill="#f9f8ed" stroke="#273e46" stroke-width="1" cx="320" cy="188" r="14" />
-<circle id="footprint-D6" data-object-id="D6" data-cfd-obstacle="true" fill="#f9f8ed" stroke="#273e46" stroke-width="1" cx="352" cy="188" r="14" />
-<rect id="footprint-HUB" data-object-id="HUB" data-cfd-obstacle="true" fill="#9aa9a8" stroke="#273e46" stroke-width="1" x="128.0" y="137.0" width="32" height="22" />
-<rect id="footprint-WORKSHOP" data-object-id="WORKSHOP" data-cfd-obstacle="true" fill="#9aa9a8" stroke="#273e46" stroke-width="1" x="102.0" y="117.0" width="20" height="30" />
-<rect id="footprint-STORE" data-object-id="STORE" data-cfd-obstacle="true" fill="#9aa9a8" stroke="#273e46" stroke-width="1" x="132.0" y="108.0" width="24" height="16" />
-<circle id="footprint-T1" data-object-id="T1" data-cfd-obstacle="true" fill="#9aa9a8" stroke="#273e46" stroke-width="1" cx="168" cy="130" r="5" />
-<circle id="footprint-T2" data-object-id="T2" data-cfd-obstacle="true" fill="#9aa9a8" stroke="#273e46" stroke-width="1" cx="168" cy="144" r="5" />
-<rect id="footprint-E1" data-object-id="E1" data-cfd-obstacle="true" fill="#9aa9a8" stroke="#273e46" stroke-width="1" x="312.0" y="222.0" width="20" height="12" />
-<rect id="footprint-E2" data-object-id="E2" data-cfd-obstacle="true" fill="#9aa9a8" stroke="#273e46" stroke-width="1" x="340.0" y="222.0" width="20" height="12" />
-<rect id="footprint-E3" data-object-id="E3" data-cfd-obstacle="true" fill="#9aa9a8" stroke="#273e46" stroke-width="1" x="368.0" y="222.0" width="20" height="12" />
-<rect id="footprint-PV1" data-object-id="PV1" data-cfd-obstacle="false" fill="#456375" stroke="#9b643e" stroke-width="1" stroke-dasharray="3 2" x="61.0" y="72.0" width="30" height="12" />
-<rect id="footprint-PV2" data-object-id="PV2" data-cfd-obstacle="false" fill="#456375" stroke="#9b643e" stroke-width="1" stroke-dasharray="3 2" x="101.0" y="72.0" width="30" height="12" />
-<rect id="footprint-PV3" data-object-id="PV3" data-cfd-obstacle="false" fill="#456375" stroke="#9b643e" stroke-width="1" stroke-dasharray="3 2" x="61.0" y="52.0" width="30" height="12" />
-<rect id="footprint-PV4" data-object-id="PV4" data-cfd-obstacle="false" fill="#456375" stroke="#9b643e" stroke-width="1" stroke-dasharray="3 2" x="101.0" y="52.0" width="30" height="12" />
-<g id="sensor-S1" data-sensor-id="S1" transform="translate(0 400)" data-model-role="prediction_input"><path d="M 0 3.5 L 3.5 0 L 0 -3.5 L -3.5 0 Z" fill="#c64f22" stroke="#fff8ea" stroke-width="1" /></g>
-<g id="sensor-S2" data-sensor-id="S2" transform="translate(0 0)" data-model-role="prediction_input"><path d="M 0 3.5 L 3.5 0 L 0 -3.5 L -3.5 0 Z" fill="#c64f22" stroke="#fff8ea" stroke-width="1" /></g>
-<g id="sensor-S3" data-sensor-id="S3" transform="translate(108 100)" data-model-role="independent_checkpoint"><circle cx="0" cy="0" r="3.5" fill="#176f83" stroke="#fff8ea" stroke-width="1" /></g>
-<g id="sensor-S4" data-sensor-id="S4" transform="translate(400 400)" data-model-role="prediction_input"><path d="M 0 3.5 L 3.5 0 L 0 -3.5 L -3.5 0 Z" fill="#c64f22" stroke="#fff8ea" stroke-width="1" /></g>
-<g id="sensor-S5" data-sensor-id="S5" transform="translate(400 0)" data-model-role="prediction_input"><path d="M 0 3.5 L 3.5 0 L 0 -3.5 L -3.5 0 Z" fill="#c64f22" stroke="#fff8ea" stroke-width="1" /></g>
-</g>
-<path d="M 100 980 v 7 M 100 980 h -7" stroke="#8e7965" />
-<text x="100" y="1008" font-size="14" text-anchor="middle" class="muted">0</text>
-<text x="82" y="985" font-size="14" text-anchor="end" class="muted">0</text>
-<path d="M 200 980 v 7 M 100 880 h -7" stroke="#8e7965" />
-<text x="200" y="1008" font-size="14" text-anchor="middle" class="muted">50</text>
-<text x="82" y="885" font-size="14" text-anchor="end" class="muted">50</text>
-<path d="M 300 980 v 7 M 100 780 h -7" stroke="#8e7965" />
-<text x="300" y="1008" font-size="14" text-anchor="middle" class="muted">100</text>
-<text x="82" y="785" font-size="14" text-anchor="end" class="muted">100</text>
-<path d="M 400 980 v 7 M 100 680 h -7" stroke="#8e7965" />
-<text x="400" y="1008" font-size="14" text-anchor="middle" class="muted">150</text>
-<text x="82" y="685" font-size="14" text-anchor="end" class="muted">150</text>
-<path d="M 500 980 v 7 M 100 580 h -7" stroke="#8e7965" />
-<text x="500" y="1008" font-size="14" text-anchor="middle" class="muted">200</text>
-<text x="82" y="585" font-size="14" text-anchor="end" class="muted">200</text>
-<path d="M 600 980 v 7 M 100 480 h -7" stroke="#8e7965" />
-<text x="600" y="1008" font-size="14" text-anchor="middle" class="muted">250</text>
-<text x="82" y="485" font-size="14" text-anchor="end" class="muted">250</text>
-<path d="M 700 980 v 7 M 100 380 h -7" stroke="#8e7965" />
-<text x="700" y="1008" font-size="14" text-anchor="middle" class="muted">300</text>
-<text x="82" y="385" font-size="14" text-anchor="end" class="muted">300</text>
-<path d="M 800 980 v 7 M 100 280 h -7" stroke="#8e7965" />
-<text x="800" y="1008" font-size="14" text-anchor="middle" class="muted">350</text>
-<text x="82" y="285" font-size="14" text-anchor="end" class="muted">350</text>
-<path d="M 900 980 v 7 M 100 180 h -7" stroke="#8e7965" />
-<text x="900" y="1008" font-size="14" text-anchor="middle" class="muted">400</text>
-<text x="82" y="185" font-size="14" text-anchor="end" class="muted">400</text>
-<text x="500" y="1045" font-size="16" text-anchor="middle">EAST / x (m)</text>
-<text x="30" y="580" font-size="16" text-anchor="middle" transform="rotate(-90 30 580)">NORTH / y (m)</text>
-<text x="372" y="497" font-size="14" text-anchor="middle" class="id">PAD_NW</text>
-<text x="628" y="793" font-size="14" text-anchor="middle" class="id">PAD_SE</text>
-<text x="412" y="385" font-size="14" text-anchor="middle" class="id">D1</text>
-<text x="476" y="385" font-size="14" text-anchor="middle" class="id">D2</text>
-<text x="660" y="497" font-size="14" text-anchor="middle" class="id">D3</text>
-<text x="540" y="673" font-size="14" text-anchor="middle" class="id">D4</text>
-<text x="740" y="609" font-size="14" text-anchor="middle" class="id">D5</text>
-<text x="804" y="609" font-size="14" text-anchor="middle" class="id">D6</text>
-<text x="388" y="689" font-size="14" text-anchor="middle" class="id">HUB</text>
-<path d="M 304 716 L 280 708 H 209" fill="none" stroke="#273e46" />
-<text x="276" y="701" font-size="14" text-anchor="end" class="id halo">WORKSHOP</text>
-<text x="388" y="753" font-size="14" text-anchor="middle" class="id">STORE</text>
-<text x="454" y="725" font-size="14" class="id halo">T1</text>
-<text x="454" y="697" font-size="14" class="id halo">T2</text>
-<text x="744" y="529" font-size="14" text-anchor="middle" class="id">E1</text>
-<text x="800" y="529" font-size="14" text-anchor="middle" class="id">E2</text>
-<text x="856" y="529" font-size="14" text-anchor="middle" class="id">E3</text>
-<text x="252" y="829" font-size="14" style="fill:#fffdf4" text-anchor="middle" class="id">PV1</text>
-<text x="332" y="829" font-size="14" style="fill:#fffdf4" text-anchor="middle" class="id">PV2</text>
-<text x="252" y="869" font-size="14" style="fill:#fffdf4" text-anchor="middle" class="id">PV3</text>
-<text x="332" y="869" font-size="14" style="fill:#fffdf4" text-anchor="middle" class="id">PV4</text>
-<text x="115" y="206" font-size="16" class="label halo" text-anchor="start" style="fill:#c5582e">S1</text>
-<text x="115" y="963" font-size="16" class="label halo" text-anchor="start" style="fill:#c5582e">S2</text>
-<text x="329" y="770" font-size="16" class="label halo" text-anchor="start" style="fill:#176f83">S3</text>
-<text x="885" y="206" font-size="16" class="label halo" text-anchor="end" style="fill:#c5582e">S4</text>
-<text x="885" y="963" font-size="16" text-anchor="end" class="label halo" style="fill:#c5582e">S5</text>
-<rect x="948" y="180" width="342" height="800" rx="12" fill="#fffdf8" stroke="#d8caba" />
-<text x="975" y="219" font-size="18" font-weight="700">READ THE PLAN</text>
-<rect x="976" y="243" width="24" height="18" fill="#9aa9a8" stroke="#273e46" stroke-width="2" />
-<text x="1012" y="258" font-size="16">CFD obstacle</text>
-<rect x="976" y="276" width="24" height="18" fill="#cfc3b0" stroke="#9b643e" stroke-width="2" stroke-dasharray="5 3" />
-<text x="1012" y="291" font-size="16">Visual-only footprint</text>
-<path d="M 988 307 L 995 314 L 988 321 L 981 314 Z" fill="#c64f22" />
-<text x="1012" y="320" font-size="14">Corner input / interior check</text>
-<text x="975" y="356" font-size="15" class="muted">14 obstacles · 6 visual footprints</text>
-<text x="975" y="379" font-size="15" class="muted">4 corner inputs · 1 interior check</text>
-<line x1="975" y1="402" x2="1263" y2="402" stroke="#ddd0bf" />
-<text x="975" y="434" font-size="15" font-weight="700" letter-spacing="1">SENSOR LOCATIONS</text>
-<text x="975" y="467" font-size="16" style="fill:#c5582e" font-weight="700">S1</text>
-<text x="1012" y="467" font-size="16">Northwest corner</text>
-<text x="1012" y="487" font-size="14" class="muted">(0, 400) m</text>
-<text x="975" y="520" font-size="16" style="fill:#c5582e" font-weight="700">S2</text>
-<text x="1012" y="520" font-size="16">Southwest corner</text>
-<text x="1012" y="540" font-size="14" class="muted">(0, 0) m</text>
-<text x="975" y="573" font-size="16" style="fill:#176f83" font-weight="700">S3</text>
-<text x="1012" y="573" font-size="16">Industrial checkpoint</text>
-<text x="1012" y="593" font-size="14" class="muted">(108, 100) m</text>
-<text x="975" y="626" font-size="16" style="fill:#c5582e" font-weight="700">S4</text>
-<text x="1012" y="626" font-size="16">Northeast corner</text>
-<text x="1012" y="646" font-size="14" class="muted">(400, 400) m</text>
-<text x="975" y="679" font-size="16" style="fill:#c5582e" font-weight="700">S5</text>
-<text x="1012" y="679" font-size="16">Southeast corner</text>
-<text x="1012" y="699" font-size="14" class="muted">(400, 0) m</text>
-<line x1="975" y1="727" x2="1263" y2="727" stroke="#ddd0bf" />
-<text x="975" y="758" font-size="15" font-weight="700" letter-spacing="1">DISPLAY GRID</text>
-<text x="975" y="788" font-size="15">128 × 128 cell-centred samples</text>
-<text x="975" y="811" font-size="15" class="muted">3.125 m spacing; x varies fastest</text>
-<text x="975" y="834" font-size="15" class="muted">Map guide grid: 25 m</text>
-<path d="M 1236 922 V 875 M 1229 885 L 1236 873 L 1243 885" fill="none" stroke="#273e46" stroke-width="2" />
-<text x="1236" y="862" font-size="16" text-anchor="middle" font-weight="700">N</text>
-<rect x="975" y="901" width="100" height="8" fill="#273e46" /><rect x="1075" y="901" width="100" height="8" fill="#fffdf8" stroke="#273e46" />
-<text x="975" y="933" font-size="13" text-anchor="middle">0</text>
-<text x="1075" y="933" font-size="13" text-anchor="middle">50</text>
-<text x="1175" y="933" font-size="13" text-anchor="middle">100 m</text>
-<text x="70" y="1090" font-size="14" class="muted" letter-spacing="0.5">4 CORNER INPUTS + 1 INTERIOR CHECK · SHARED GEOMETRY · NO WIND DATA</text>
-<text x="1290" y="1090" font-size="14" text-anchor="end" class="muted">Source: city.json</text>
-<circle cx="1004" cy="314" r="5" fill="#176f83" /></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1190" viewBox="-48 -46 588 648" data-layout-id="marswindnet-500-v3">
+<style>text{font-family:Arial,sans-serif;fill:#e9dccd;font-size:9px}.title{font-size:17px;font-weight:bold}.label{font-size:8px;fill:#201811;paint-order:stroke;stroke:#f5e6d2;stroke-width:1.5px;stroke-linejoin:round}.solid{fill:#eee6d6;stroke:#30241c;stroke-width:1}.visual{fill:#936a49;stroke:#efbb79;stroke-width:1;stroke-dasharray:3 2}.sensor{fill:#ff922f;stroke:#1b242d;stroke-width:1}.checkpoint{fill:#60cbe6}.grid{stroke:#deb78c;stroke-width:.4;opacity:.3}</style>
+<rect x="-48" y="-46" width="588" height="648" fill="#171a1d"/>
+<text class="title" x="0" y="-22">MarsWindNet · 500 × 500 m local city</text>
+<text x="0" y="-7">marswindnet-500-v3 · authored footprints · north up</text>
+<rect width="500" height="500" fill="#9b4f32"/>
+<path class="grid" d="M0 0V500 M0 0H500"/><text x="0" y="518" text-anchor="middle">0</text><text x="-9" y="503" text-anchor="end">0</text>
+<path class="grid" d="M50 0V500 M0 50H500"/><text x="50" y="518" text-anchor="middle">50</text><text x="-9" y="453" text-anchor="end">50</text>
+<path class="grid" d="M100 0V500 M0 100H500"/><text x="100" y="518" text-anchor="middle">100</text><text x="-9" y="403" text-anchor="end">100</text>
+<path class="grid" d="M150 0V500 M0 150H500"/><text x="150" y="518" text-anchor="middle">150</text><text x="-9" y="353" text-anchor="end">150</text>
+<path class="grid" d="M200 0V500 M0 200H500"/><text x="200" y="518" text-anchor="middle">200</text><text x="-9" y="303" text-anchor="end">200</text>
+<path class="grid" d="M250 0V500 M0 250H500"/><text x="250" y="518" text-anchor="middle">250</text><text x="-9" y="253" text-anchor="end">250</text>
+<path class="grid" d="M300 0V500 M0 300H500"/><text x="300" y="518" text-anchor="middle">300</text><text x="-9" y="203" text-anchor="end">300</text>
+<path class="grid" d="M350 0V500 M0 350H500"/><text x="350" y="518" text-anchor="middle">350</text><text x="-9" y="153" text-anchor="end">350</text>
+<path class="grid" d="M400 0V500 M0 400H500"/><text x="400" y="518" text-anchor="middle">400</text><text x="-9" y="103" text-anchor="end">400</text>
+<path class="grid" d="M450 0V500 M0 450H500"/><text x="450" y="518" text-anchor="middle">450</text><text x="-9" y="53" text-anchor="end">450</text>
+<path class="grid" d="M500 0V500 M0 500H500"/><text x="500" y="518" text-anchor="middle">500</text><text x="-9" y="3" text-anchor="end">500</text>
+<circle data-object-id="PAD_NW" class="visual" cx="186" cy="206" r="36"/>
+<circle data-object-id="PAD_SE" class="visual" cx="314" cy="354" r="32"/>
+<rect data-object-id="PV1" class="visual" x="111" y="366" width="30" height="12"/>
+<rect data-object-id="PV2" class="visual" x="151" y="366" width="30" height="12"/>
+<rect data-object-id="PV3" class="visual" x="111" y="386" width="30" height="12"/>
+<rect data-object-id="PV4" class="visual" x="151" y="386" width="30" height="12"/>
+<circle data-object-id="D1" class="solid" cx="206" cy="150" r="14"/>
+<circle data-object-id="D2" class="solid" cx="238" cy="150" r="12"/>
+<circle data-object-id="D3" class="solid" cx="330" cy="206" r="30"/>
+<circle data-object-id="D4" class="solid" cx="270" cy="294" r="30"/>
+<circle data-object-id="D5" class="solid" cx="370" cy="262" r="14"/>
+<circle data-object-id="D6" class="solid" cx="402" cy="262" r="14"/>
+<rect data-object-id="HUB" class="solid" x="178" y="291" width="32" height="22"/>
+<rect data-object-id="WORKSHOP" class="solid" x="152" y="303" width="20" height="30"/>
+<rect data-object-id="STORE" class="solid" x="182" y="326" width="24" height="16"/>
+<circle data-object-id="T1" class="solid" cx="218" cy="320" r="5"/>
+<circle data-object-id="T2" class="solid" cx="218" cy="306" r="5"/>
+<rect data-object-id="E1" class="solid" x="362" y="216" width="20" height="12"/>
+<rect data-object-id="E2" class="solid" x="390" y="216" width="20" height="12"/>
+<rect data-object-id="E3" class="solid" x="418" y="216" width="20" height="12"/>
+<text class="label" x="186" y="209" text-anchor="middle">PAD_NW</text>
+<text class="label" x="314" y="357" text-anchor="middle">PAD_SE</text>
+<text class="label" x="126" y="375" text-anchor="middle">PV1</text>
+<text class="label" x="166" y="375" text-anchor="middle">PV2</text>
+<text class="label" x="126" y="395" text-anchor="middle">PV3</text>
+<text class="label" x="166" y="395" text-anchor="middle">PV4</text>
+<text class="label" x="206" y="153" text-anchor="middle">D1</text>
+<text class="label" x="238" y="153" text-anchor="middle">D2</text>
+<text class="label" x="330" y="209" text-anchor="middle">D3</text>
+<text class="label" x="270" y="297" text-anchor="middle">D4</text>
+<text class="label" x="370" y="265" text-anchor="middle">D5</text>
+<text class="label" x="402" y="265" text-anchor="middle">D6</text>
+<text class="label" x="194" y="305" text-anchor="middle">HUB</text>
+<text class="label" x="162" y="321" text-anchor="middle">WORKSHOP</text>
+<text class="label" x="194" y="337" text-anchor="middle">STORE</text>
+<text class="label" x="218" y="323" text-anchor="middle">T1</text>
+<text class="label" x="218" y="309" text-anchor="middle">T2</text>
+<text class="label" x="372" y="225" text-anchor="middle">E1</text>
+<text class="label" x="400" y="225" text-anchor="middle">E2</text>
+<text class="label" x="428" y="225" text-anchor="middle">E3</text>
+<circle data-sensor-id="S1" class="sensor " cx="0" cy="0" r="4"/><text x="8" y="15" text-anchor="start">S1 Northwest corner</text>
+<circle data-sensor-id="S2" class="sensor " cx="0" cy="500" r="4"/><text x="8" y="491" text-anchor="start">S2 Southwest corner</text>
+<circle data-sensor-id="S3" class="sensor checkpoint" cx="158" cy="350" r="4"/><text x="150" y="353" text-anchor="end">S3 Industrial checkpoint</text>
+<circle data-sensor-id="S4" class="sensor " cx="500" cy="0" r="4"/><text x="492" y="15" text-anchor="end">S4 Northeast corner</text>
+<circle data-sensor-id="S5" class="sensor " cx="500" cy="500" r="4"/><text x="492" y="491" text-anchor="end">S5 Southeast corner</text>
+<text x="500" y="534" text-anchor="end">x east / metres</text><text transform="translate(-34 250) rotate(-90)" text-anchor="middle">y north / metres</text>
+<path d="M478 60V28l-5 10m5-10 5 10" fill="none" stroke="#fff"/><text x="478" y="23" text-anchor="middle">N</text>
+<path d="M0 543v6h100v-6 M50 543v6" fill="none" stroke="#e9dccd"/><text x="0" y="563">0</text><text x="100" y="563" text-anchor="end">100 m</text>
+<rect class="solid" x="150" y="542" width="12" height="10"/><text x="168" y="551">14 CFD obstacles</text><rect class="visual" x="285" y="542" width="12" height="10"/><text x="303" y="551">Pads / solar: visual only</text>
+<text x="0" y="582">Orange: four local inputs · Blue S3: independent checkpoint · See regional-map.svg for 24 outer stations.</text>
+</svg>

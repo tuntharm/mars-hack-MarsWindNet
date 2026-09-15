@@ -40,7 +40,7 @@ function minimalResult(): SurfaceOverlayResult {
   return {
     layout_id: city.layout_id, scenario_id: 'case', wind_basis: 'reference',
     source: 'solver', quantity: 'von_mises_stress', unit: 'Pa', provenance: 'Test-only supplied mesh', range: [0, 20],
-    surfaces: [{ object_id: 'D1', positions_m: [156, 300, 1, 157, 300, 1, 156, 301, 1], triangles: [0, 1, 2], values: [0, 10, null] }],
+    surfaces: [{ object_id: 'D1', positions_m: [206, 350, 1, 207, 350, 1, 206, 351, 1], triangles: [0, 1, 2], values: [0, 10, null] }],
   }
 }
 

@@ -4,19 +4,19 @@ The procedural 3D scene and flow renderer are implemented in Cursor's React appl
 
 ## Shared geometry
 
-The runtime source is `public/data/city/marswindnet-layout-v2.json`. Its filename is retained for compatibility; **its layout_id is `marswindnet-400-v2`**. The portable authoritative handoff is `CFD/geometry/city.json`. Run `npm run check:geometry` to verify both representations agree.
+The runtime source is `public/data/city/marswindnet-layout-v2.json`. Its filename is retained for compatibility; **its layout_id is `marswindnet-500-v3`**. The portable authoritative handoff is `CFD/geometry/city.json`. Run `npm run check:geometry` to verify both representations agree.
 
-All 20 authored objects retain their IDs, centre coordinates, dimensions and categories. Fourteen projected footprints are CFD obstacles. Pads and flat solar beds are visual-only; null solar heights remain unspecified. Sensor symbols are interface markers, not specified physical masts.
+All 20 authored objects retain their IDs, dimensions and categories. Version 500-v3 translates their previous centre coordinates +50 m east and north, without resizing. S3 receives the same translation; four inputs move to the 500 m corners. Fourteen projected footprints are CFD obstacles. Pads and flat solar beds are visual-only; null solar heights remain unspecified. Sensor symbols are interface markers, not specified physical masts.
 
 | Sensor | Exact position, metres | Role |
 | --- | --- | --- |
-| S1 | (0,400) | Northwest input |
+| S1 | (0,500) | Northwest input |
 | S2 | (0,0) | Southwest input |
-| S3 | (108,100) | Interior checkpoint, withheld |
-| S4 | (400,400) | Northeast input |
-| S5 | (400,0) | Southeast input |
+| S3 | (158,150) | Interior checkpoint, withheld |
+| S4 | (500,500) | Northeast input |
+| S5 | (500,0) | Southeast input |
 
-Domain: 0–400 m, southwest origin, x east, y north, z up. Display grid 128 × 128, cell-centred, dx=dy=3.125 m. Cell centre `(x,y)=((i+.5)*dx,(j+.5)*dy)`; flattened index `j*nx+i`. First/last centres 1.5625/398.4375 m. The CFD mesh, boundary conditions and padding remain the solver owner's decision.
+Domain: 0–500 m, southwest origin, x east, y north, z up. Display grid 128 × 128, cell-centred, dx=dy=3.90625 m. Cell centre `(x,y)=((i+.5)*dx,(j+.5)*dy)`; flattened index `j*nx+i`. First/last centres 1.953125/498.046875 m. The CFD mesh, boundary conditions and padding remain the solver owner's decision.
 
 `npm run check:geometry` validates runtime geometry against the portable handoff. `npm run export-city` regenerates CSV/SVG exports and explicitly illustrative datasets. It skips non-fixture scenarios and does not manufacture their measurements.
 
@@ -64,15 +64,15 @@ To connect real observations, add a scenario to `src/state/scenarios.ts` **witho
 
 ```json
 {
-  "layout_id": "marswindnet-400-v2",
+  "layout_id": "marswindnet-500-v3",
   "scenario_id": "your-scenario",
-  "grid": {"nx":128,"ny":128,"dx_m":3.125,"dy_m":3.125},
+  "grid": {"nx":128,"ny":128,"dx_m":3.90625,"dy_m":3.90625},
   "wind": {"inlet_u_mps":8,"inlet_v_mps":2},
   "sensors": [
-    {"sensor_id":"S1","x_m":0,"y_m":400,"u_mps":8,"v_mps":2},
+    {"sensor_id":"S1","x_m":0,"y_m":500,"u_mps":8,"v_mps":2},
     {"sensor_id":"S2","x_m":0,"y_m":0,"u_mps":8,"v_mps":2},
-    {"sensor_id":"S4","x_m":400,"y_m":400,"u_mps":8,"v_mps":2},
-    {"sensor_id":"S5","x_m":400,"y_m":0,"u_mps":8,"v_mps":2}
+    {"sensor_id":"S4","x_m":500,"y_m":500,"u_mps":8,"v_mps":2},
+    {"sensor_id":"S5","x_m":500,"y_m":0,"u_mps":8,"v_mps":2}
   ]
 }
 ```
@@ -96,7 +96,7 @@ This is a local demo. Mobile viewport checks are desktop-browser emulation, not 
 
 ## Presentation and surface-result integration
 
-One Canvas retains the camera across Mars / CFD / Structure. Mars hides the heatmap; CFD shows numerical field colours; Structure uses neutral surroundings, grey wind and surface colours. The initial camera frames buildings; **Fit city** includes the complete corner network. Portrait framing uses a steeper view to keep the building core legible. Unknown solar heights remain null: small ground-layer offsets are depth-separation for flat visual decals, not physical heights.
+One Canvas retains the camera across Mars / CFD / Structure. Mars hides the heatmap; CFD shows numerical field colours; Structure uses neutral surroundings, grey wind and surface colours. The initial camera fits the entire 500 × 500 m city and five local sensors. **Regional view** expands to the three outer rings; **Fit city** returns to the local network. Portrait framing uses a steeper view to keep the building core legible. Unknown solar heights remain null: small ground-layer offsets are depth-separation for flat visual decals, not physical heights.
 
 `src/geometry/surfaceMesh.ts` supplies canonical ENU surface positions to both detailed architecture and the parent’s illustrative contour generator. `src/scene3d/architectureMaterials.ts` supplies procedural panel, relief, window, roof and tank textures. `MarsEnvironment.tsx` uses the generated regolith with a fallback material, and procedural sky and distant ridges. The panorama is page-only because its edges do not wrap seamlessly. The flat area extends 100 m beyond the simulation boundary; distant relief has no effect on CFD.
 
@@ -124,3 +124,9 @@ One Canvas retains the camera across Mars / CFD / Structure. Mars hides the heat
 For future supplied results, validate with `validateSurfaceOverlay(result, city, scenarioId, windBasis)` in the parent before passing the result to `CityScene`. Null values omit their triangles and leave neutral geometry visible. Invalid identities, malformed arrays, invalid indices or geometry outside canonical bounds are rejected. The renderer independently checks the result before GPU upload; it does not fetch a surface result or claim a solver exists. Deformed meshes are outside this initial adapter’s scope.
 
 Current illustrative values average valid exterior samples around each footprint and use the agreed wind-facing normal/height formula with a fixed 20 m/s visual divisor and 0–1 scale. Missing exterior wind gives null values. These are **not stress, displacement, structural dynamics or safety results**. Reference and Prediction share that fixed visual scale. Entering Structure from CFD Error displays prediction velocity and preserves the stored Error choice for returning to CFD.
+
+## Regional network (500-v3)
+
+`city.regional_sensors` contains 24 separate virtual points, with IDs `R1-N` through `R1-NW`, `R5-*`, and `R10-*`. Each ring has bearings 0,45,...315 degrees clockwise from north and radius 1, 5 or 10 km about `(250,250)` m. Positions use the same physical metre axes and may be negative. They are observation locations, not CFD obstacles or local inference inputs.
+
+`regional-sensors.csv` and `regional-map.svg` accompany the local geometry files. Each fixture has a separate `<scenario>.regional-observations.json` with `scope: 'regional'`, exact-coordinate readings and explicit analytic provenance. No real-scenario observations are manufactured. The 128 × 128 field remains the 500 m local area, not a 20 km CFD solve. Regional model integration, dust sensing and validated warning logic remain future work.

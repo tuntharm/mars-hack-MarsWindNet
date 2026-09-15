@@ -28,17 +28,17 @@ The obstacle-flow fixture superposes softened analytic deflections around footpr
 
 ## Shared coordinates and grid
 
-All data uses layout **`marswindnet-400-v2`**. The display domain is 0–400 m east and 0–400 m north, with its origin at the southwest corner. See [the geometry handoff](../CFD/geometry/README.md).
+All data uses layout **`marswindnet-500-v3`**. The display domain is 0–500 m east and 0–500 m north, with its origin at the southwest corner. See [the geometry handoff](../CFD/geometry/README.md).
 
 ```text
 nx = ny = 128
-dx = dy = 3.125 m
+dx = dy = 3.90625 m
 index = j * 128 + i
-x = (i + 0.5) * 3.125
-y = (j + 0.5) * 3.125
+x = (i + 0.5) * 3.90625
+y = (j + 0.5) * 3.90625
 ```
 
-Values run west to east within a row, then south to north between rows. The first and last cell centres are 1.5625 and 398.4375 m. The `u` component points east, and `v` points north. Obstacle boundaries are solid.
+Values run west to east within a row, then south to north between rows. The first and last cell centres are 1.953125 and 498.046875 m. The `u` component points east, and `v` points north. Obstacle boundaries are solid.
 
 ## Genuine CFD reference import
 
@@ -58,14 +58,24 @@ Observations are separate point samples, not display-grid cells. Files contain m
 
 | Sensor | Position (m) | Use |
 | --- | --- | --- |
-| S1 | `(0,400)` | Prediction input |
+| S1 | `(0,500)` | Prediction input |
 | S2 | `(0,0)` | Prediction input |
-| S3 | `(108,100)` | Independent local checkpoint, excluded from requests |
-| S4 | `(400,400)` | Prediction input |
-| S5 | `(400,0)` | Prediction input |
+| S3 | `(158,150)` | Independent local checkpoint, excluded from requests |
+| S4 | `(500,500)` | Prediction input |
+| S5 | `(500,0)` | Prediction input |
 
 Bundled observations use `source: "analytic-fixture"` and evaluate the analytic function at the exact point. Supplied measurements or solver point samples use `source: "provided"` with an accurate provenance description. Corner locations fall outside cell-centre support, so they must not be replaced by clamped interior-grid samples.
 
 **Run prediction** sends the four corner observations to `/predict`. The included service interpolates their values using inverse-distance weights and applies the obstacle mask. It has no trained model. Replace the endpoint through `VITE_PREDICT_URL` when a genuine model service is available; see [the API types](../src/contracts/marswindnet.ts).
 
 Reference and prediction colours share a scale. Error colours represent vector error magnitude while animated motion still follows prediction velocity. Structure contours are a separate unitless illustrative surface quantity, not a CFD pressure or FEA stress dataset.
+
+## Regional observation presets
+
+The network adds 24 observation points at radii 1, 5 and 10 km around `(250,250)` m. The eight bearings on each ring are 0,45,...315 degrees clockwise from north. `CFD/geometry/regional-sensors.csv` holds the physical positions; `sensors.csv` intentionally retains only the five local stations.
+
+Each bundled fixture also has `<scenario-id>.regional-observations.json`, containing `layout_id`, `scenario_id`, `scope: "regional"`, `source: "analytic-fixture"`, provenance and 24 point readings. Values are evaluated from the same analytic function or uniform orientation fixture at their exact coordinates, rather than sampled outside the local grid. These are illustrative steady wind inputs, not measured weather, time series, dust data or a regional forecasting dataset. Real scenarios have no fabricated regional readings.
+
+The outer stations are displayed separately and do not enter the four-input `/predict` request. A future regional forecast model must define its own validated contract and how it supplies local boundary observations. Enlarging the network does not enlarge the CFD output grid beyond 500 × 500 m.
+
+Migration to `marswindnet-500-v3` expands the display domain and translates the original object arrangement +50 m east/north. Dimensions stay fixed. Older 400 m solver data and observations must be regenerated or explicitly transformed; changing an identity string alone is insufficient.

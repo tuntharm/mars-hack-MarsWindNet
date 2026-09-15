@@ -13,11 +13,11 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-LAYOUT_ID = "marswindnet-400-v2"
+LAYOUT_ID = "marswindnet-500-v3"
 NX = 128
 NY = 128
-DX = 3.125
-FIRST = 1.5625
+DX = 3.90625
+FIRST = 1.953125
 LAYOUT_PATH = Path(__file__).resolve().parents[1] / "public" / "data" / "city" / "marswindnet-layout-v2.json"
 
 app = FastAPI(title="MarsWindNet predict stub", version="0.1.0")

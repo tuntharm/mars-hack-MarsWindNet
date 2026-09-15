@@ -1,11 +1,11 @@
 {
-  "layout_id": "marswindnet-400-v2",
+  "layout_id": "marswindnet-500-v3",
   "scenario_id": "illustrative-obstacle-flow",
   "grid": {
     "nx": 128,
     "ny": 128,
-    "dx_m": 3.125,
-    "dy_m": 3.125
+    "dx_m": 3.90625,
+    "dy_m": 3.90625
   },
   "reference_provenance": "ILLUSTRATIVE FLOW — ANALYTIC FIXTURE, NOT CFD",
   "comparison_provenance": "ILLUSTRATIVE COMPARISON — NOT ML INFERENCE",

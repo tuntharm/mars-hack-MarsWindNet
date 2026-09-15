@@ -8,7 +8,7 @@ import type { XY } from './flowMath'
 
 export function ColourSurface({ city, field, colour }: Pick<CitySceneProps, 'city' | 'field' | 'colour'>) {
   const surface = useMemo(() => {
-    const s = new THREE.Shape(); s.moveTo(0, 0); s.lineTo(400, 0); s.lineTo(400, 400); s.lineTo(0, 400); s.closePath()
+    const s = new THREE.Shape(); s.moveTo(0, 0); s.lineTo(city.domain.width_m, 0); s.lineTo(city.domain.width_m, city.domain.height_m); s.lineTo(0, city.domain.height_m); s.closePath()
     for (const o of city.obstacles) {
       const h = new THREE.Path()
       if (o.kind === 'box') { const x = o.cx_m - o.width_m / 2, y = o.cy_m - o.depth_m / 2; h.moveTo(x, y); h.lineTo(x, y + o.depth_m); h.lineTo(x + o.width_m, y + o.depth_m); h.lineTo(x + o.width_m, y); h.closePath() }
@@ -16,7 +16,7 @@ export function ColourSurface({ city, field, colour }: Pick<CitySceneProps, 'cit
       s.holes.push(h)
     }
     const geometry = new THREE.ShapeGeometry(s, 48), pos = geometry.attributes.position, uv = geometry.attributes.uv
-    for (let k = 0; k < pos.count; k++) uv.setXY(k, pos.getX(k) / 400, pos.getY(k) / 400)
+    for (let k = 0; k < pos.count; k++) uv.setXY(k, pos.getX(k) / city.domain.width_m, pos.getY(k) / city.domain.height_m)
     return geometry
   }, [city])
   const texture = useMemo(() => {
@@ -41,7 +41,7 @@ export function MovingWind({ city, field, active, mobile, presentation = 'mars' 
     const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296 }
     const respawn = (p: number) => {
       let xy: XY = [-1000, -1000]
-      if (field) for (let k = 0; k < 70; k++) { const candidate: XY = [3 + random() * 394, 3 + random() * 394]; if (sampleVelocity(field, ...candidate) && !segmentHitsObstacle(city.obstacles, candidate, candidate)) { xy = candidate; break } }
+      if (field) for (let k = 0; k < 70; k++) { const candidate: XY = [field.grid.dx_m + random() * (city.domain.width_m - 2 * field.grid.dx_m), field.grid.dy_m + random() * (city.domain.height_m - 2 * field.grid.dy_m)]; if (sampleVelocity(field, ...candidate) && !segmentHitsObstacle(city.obstacles, candidate, candidate)) { xy = candidate; break } }
       for (let k = 0; k < TRAIL; k++) { history[(p * TRAIL + k) * 2] = xy[0]; history[(p * TRAIL + k) * 2 + 1] = xy[1] }
       age[p] = random() * 8; heads.set([xy[0], .65, -xy[1]], p * 3)
     }
@@ -82,7 +82,7 @@ export function MovingWind({ city, field, active, mobile, presentation = 'mars' 
   })
   const arrows = useMemo(() => {
     const vertices: number[] = []
-    if (field) for (let y = 18; y < 390; y += 25)for (let x = 18; x < 390; x += 25) {
+    if (field) for (let y = 18; y < city.domain.height_m - 10; y += 25)for (let x = 18; x < city.domain.width_m - 10; x += 25) {
       const vel = sampleVelocity(field, x, y); if (!vel) continue
       const speed = Math.hypot(...vel); if (speed < .001) continue
       const ux = vel[0] / speed, uy = vel[1] / speed, end: XY = [x + ux * 7, y + uy * 7]

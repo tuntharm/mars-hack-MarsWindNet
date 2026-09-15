@@ -9,7 +9,7 @@ Generated on 15 September 2026 using the built-in OpenAI image generation tool. 
 
 The generated outputs used by the app are included beside this document. Original generation identifiers are retained above for provenance.
 
-The 3D environment uses procedural sky/haze and a deterministic terrain height field. The analytical 0–400 m × 0–400 m region and a 100 m surrounding margin remain geometrically flat. Distant relief, sky colour, material detail and page imagery are visual presentation and are excluded from the CFD mask. Neither asset contains buildings, people, vehicles, text or logos.
+The 3D environment uses procedural sky/haze and a deterministic terrain height field. The analytical 0–500 m × 0–500 m region and a 100 m surrounding margin remain geometrically flat. Distant relief, sky colour, material detail and page imagery are visual presentation and are excluded from the CFD mask. Neither asset contains buildings, people, vehicles, text or logos.
 
 ## Panorama prompt
 

@@ -75,12 +75,12 @@ export function makeIllustrativeComparison(reference: VelocityField): VelocityFi
   const u = reference.u.map((value, index) => {
     if (value === null || !reference.is_fluid[index]) return null
     const { x, y } = cellCentre(index % reference.grid.nx, Math.floor(index / reference.grid.nx), reference.grid)
-    return value + 0.8 * Math.sin(2 * Math.PI * x / 400) * Math.cos(2 * Math.PI * y / 400)
+    return value + 0.8 * Math.sin(2 * Math.PI * x / (reference.grid.nx * reference.grid.dx_m)) * Math.cos(2 * Math.PI * y / (reference.grid.ny * reference.grid.dy_m))
   })
   const v = reference.v.map((value, index) => {
     if (value === null || !reference.is_fluid[index]) return null
     const { x, y } = cellCentre(index % reference.grid.nx, Math.floor(index / reference.grid.nx), reference.grid)
-    return value + 0.6 * Math.cos(2 * Math.PI * x / 400) * Math.sin(2 * Math.PI * y / 400)
+    return value + 0.6 * Math.cos(2 * Math.PI * x / (reference.grid.nx * reference.grid.dx_m)) * Math.sin(2 * Math.PI * y / (reference.grid.ny * reference.grid.dy_m))
   })
   return { ...reference, source: 'saved', provenance: COMPARISON_BANNER, u, v }
 }

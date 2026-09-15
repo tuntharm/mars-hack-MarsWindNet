@@ -1,13 +1,13 @@
 /** Shared MarsWindNet field, city, and CityScene contracts. */
 
-export const LAYOUT_ID = 'marswindnet-400-v2' as const
+export const LAYOUT_ID = 'marswindnet-500-v3' as const
 
 export const NX = 128
 export const NY = 128
-export const DOMAIN_M = 400
-export const DX_M = 3.125
-export const DY_M = 3.125
-export const FIRST_CENTRE_M = 1.5625
+export const DOMAIN_M = 500
+export const DX_M = DOMAIN_M / NX
+export const DY_M = DOMAIN_M / NY
+export const FIRST_CENTRE_M = DX_M / 2
 export const CELL_COUNT = NX * NY
 
 export const DEFAULT_GRID = {
@@ -69,6 +69,17 @@ export type SensorSpec = {
   use_for_prediction: boolean
 }
 
+export type RegionalSensorSpec = {
+  id: string
+  name: string
+  x_m: number
+  y_m: number
+  radius_m: number
+  bearing_deg: number
+  model_role: 'regional_observation'
+  use_for_prediction: false
+}
+
 export type CityLayout = {
   layout_id: LayoutId | string
   note: string
@@ -83,6 +94,7 @@ export type CityLayout = {
   obstacles: Obstacle[]
   solar_beds: BoxFootprint[]
   sensors: SensorSpec[]
+  regional_sensors: RegionalSensorSpec[]
 }
 
 export type FieldSource = 'fixture' | 'saved' | 'live' | 'stub' | 'cfd'
@@ -135,6 +147,7 @@ export type CitySceneProps = {
   }
   selectedSensorId: string | null
   onSensorSelect: (id: string) => void
+  regionalObservations?: ScenarioSensorObservations | null
   paused: boolean
 }
 

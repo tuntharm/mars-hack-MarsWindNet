@@ -166,7 +166,7 @@ function paintMap(
   ctx.font = `${9 * dpr}px "Spline Sans Mono", monospace`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
-  for (const tick of [0, 100, 200, 300, 400]) {
+  for (const tick of [0, 100, 200, 300, 400, 500]) {
     const x = toX(tick)
     const y = toY(tick)
     ctx.beginPath()
@@ -177,7 +177,7 @@ function paintMap(
     ctx.moveTo(padding - 6 * dpr, y)
     ctx.lineTo(padding - 3 * dpr, y)
     ctx.stroke()
-    if (tick > 0 && tick < 400) {
+    if (tick > 0 && tick < DOMAIN_M) {
       ctx.textAlign = 'center'
       ctx.fillText(`${tick}`, x, height - padding + 10 * dpr)
       ctx.textAlign = 'right'
@@ -257,9 +257,9 @@ export function Map2D({
         </p>
       </header>
       <div className="map-frame">
-        <canvas ref={canvasRef} onClick={onClick} role="img" aria-label="400 by 400 metre north-up wind map" />
+        <canvas ref={canvasRef} onClick={onClick} role="img" aria-label="500 by 500 metre north-up wind map" />
       </div>
-      <div className="map-caption"><span>400 × 400 m · axes in metres</span><span>N ↑ &nbsp; E →</span></div>
+      <div className="map-caption"><span>500 × 500 m · axes in metres</span><span>N ↑ &nbsp; E →</span></div>
       <div className="legend">
         <span>{colour.min.toFixed(1)}</span>
         <div className="legend__bar" style={{ background: legendGradient(colour.kind) }} />

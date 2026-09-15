@@ -1,9 +1,9 @@
 {
-  "layout_id": "marswindnet-400-v2",
-  "note": "Authored prototype geometry, not a surveyed Mars site. Imported from marswindnet-planning/geometry-v2/city.json. Four corner inputs; S3 independent checkpoint. Solar and sensor heights unspecified.",
+  "layout_id": "marswindnet-500-v3",
+  "note": "Authored prototype geometry from CFD/geometry/city.json. 500 m local domain; four corner inputs and S3 checkpoint. Regional rings are separate observations, not local prediction inputs. Heights unspecified where null.",
   "domain": {
-    "width_m": 400,
-    "height_m": 400,
+    "width_m": 500,
+    "height_m": 500,
     "origin": "SW",
     "x": "east",
     "y": "north",
@@ -12,11 +12,11 @@
   "grid": {
     "nx": 128,
     "ny": 128,
-    "dx_m": 3.125,
-    "dy_m": 3.125,
+    "dx_m": 3.90625,
+    "dy_m": 3.90625,
     "first_centre_m": [
-      1.5625,
-      1.5625
+      1.953125,
+      1.953125
     ],
     "index": "j*nx+i",
     "i": "west_to_east",
@@ -28,8 +28,8 @@
       "name": "Northwest pad",
       "kind": "circle",
       "role": "visual",
-      "cx_m": 136,
-      "cy_m": 244,
+      "cx_m": 186,
+      "cy_m": 294,
       "height_m": 0,
       "radius_m": 36
     },
@@ -38,8 +38,8 @@
       "name": "Southeast pad",
       "kind": "circle",
       "role": "visual",
-      "cx_m": 264,
-      "cy_m": 96,
+      "cx_m": 314,
+      "cy_m": 146,
       "height_m": 0,
       "radius_m": 32
     }
@@ -50,8 +50,8 @@
       "name": "Northern dome A",
       "kind": "dome",
       "role": "cfd",
-      "cx_m": 156,
-      "cy_m": 300,
+      "cx_m": 206,
+      "cy_m": 350,
       "height_m": 14,
       "radius_m": 14
     },
@@ -60,8 +60,8 @@
       "name": "Northern dome B",
       "kind": "dome",
       "role": "cfd",
-      "cx_m": 188,
-      "cy_m": 300,
+      "cx_m": 238,
+      "cy_m": 350,
       "height_m": 12,
       "radius_m": 12
     },
@@ -70,8 +70,8 @@
       "name": "Eastern main dome",
       "kind": "dome",
       "role": "cfd",
-      "cx_m": 280,
-      "cy_m": 244,
+      "cx_m": 330,
+      "cy_m": 294,
       "height_m": 26,
       "radius_m": 30
     },
@@ -80,8 +80,8 @@
       "name": "Southern main dome",
       "kind": "dome",
       "role": "cfd",
-      "cx_m": 220,
-      "cy_m": 156,
+      "cx_m": 270,
+      "cy_m": 206,
       "height_m": 26,
       "radius_m": 30
     },
@@ -90,8 +90,8 @@
       "name": "Eastern small dome A",
       "kind": "dome",
       "role": "cfd",
-      "cx_m": 320,
-      "cy_m": 188,
+      "cx_m": 370,
+      "cy_m": 238,
       "height_m": 14,
       "radius_m": 14
     },
@@ -100,8 +100,8 @@
       "name": "Eastern small dome B",
       "kind": "dome",
       "role": "cfd",
-      "cx_m": 352,
-      "cy_m": 188,
+      "cx_m": 402,
+      "cy_m": 238,
       "height_m": 14,
       "radius_m": 14
     },
@@ -110,8 +110,8 @@
       "name": "Central hub",
       "kind": "box",
       "role": "cfd",
-      "cx_m": 144,
-      "cy_m": 148,
+      "cx_m": 194,
+      "cy_m": 198,
       "height_m": 12,
       "width_m": 32,
       "depth_m": 22
@@ -121,8 +121,8 @@
       "name": "Workshop",
       "kind": "box",
       "role": "cfd",
-      "cx_m": 112,
-      "cy_m": 132,
+      "cx_m": 162,
+      "cy_m": 182,
       "height_m": 10,
       "width_m": 20,
       "depth_m": 30
@@ -132,8 +132,8 @@
       "name": "Storage",
       "kind": "box",
       "role": "cfd",
-      "cx_m": 144,
-      "cy_m": 116,
+      "cx_m": 194,
+      "cy_m": 166,
       "height_m": 7,
       "width_m": 24,
       "depth_m": 16
@@ -143,8 +143,8 @@
       "name": "Tank A",
       "kind": "cylinder",
       "role": "cfd",
-      "cx_m": 168,
-      "cy_m": 130,
+      "cx_m": 218,
+      "cy_m": 180,
       "height_m": 10,
       "radius_m": 5
     },
@@ -153,8 +153,8 @@
       "name": "Tank B",
       "kind": "cylinder",
       "role": "cfd",
-      "cx_m": 168,
-      "cy_m": 144,
+      "cx_m": 218,
+      "cy_m": 194,
       "height_m": 10,
       "radius_m": 5
     },
@@ -163,8 +163,8 @@
       "name": "Service module A",
       "kind": "box",
       "role": "cfd",
-      "cx_m": 322,
-      "cy_m": 228,
+      "cx_m": 372,
+      "cy_m": 278,
       "height_m": 6,
       "width_m": 20,
       "depth_m": 12
@@ -174,8 +174,8 @@
       "name": "Service module B",
       "kind": "box",
       "role": "cfd",
-      "cx_m": 350,
-      "cy_m": 228,
+      "cx_m": 400,
+      "cy_m": 278,
       "height_m": 6,
       "width_m": 20,
       "depth_m": 12
@@ -185,8 +185,8 @@
       "name": "Service module C",
       "kind": "box",
       "role": "cfd",
-      "cx_m": 378,
-      "cy_m": 228,
+      "cx_m": 428,
+      "cy_m": 278,
       "height_m": 6,
       "width_m": 20,
       "depth_m": 12
@@ -198,8 +198,8 @@
       "name": "Solar bed A",
       "kind": "box",
       "role": "visual",
-      "cx_m": 76,
-      "cy_m": 78,
+      "cx_m": 126,
+      "cy_m": 128,
       "height_m": null,
       "width_m": 30,
       "depth_m": 12
@@ -209,8 +209,8 @@
       "name": "Solar bed B",
       "kind": "box",
       "role": "visual",
-      "cx_m": 116,
-      "cy_m": 78,
+      "cx_m": 166,
+      "cy_m": 128,
       "height_m": null,
       "width_m": 30,
       "depth_m": 12
@@ -220,8 +220,8 @@
       "name": "Solar bed C",
       "kind": "box",
       "role": "visual",
-      "cx_m": 76,
-      "cy_m": 58,
+      "cx_m": 126,
+      "cy_m": 108,
       "height_m": null,
       "width_m": 30,
       "depth_m": 12
@@ -231,8 +231,8 @@
       "name": "Solar bed D",
       "kind": "box",
       "role": "visual",
-      "cx_m": 116,
-      "cy_m": 58,
+      "cx_m": 166,
+      "cy_m": 108,
       "height_m": null,
       "width_m": 30,
       "depth_m": 12
@@ -243,7 +243,7 @@
       "id": "S1",
       "name": "Northwest corner",
       "x_m": 0,
-      "y_m": 400,
+      "y_m": 500,
       "model_role": "prediction_input",
       "use_for_prediction": true
     },
@@ -258,26 +258,281 @@
     {
       "id": "S3",
       "name": "Industrial checkpoint",
-      "x_m": 108,
-      "y_m": 100,
+      "x_m": 158,
+      "y_m": 150,
       "model_role": "independent_checkpoint",
       "use_for_prediction": false
     },
     {
       "id": "S4",
       "name": "Northeast corner",
-      "x_m": 400,
-      "y_m": 400,
+      "x_m": 500,
+      "y_m": 500,
       "model_role": "prediction_input",
       "use_for_prediction": true
     },
     {
       "id": "S5",
       "name": "Southeast corner",
-      "x_m": 400,
+      "x_m": 500,
       "y_m": 0,
       "model_role": "prediction_input",
       "use_for_prediction": true
+    }
+  ],
+  "regional_network": {
+    "centre_x_m": 250,
+    "centre_y_m": 250,
+    "radii_m": [
+      1000,
+      5000,
+      10000
+    ],
+    "stations_per_ring": 8,
+    "bearing_convention": "degrees clockwise from north",
+    "status": "authored virtual monitoring network; no proven detection coverage or warning lead time",
+    "prediction_protocol": "Regional observations are separate from local /predict inputs. No regional forecast model is implemented."
+  },
+  "regional_sensors": [
+    {
+      "id": "R1-N",
+      "name": "1 km N",
+      "x_m": 250.0,
+      "y_m": 1250.0,
+      "radius_m": 1000,
+      "bearing_deg": 0,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R1-NE",
+      "name": "1 km NE",
+      "x_m": 957.106781187,
+      "y_m": 957.106781187,
+      "radius_m": 1000,
+      "bearing_deg": 45,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R1-E",
+      "name": "1 km E",
+      "x_m": 1250.0,
+      "y_m": 250.0,
+      "radius_m": 1000,
+      "bearing_deg": 90,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R1-SE",
+      "name": "1 km SE",
+      "x_m": 957.106781187,
+      "y_m": -457.106781187,
+      "radius_m": 1000,
+      "bearing_deg": 135,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R1-S",
+      "name": "1 km S",
+      "x_m": 250.0,
+      "y_m": -750.0,
+      "radius_m": 1000,
+      "bearing_deg": 180,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R1-SW",
+      "name": "1 km SW",
+      "x_m": -457.106781187,
+      "y_m": -457.106781187,
+      "radius_m": 1000,
+      "bearing_deg": 225,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R1-W",
+      "name": "1 km W",
+      "x_m": -750.0,
+      "y_m": 250.0,
+      "radius_m": 1000,
+      "bearing_deg": 270,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R1-NW",
+      "name": "1 km NW",
+      "x_m": -457.106781187,
+      "y_m": 957.106781187,
+      "radius_m": 1000,
+      "bearing_deg": 315,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R5-N",
+      "name": "5 km N",
+      "x_m": 250.0,
+      "y_m": 5250.0,
+      "radius_m": 5000,
+      "bearing_deg": 0,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R5-NE",
+      "name": "5 km NE",
+      "x_m": 3785.533905933,
+      "y_m": 3785.533905933,
+      "radius_m": 5000,
+      "bearing_deg": 45,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R5-E",
+      "name": "5 km E",
+      "x_m": 5250.0,
+      "y_m": 250.0,
+      "radius_m": 5000,
+      "bearing_deg": 90,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R5-SE",
+      "name": "5 km SE",
+      "x_m": 3785.533905933,
+      "y_m": -3285.533905933,
+      "radius_m": 5000,
+      "bearing_deg": 135,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R5-S",
+      "name": "5 km S",
+      "x_m": 250.0,
+      "y_m": -4750.0,
+      "radius_m": 5000,
+      "bearing_deg": 180,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R5-SW",
+      "name": "5 km SW",
+      "x_m": -3285.533905933,
+      "y_m": -3285.533905933,
+      "radius_m": 5000,
+      "bearing_deg": 225,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R5-W",
+      "name": "5 km W",
+      "x_m": -4750.0,
+      "y_m": 250.0,
+      "radius_m": 5000,
+      "bearing_deg": 270,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R5-NW",
+      "name": "5 km NW",
+      "x_m": -3285.533905933,
+      "y_m": 3785.533905933,
+      "radius_m": 5000,
+      "bearing_deg": 315,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R10-N",
+      "name": "10 km N",
+      "x_m": 250.0,
+      "y_m": 10250.0,
+      "radius_m": 10000,
+      "bearing_deg": 0,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R10-NE",
+      "name": "10 km NE",
+      "x_m": 7321.067811865,
+      "y_m": 7321.067811865,
+      "radius_m": 10000,
+      "bearing_deg": 45,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R10-E",
+      "name": "10 km E",
+      "x_m": 10250.0,
+      "y_m": 250.0,
+      "radius_m": 10000,
+      "bearing_deg": 90,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R10-SE",
+      "name": "10 km SE",
+      "x_m": 7321.067811865,
+      "y_m": -6821.067811865,
+      "radius_m": 10000,
+      "bearing_deg": 135,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R10-S",
+      "name": "10 km S",
+      "x_m": 250.0,
+      "y_m": -9750.0,
+      "radius_m": 10000,
+      "bearing_deg": 180,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R10-SW",
+      "name": "10 km SW",
+      "x_m": -6821.067811865,
+      "y_m": -6821.067811865,
+      "radius_m": 10000,
+      "bearing_deg": 225,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R10-W",
+      "name": "10 km W",
+      "x_m": -9750.0,
+      "y_m": 250.0,
+      "radius_m": 10000,
+      "bearing_deg": 270,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
+    },
+    {
+      "id": "R10-NW",
+      "name": "10 km NW",
+      "x_m": -6821.067811865,
+      "y_m": 7321.067811865,
+      "radius_m": 10000,
+      "bearing_deg": 315,
+      "model_role": "regional_observation",
+      "use_for_prediction": false
     }
   ]
 }
