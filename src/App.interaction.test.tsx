@@ -7,6 +7,7 @@ import { makeUniformFixture } from './field/fixtures.ts'
 import type { CityLayout, CitySceneProps } from './contracts/marswindnet.ts'
 
 // The WebGL renderer is verified in-browser; these tests exercise shared UI/state.
+vi.mock('./components/VideoHero.tsx', () => ({ VideoHero: () => <a href="#demo">Try demo</a> }))
 vi.mock('./components/CityScene.tsx', () => ({
   CityScene: ({ city, onSensorSelect }: CitySceneProps) => <div aria-label="3D scene test seam">{city.sensors.map((sensor) => <button key={sensor.id} onClick={() => onSensorSelect(sensor.id)}>{sensor.id} scene marker</button>)}</div>,
 }))

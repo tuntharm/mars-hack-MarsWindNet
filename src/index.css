@@ -34,8 +34,8 @@ a { color: inherit; }
 .masthead { display: flex; justify-content: space-between; align-items: end; gap: 20px; padding: 0 2px 5px; }
 .masthead__name { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: .05em; }
 .brand-mark { display: grid; place-items: center; width: 20px; height: 20px; font-size: 12px; font-family: var(--display); border: 1px solid var(--amber); border-radius: 3px; color: var(--amber); }
-.masthead h1 { margin: 0; font-family: var(--display); font-size: clamp(24px, 2.8vw, 38px); font-weight: 700; line-height: 1.13; letter-spacing: -.045em; }
-.masthead h1 span { color: var(--amber); }
+.masthead h2 { margin: 0; font-family: var(--display); font-size: clamp(24px, 2.8vw, 38px); font-weight: 700; line-height: 1.13; letter-spacing: -.045em; }
+.masthead h2 span { color: var(--amber); }
 .masthead__lede { margin: 7px 0 0; color: var(--ivory-dim); font-size: 14px; }
 .masthead__aside { text-align: right; flex-shrink: 0; padding-bottom: 2px; }
 .masthead__aside p { margin: 7px 0; font-size: 12px; color: var(--ivory-dim); }
@@ -145,7 +145,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible
 @media (max-width: 900px) {
   .app { padding: 0 18px 20px; }
   .masthead__aside { display: none; }
-  .masthead h1 { font-size: 30px; }
+  .masthead h2 { font-size: 30px; }
   .controls__field { max-width: none; }
   .controls__actions { width: 100%; margin-left: 0; }
   .pause-toggle { margin-left: auto; }
@@ -163,7 +163,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible
   .presentation-tabs button svg { width: 15px; height: 15px; }
   .presentation-description { text-align: left; font-size: 10px; margin-left: 2px; }
   .masthead { padding: 0 3px 4px; }
-  .masthead h1 { font-size: 27px; max-width: 330px; }
+  .masthead h2 { font-size: 27px; max-width: 330px; }
   .masthead__name { font-size: 11px; }
   .masthead__lede { font-size: 12px; max-width: 290px; }
   .controls { padding: 12px; }
@@ -189,4 +189,45 @@ button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* The film introduces the project; the complete interactive application follows. */
+.video-hero { position: relative; isolation: isolate; display: flex; flex-direction: column; min-height: 700px; height: 100svh; overflow: hidden; background: #4d2b19 url('/assets/mars/mars-video-poster.jpg') center / cover; padding: 32px clamp(24px, 5vw, 88px) 25px; }
+.video-hero__film, .video-hero__shade { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+.video-hero__film { object-fit: cover; object-position: center; }
+.video-hero__shade { background: linear-gradient(180deg, #160e0a70, transparent 24%, #160e0a22 42%, #160e0abd 75%, #160f0c 100%); }
+.video-hero__top, .video-hero__bottom { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.video-hero__wordmark { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; letter-spacing: .02em; }
+.video-hero__wordmark .brand-mark { width: 27px; height: 27px; }
+.video-hero__edition, .video-hero__eyebrow, .video-hero__scroll { font-family: var(--mono); text-transform: uppercase; font-size: 11px; letter-spacing: .13em; }
+.video-hero__edition { color: #f6dfc9; }
+.video-hero__content { margin-top: auto; padding: 120px 0 64px; }
+.video-hero__eyebrow { color: #ffd2ab; margin: 0 0 18px; }
+.video-hero h1 { font-family: var(--display); font-size: clamp(62px, 9.1vw, 150px); line-height: 1; letter-spacing: -.065em; font-weight: 700; margin: 0 0 18px; color: #fff5e8; }
+.video-hero h1 span { color: #ffaf69; }
+.video-hero__lede { margin: 0; color: #edddcf; font-size: clamp(16px, 1.55vw, 21px); }
+.video-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero-action { display: inline-flex; justify-content: space-between; align-items: center; gap: 40px; min-height: 52px; padding: 13px 22px; border: 1px solid #f6ddc555; border-radius: 5px; text-decoration: none; font-size: 15px; font-weight: 700; transition: background-color 160ms, border-color 160ms; }
+.hero-action span { font-size: 20px; font-weight: 400; }
+.hero-action--primary { background: #f3ad70; border-color: #f3ad70; color: #27160c; }
+.hero-action--primary:hover { background: #ffc38e; border-color: #ffc38e; }
+.hero-action--secondary { background: #271a14a6; color: #fff0e2; backdrop-filter: blur(8px); }
+.hero-action--secondary:hover { background: #493024d9; border-color: #f6ddc5aa; }
+.video-hero__scroll { text-decoration: none; color: #cbbbaf; font-size: 10px; }
+.video-hero__scroll span { margin-left: 20px; color: var(--amber); }
+.video-hero__playback { display: flex; align-items: center; gap: 9px; min-height: 44px; padding: 8px 12px; background: #23170d66; border: 1px solid #e5c3a52e; border-radius: 4px; color: #e3c9b4; font-size: 11px; }
+.video-hero a:focus-visible, .video-hero button:focus-visible { outline: 2px solid #ffd2ab; outline-offset: 5px; }
+#demo { scroll-margin-top: 16px; }
+@media (max-width: 680px) {
+  .video-hero { padding: 22px 22px 18px; min-height: 620px; }
+  .video-hero__edition { display: none; }
+  .video-hero__film { object-position: 46% center; }
+  .video-hero__content { padding: 100px 0 50px; }
+  .video-hero h1 { font-size: clamp(40px, 12vw, 79px); letter-spacing: -.06em; margin-bottom: 16px; }
+  .video-hero__eyebrow { font-size: 9px; letter-spacing: .10em; }
+  .video-hero__lede { max-width: 280px; line-height: 1.55; }
+  .video-hero__actions { gap: 10px; margin-top: 24px; }
+  .hero-action { padding: 12px 17px; gap: 23px; font-size: 14px; }
+  .video-hero__scroll { font-size: 9px; letter-spacing: .08em; }
+  .video-hero__scroll span { margin-left: 8px; }
 }

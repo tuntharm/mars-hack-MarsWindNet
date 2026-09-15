@@ -5,22 +5,25 @@ import { Map2D } from './components/Map2D.tsx'
 import { MonitoringPanel } from './components/MonitoringPanel.tsx'
 import { PresentationTabs } from './components/PresentationTabs.tsx'
 import { useMarsWindNet } from './state/useMarsWindNet.ts'
+import { VideoHero } from './components/VideoHero.tsx'
 
 export default function App() {
   const app = useMarsWindNet()
   const regionalObservations = useRegionalObservations(app.city, app.scenarioId)
 
   return (
-    <div className="app" data-presentation={app.presentation}>
+    <>
       <a className="skip-link" href="#map">
         Skip to 2D map
       </a>
+      <VideoHero />
+    <div className="app" data-presentation={app.presentation}>
 
-      <section className="viewport-one" aria-label="Primary visualisation">
+      <section className="viewport-one" id="demo" aria-label="Primary visualisation" tabIndex={-1}>
         <header className="masthead">
           <div className="masthead__brand">
             <p className="masthead__name"><span className="brand-mark" aria-hidden="true">M</span> MarsWindNet</p>
-            <h1>See the wind. <span>Protect the city.</span></h1>
+            <h2>See the wind. <span>Protect the city.</span></h2>
             <p className="masthead__lede">
               Explore how incoming wind changes around a Martian settlement.
             </p>
@@ -99,5 +102,6 @@ export default function App() {
       ) : null}
       <footer className="page-footer"><span>MarsWindNet</span><p>Prototype settlement · Planar wind field · Research demonstration</p></footer>
     </div>
+    </>
   )
 }
