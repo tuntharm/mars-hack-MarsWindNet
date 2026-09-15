@@ -6,6 +6,34 @@ MarsWindNet explores how a network of environmental sensors could help people un
 
 **[Visit MarsWindNet](https://marswindnet.vercel.app/)** · **[Meet the sensor](https://marswindnet.vercel.app/sensor/)** · **[View model results](https://marswindnet.vercel.app/ml-gallery/index.html)**
 
+[![Interactive MarsWindNet city with wind contours and moving trails](docs/evidence/readme-city-flow.jpg)](https://marswindnet.vercel.app/#demo)
+
+*The working 3D city: procedural architecture, wind contours and linked sensor monitoring. Shown with the labelled illustrative flow fixture.*
+
+## From sensing to prediction
+
+**Sense the environment → learn from simulations → inspect the results.**
+
+[![Interactive sensor station with selectable instruments](docs/evidence/sensor-vercel-desktop.jpg)](https://marswindnet.vercel.app/sensor/)
+
+*Explore the sensor concept in 3D: rotate the station, select its instruments and fold it for transport.*
+
+## A look at the results
+
+### Simulated wind and dust
+
+[![Synthetic simulator wind and dust fields at the middle of the run](public/ml-gallery/plots/sim_field_middle.png)](https://marswindnet.vercel.app/ml-gallery/index.html)
+
+*Spatial fields from the team's synthetic 25 × 25 simulation. These are simulation illustrations, not validated CFD results.*
+
+### What the ML predicts
+
+[![XGBoost city-centre predictions compared with simulation values across the time series](public/ml-gallery/plots/city_overview_true_vs_pred.png)](https://marswindnet.vercel.app/ml-gallery/index.html#s3)
+
+*XGBoost estimates city-centre wind components and dust. This comparison shows the current model's limitations as well as its predictions; it is not a full-field ML reconstruction.*
+
+**[Open the full results gallery →](https://marswindnet.vercel.app/ml-gallery/index.html)**
+
 ## Explore the website
 
 The opening film leads into three parts of the project:
