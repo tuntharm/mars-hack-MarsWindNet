@@ -72,3 +72,7 @@ Use [regional-sensors.csv](geometry/regional-sensors.csv) and [regional-map.svg]
 The local CFD output remains 500 × 500 m. You choose any computational padding. Only S1/S2/S4/S5 enter the existing prediction endpoint, and S3 remains an independent checkpoint. Regional observations are separate files and are not ingested by `cfd:import`; no regional forecast or validated warning model is included.
 
 This v3 expands the former 400 m domain, translating objects and S3 +50 m east/north without changing dimensions. Do not relabel an old solver result as v3: the coordinates, display sampling and sensor positions changed. Earlier planning proposals remain unchanged.
+
+## Separate simulation contribution
+
+The team's `initial cfd` commit added `CFD/analysis.py` and `mars_city_wind_dust_training.csv`. The script describes a synthetic, unvalidated wind/dust generator with a 25 × 25 grid over 2 km and four cardinal nodes plus a central city sample. Its CSV contains point time series, not the application's 128 × 128 masked field or the new 29-station layout. These files are preserved unchanged and are not loaded automatically by the website. Debdut needs an explicit geometry/observation/export adapter before that contribution can drive this view; renaming its fields or layout ID alone is insufficient.

@@ -100,3 +100,7 @@ npm run export-city
 `export-city` regenerates geometry exports and labelled fixture data; it does not run CFD. Keep geometry aligned between `CFD/geometry/` and `public/data/city/`. Physical coordinates use metres, southwest origin, x east and y north; the renderer maps `(x,y,z)` to `(x,z,-y)`.
 
 This prototype visualises **2D horizontal flow in a 3D city**. Architectural roofs, generated terrain imagery and decorative haze do not establish 3D CFD, dust transport, structural validity or operational safety. Genuine engineering results need their own solver assumptions and validation.
+
+## Separate simulation contribution
+
+The team's `initial cfd` commit added `CFD/analysis.py` and `mars_city_wind_dust_training.csv`. The script describes a synthetic, unvalidated wind/dust generator with a 25 × 25 grid over 2 km and four cardinal nodes plus a central city sample. Its CSV contains point time series, not the application's 128 × 128 masked field or the new 29-station layout. These files are preserved unchanged and are not loaded automatically by the website. Debdut needs an explicit geometry/observation/export adapter before that contribution can drive this view; renaming its fields or layout ID alone is insufficient.

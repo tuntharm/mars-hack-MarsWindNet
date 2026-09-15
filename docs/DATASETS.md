@@ -79,3 +79,7 @@ Each bundled fixture also has `<scenario-id>.regional-observations.json`, contai
 The outer stations are displayed separately and do not enter the four-input `/predict` request. A future regional forecast model must define its own validated contract and how it supplies local boundary observations. Enlarging the network does not enlarge the CFD output grid beyond 500 × 500 m.
 
 Migration to `marswindnet-500-v3` expands the display domain and translates the original object arrangement +50 m east/north. Dimensions stay fixed. Older 400 m solver data and observations must be regenerated or explicitly transformed; changing an identity string alone is insufficient.
+
+## Separate simulation contribution
+
+The team's `initial cfd` commit added `CFD/analysis.py` and `mars_city_wind_dust_training.csv`. The script describes a synthetic, unvalidated wind/dust generator with a 25 × 25 grid over 2 km and four cardinal nodes plus a central city sample. Its CSV contains point time series, not the application's 128 × 128 masked field or the new 29-station layout. These files are preserved unchanged and are not loaded automatically by the website. Debdut needs an explicit geometry/observation/export adapter before that contribution can drive this view; renaming its fields or layout ID alone is insufficient.
