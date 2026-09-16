@@ -1,263 +1,76 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MarsWindNet — ML briefing gallery</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anybody:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&family=Spline+Sans+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --bg: #140d0c;
-        --panel: #1b1412;
-        --ink: #f2eee7;
-        --mute: #a9adae;
-        --sand: #c9baa6;
-        --amber: #f0a25d;
-        --line: #e9bf9028;
-        --display: "Anybody", "Arial Narrow", sans-serif;
-        --body: "Atkinson Hyperlegible", "Segoe UI", sans-serif;
-        --mono: "Spline Sans Mono", ui-monospace, monospace;
-      }
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body {
-        margin: 0;
-        color: var(--ink);
-        background: radial-gradient(1200px 600px at 10% -10%, #3a2218 0%, var(--bg) 55%);
-        font-family: var(--body);
-        line-height: 1.5;
-      }
-      a { color: var(--amber); }
-      .wrap {
-        display: grid;
-        grid-template-columns: 220px 1fr;
-        gap: 32px;
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 28px 24px 80px;
-      }
-      nav {
-        position: sticky;
-        top: 20px;
-        align-self: start;
-        padding: 16px 14px;
-        border: 1px solid var(--line);
-        background: #120c0bd9;
-      }
-      nav p {
-        margin: 0 0 10px;
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--sand);
-      }
-      nav ol {
-        margin: 0;
-        padding: 0 0 0 18px;
-        font-size: 13px;
-      }
-      nav a { color: var(--ink); text-decoration: none; }
-      nav a:hover, nav a:focus { color: var(--amber); }
-      header h1 {
-        margin: 0 0 8px;
-        font-family: var(--display);
-        font-size: clamp(28px, 4vw, 44px);
-        letter-spacing: -0.04em;
-        line-height: 1.1;
-      }
-      header h1 span { color: var(--amber); }
-      .lede { color: var(--mute); max-width: 62ch; }
-      .banner {
-        margin: 18px 0 36px;
-        padding: 10px 12px;
-        border-left: 3px solid var(--amber);
-        background: #2a1810;
-        font-size: 14px;
-      }
-      section {
-        margin: 0 0 56px;
-        scroll-margin-top: 20px;
-      }
-      h2 {
-        margin: 0 0 8px;
-        font-family: var(--display);
-        font-size: 22px;
-        letter-spacing: -0.03em;
-      }
-      .kicker {
-        margin: 0 0 6px;
-        font-family: var(--mono);
-        font-size: 11px;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--amber);
-      }
-      figure {
-        margin: 16px 0 28px;
-        padding: 12px;
-        border: 1px solid var(--line);
-        background: var(--panel);
-      }
-      figure img {
-        display: block;
-        width: 100%;
-        height: auto;
-        background: #0b0b0b;
-      }
-      figcaption {
-        margin: 10px 2px 0;
-        color: var(--sand);
-        font-size: 14px;
-      }
-      .talk {
-        margin: 0 0 12px;
-        max-width: 70ch;
-      }
-      @media (max-width: 800px) {
-        .wrap { grid-template-columns: 1fr; }
-        nav { position: static; }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        html { scroll-behavior: auto; }
-      }
-    </style>
-  </head>
-  <body>
-    <!--
-      Standalone briefing. Not wired into the React app.
-      Serve at /ml-gallery/ (Vite) or open this file directly.
-      Codex: do not import this into App.tsx unless asked; copy or iframe this folder.
-    -->
-    <div class="wrap">
-      <nav aria-label="Talk order">
-        <p>Talk order</p>
-        <ol>
-          <li><a href="#s1">Simulator field</a></li>
-          <li><a href="#s2">What we trained on</a></li>
-          <li><a href="#s3">What XGBoost emits</a></li>
-          <li><a href="#s4">Five-point dead end</a></li>
-          <li><a href="#s5">Field vs ML city</a></li>
-        </ol>
-      </nav>
-      <main>
-        <header>
-          <p class="kicker">Briefing · not the live city demo</p>
-          <h1>MarsWindNet <span>ML plots</span></h1>
-          <p class="lede">
-            Walk-through of the four-node synthetic nowcast. This page is a static gallery.
-            The main settlement viewer is unchanged.
-          </p>
-          <p class="banner">
-            Filled colour maps are the 25×25 <strong>simulator</strong>, same idea as
-            github.com/tuntharm/mars-hack-MarsWindNet/tree/main/mars_simulation_plots.
-            XGBoost predicts only city-centre <code>u, v, dust</code> — not that grid.
-            Provenance: CFD/analysis.py synthetic series, not CFD, not the 128×128 city layout.
-          </p>
-        </header>
+<!doctype html><html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#160f0c"><meta name="description" content="The MarsWindNet modelling story: synthetic simulation, preliminary XGBoost and LSTM experiments, and the path to full-field prediction."><title>Results &amp; modelling — MarsWindNet</title><link rel="icon" href="/favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anybody:wght@500;600;700;800&family=Atkinson+Hyperlegible:wght@400;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="story.css"></head>
 
-        <section id="s1">
-          <p class="kicker">01 · say this first</p>
-          <h2>What a real field looks like</h2>
-          <p class="talk">
-            These three frames are the reduced-order 2 km / 25×25 run: west-to-east wind,
-            dust pooling away from the fast side. This is the picture people expect from GitHub.
-          </p>
-          <figure>
-            <img src="plots/sim_field_start.png" alt="Simulator wind and dust fields at 0 seconds" />
-            <figcaption>t = 0 s — initial boundary wind, dust still on the west.</figcaption>
-          </figure>
-          <figure>
-            <img src="plots/sim_field_middle.png" alt="Simulator wind and dust fields at 1500 seconds" />
-            <figcaption>t = 1500 s — same layout as mars_simulation_middle.png on GitHub.</figcaption>
-          </figure>
-          <figure>
-            <img src="plots/sim_field_end.png" alt="Simulator wind and dust fields at 3000 seconds" />
-            <figcaption>t = 3000 s — end of the 50-minute toy run.</figcaption>
-          </figure>
-        </section>
+<body><a class="skip" href="#story">Skip to results</a>
 
-        <section id="s2">
-          <p class="kicker">02 · the CSV</p>
-          <h2>What we actually trained on</h2>
-          <p class="talk">
-            The training file is not those 625 cells. It is four perimeter nodes plus one city sample,
-            once per second. All four nodes see almost the same large-scale wind and dust.
-          </p>
-          <figure>
-            <img src="plots/node_uv_full.png" alt="Time series of u and v at west north east south nodes" />
-            <figcaption>Node winds — W/N/E/S u (blue) and v (orange), 3000 s.</figcaption>
-          </figure>
-          <figure>
-            <img src="plots/node_dust_full.png" alt="Time series of normalized dust at four nodes" />
-            <figcaption>Node dust — same pulses on every station.</figcaption>
-          </figure>
-          <figure>
-            <img src="plots/city_targets_full.png" alt="City centre targets with train validation and test shading" />
-            <figcaption>
-              City targets. Blue train / green val / orange test. Interior stays near zero until ~700 s;
-              the test window is a different wind regime.
-            </figcaption>
-          </figure>
-        </section>
+<header class="site-nav"><a class="brand" href="/" aria-label="MarsWindNet home"><span class="mark">M</span> Mars<span>WindNet</span></a><nav aria-label="Main navigation"><a class="return" href="/#demo">← Back to city</a><a href="/sensor/">Meet the sensor ↗</a></nav></header>
 
-        <section id="s3">
-          <p class="kicker">03 · model output</p>
-          <h2>What XGBoost actually emits</h2>
-          <p class="talk">
-            Three numbers per timestep: city_u, city_v, city_dust. On the held-out end of the file
-            the u and dust models sit on a train-mean line (RMSE u 1.21, v 0.44, dust 0.44).
-          </p>
-          <figure>
-            <img src="plots/city_overview_true_vs_pred.png" alt="Full series city true versus predicted with split bands" />
-            <figcaption>Black = simulator city. Blue = nowcast. u and dust are nearly constant.</figcaption>
-          </figure>
-          <figure>
-            <img src="plots/test_true_vs_pred.png" alt="Test split true versus predicted city u v dust" />
-            <figcaption>Test only (~2550–3000 s). This is the ML product today.</figcaption>
-          </figure>
-        </section>
+<main><div class="hero"><p class="eyebrow">MarsWindNet / Research notebook</p><h1>From scattered measurements<br> to a picture <em>of the city.</em></h1><p class="lede">Can observations around a settlement help us estimate conditions at its centre? We explored that question through synthetic simulation, a first XGBoost baseline and an LSTM experiment using recent history.</p><div class="hero-tags"><span>Synthetic data</span><span>Preliminary models</span><span>Open questions</span></div><a class="hero-link" href="#s1">Explore the modelling story ↓</a></div><div id="story" class="story-layout">
+<aside><nav aria-label="Results chapters"><p class="eyebrow">The modelling story</p><a href="#s1">01 · Simulate an environment</a><a href="#s2">02 · Read the stations</a><a href="#s3">03 · XGBoost baseline</a><a href="#lstm">04 · LSTM experiment</a><a href="#s5">05 · Interpret the maps</a><a href="#next">06 · What comes next</a></nav></aside>
+<div class="chapters">
+<section id="s1" class="chapter"><div class="chapter-title"><span class="number">01</span><div><h2>Create an environment to learn from.</h2><p class="question">How do wind and dust move across a simulated landscape?</p></div></div><p>We start with a synthetic wind and dust simulation over a <strong>2 km × 2 km domain</strong>, sampled on a 25 × 25 grid. It gives us spatial fields and a time series to explore. This is a separate modelling experiment from the website’s <strong>500 × 500 m settlement</strong>.</p><p class="badge">Synthetic simulation · not validated CFD</p>
+<figure><a href="plots/sim_field_middle.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: Synthetic wind and dust fields at the middle of the simulation"><img src="plots/sim_field_middle.png" width="2756" height="1204" alt="Synthetic wind and dust fields at the middle of the simulation" loading="lazy" decoding="async"></a><figcaption>A representative snapshot of the simulator. Dust is a normalized simulation quantity, not a calibrated physical concentration. <span>Click plot to enlarge ↗</span></figcaption></figure>
+<p class="takeaway"><strong>What this tells us</strong> A spatial simulation supplies the reference environment; individual stations only sample points within it.</p>
+<details><summary>Explore the start and end of the simulation</summary>
+<figure><a href="plots/sim_field_start.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: Synthetic simulator field at the start"><img src="plots/sim_field_start.png" width="2756" height="1204" alt="Synthetic simulator field at the start" loading="lazy" decoding="async"></a><figcaption>Beginning of the simulation. <span>Click plot to enlarge ↗</span></figcaption></figure>
 
-        <section id="s4">
-          <p class="kicker">04 · why the first maps looked empty</p>
-          <h2>Five samples are not a contour</h2>
-          <p class="talk">
-            If you only colour the cells the CSV contains, you get four nodes and a city star.
-            The grey is not a failed contour — those cells were never in the model.
-          </p>
-          <figure>
-            <img src="plots/ml_nowcast_spatial_test_strip.png" alt="Sparse five-point spatial samples at three test times" />
-            <figcaption>ML city nowcast + simulator nodes — not a reconstructed grid.</figcaption>
-          </figure>
-        </section>
+<figure><a href="plots/sim_field_end.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: Synthetic simulator field at the end"><img src="plots/sim_field_end.png" width="2756" height="1204" alt="Synthetic simulator field at the end" loading="lazy" decoding="async"></a><figcaption>End of the simulation. <span>Click plot to enlarge ↗</span></figcaption></figure>
+</details>
+</section>
 
-        <section id="s5">
-          <p class="kicker">05 · show this last</p>
-          <h2>Simulator field versus interpolated ML city</h2>
-          <p class="talk">
-            Left: true 25×25 field. Right: inverse-distance fill from four CSV nodes plus the ML city.
-            The dark blob at CITY is the weak nowcast. Retrain can replace that blob; it cannot be claimed
-            as an ML wind map until the model predicts the grid.
-          </p>
-          <figure>
-            <img src="plots/sim_vs_idw_ml_t2550.png" alt="Simulator versus IDW plus ML city at 2550 seconds" />
-            <figcaption>t = 2550 s (start of test).</figcaption>
-          </figure>
-          <figure>
-            <img src="plots/sim_vs_idw_ml_t2775.png" alt="Simulator versus IDW plus ML city at 2775 seconds" />
-            <figcaption>t = 2775 s.</figcaption>
-          </figure>
-          <figure>
-            <img src="plots/sim_vs_idw_ml_t2999.png" alt="Simulator versus IDW plus ML city at 2999 seconds" />
-            <figcaption>t = 2999 s (end of test).</figcaption>
-          </figure>
-        </section>
-      </main>
-    </div>
-  </body>
+<section id="s2" class="chapter"><div class="chapter-title"><span class="number">02</span><div><h2>Learn from four surrounding stations.</h2><p class="question">Can a few measurements tell us what is happening at the centre?</p></div></div><div class="flow"><div><small>INPUT</small><strong>Four stations</strong><p>West · North · East · South<br>u, v and dust at each point</p></div><span aria-hidden="true">→</span><div><small>LEARN</small><strong>A point-prediction model</strong><p>Relate surrounding conditions<br>to the city-centre sample</p></div><span aria-hidden="true">→</span><div><small>OUTPUT</small><strong>Three city values</strong><p>East–west wind · North–south wind<br>Normalized dust concentration</p></div></div><p>These are simulated observations, not physical sensor telemetry. Both experiments estimate the city-centre values; neither directly outputs a complete wind field.</p>
+<figure><a href="plots/node_uv_full.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: Wind components at the four surrounding stations"><img src="plots/node_uv_full.png" width="1750" height="1470" alt="Wind components at the four surrounding stations" loading="lazy" decoding="async"></a><figcaption>The station time series contain changing conditions that the models must learn to interpret. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<details><summary>Inspect dust inputs and city targets</summary>
+<figure><a href="plots/node_dust_full.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: Normalized dust at the four surrounding stations"><img src="plots/node_dust_full.png" width="1750" height="1260" alt="Normalized dust at the four surrounding stations" loading="lazy" decoding="async"></a><figcaption>Dust inputs from the synthetic simulation. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<figure><a href="plots/city_targets_full.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: City-centre targets with the XGBoost data split"><img src="plots/city_targets_full.png" width="1750" height="1190" alt="City-centre targets with the XGBoost data split" loading="lazy" decoding="async"></a><figcaption>The city-centre quantities to predict. Split shading belongs to the XGBoost experiment. <span>Click plot to enlarge ↗</span></figcaption></figure>
+</details>
+</section>
+
+<section id="s3" class="chapter"><div class="chapter-title"><span class="number">03</span><div><h2>First experiment: XGBoost.</h2><p class="question">What can a preliminary baseline learn from the station readings?</p></div></div><p class="badge">Preliminary hackathon baseline</p><p>An initial baseline built under hackathon time constraints. The current run did not learn the held-out behaviour adequately; wind and dust predictions remain largely flat. Further diagnosis and tuning are needed.</p><p>XGBoost uses the simultaneous station readings to estimate city-centre u, v and dust. Its chronological split uses 70% for training, 15% for validation and 15% for testing.</p>
+<figure><a href="plots/city_overview_true_vs_pred.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: XGBoost city-centre predictions and simulation reference"><img src="plots/city_overview_true_vs_pred.png" width="1750" height="1190" alt="XGBoost city-centre predictions and simulation reference" loading="lazy" decoding="async"></a><figcaption>Reference and predicted city-centre values across the series. The largely flat outputs reveal the limits of this preliminary run. <span>Click plot to enlarge ↗</span></figcaption></figure>
+<p class="takeaway"><strong>What we learned</strong> This baseline does not reproduce the held-out behaviour adequately. The plots show poor prediction quality; they do not establish numerical non-convergence or its cause.</p>
+<details><summary>Inspect the held-out XGBoost predictions</summary>
+<figure><a href="plots/test_true_vs_pred.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: XGBoost predictions on the final test interval"><img src="plots/test_true_vs_pred.png" width="1540" height="1120" alt="XGBoost predictions on the final test interval" loading="lazy" decoding="async"></a><figcaption>The final 15% test interval, approximately 2550–3000 seconds. <span>Click plot to enlarge ↗</span></figcaption></figure>
+</details>
+</section>
+
+<section id="lstm" class="chapter"><div class="chapter-title"><span class="number">04</span><div><h2>Second experiment: learning from recent history.</h2><p class="question">Does giving the model a sequence help it interpret changing conditions?</p></div></div><p class="badge">Preliminary LSTM experiment</p><p>The LSTM receives the <strong>previous 60 time steps</strong> of four-station readings and estimates the city-centre values at the current step. With one-second samples, that is 60 seconds of input history—not a 60-second forecast.</p><p>The script uses a chronological <strong>80% training / 20% test split</strong>. The existing plot labels “Measured” refer to the <strong>synthetic simulator reference</strong>, not measurements from physical sensors.</p>
+<figure><a href="plots/city_lstm_predictions.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: LSTM city-centre wind and dust predictions against synthetic reference"><img src="plots/city_lstm_predictions.png" width="2579" height="2165" alt="LSTM city-centre wind and dust predictions against synthetic reference" loading="lazy" decoding="async"></a><figcaption>The final 20% of the series. “Measured” in the original figure means simulator reference. The prediction curves show substantial discrepancies. <span>Click plot to enlarge ↗</span></figcaption></figure>
+<p class="takeaway"><strong>What we learned</strong> Adding temporal history is a different modelling approach, but these results remain preliminary. We cannot claim superiority over XGBoost: the experiments use different test splits.</p>
+<details><summary>Inspect training history and individual outputs</summary>
+<figure><a href="plots/lstm_training_history.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: LSTM training history"><img src="plots/lstm_training_history.png" width="1979" height="978" alt="LSTM training history" loading="lazy" decoding="async"></a><figcaption>Saved training-history figure. Training behaviour alone does not establish accuracy on unseen conditions. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<figure><a href="plots/city_u_prediction.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: LSTM city east–west wind comparison"><img src="plots/city_u_prediction.png" width="2380" height="978" alt="LSTM city east–west wind comparison" loading="lazy" decoding="async"></a><figcaption>Original LSTM output plot; reference values come from the synthetic simulator. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<figure><a href="plots/city_v_prediction.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: LSTM city north–south wind comparison"><img src="plots/city_v_prediction.png" width="2379" height="978" alt="LSTM city north–south wind comparison" loading="lazy" decoding="async"></a><figcaption>Original LSTM output plot; reference values come from the synthetic simulator. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<figure><a href="plots/city_dust_prediction.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: LSTM city dust comparison"><img src="plots/city_dust_prediction.png" width="2380" height="978" alt="LSTM city dust comparison" loading="lazy" decoding="async"></a><figcaption>Original LSTM output plot; reference values come from the synthetic simulator. <span>Click plot to enlarge ↗</span></figcaption></figure>
+</details>
+</section>
+
+<section id="s5" class="chapter"><div class="chapter-title"><span class="number">05</span><div><h2>From point estimates to a map.</h2><p class="question">What does a coloured map actually represent?</p></div></div><p>The maps below combine four simulated station values with one <strong>LSTM-predicted city-centre value</strong>. The plotting script fills the space between them using linear interpolation, with nearest-neighbour values outside their convex hull.</p><p class="badge">Interpolated display · not a full-field ML prediction</p>
+<figure><a href="plots/lstm_interpolated_start.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: LSTM-assisted interpolated field at the start of the test period"><img src="plots/lstm_interpolated_start.png" width="3146" height="1389" alt="LSTM-assisted interpolated field at the start of the test period" loading="lazy" decoding="async"></a><figcaption>Start of the LSTM prediction period. Five anchor points are interpolated onto a 100 × 100 display grid; the model does not predict those 10,000 cells. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<figure><a href="plots/lstm_interpolated_middle.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: LSTM-assisted interpolated field at the middle of the test period"><img src="plots/lstm_interpolated_middle.png" width="3145" height="1387" alt="LSTM-assisted interpolated field at the middle of the test period" loading="lazy" decoding="async"></a><figcaption>Middle of the LSTM prediction period. Five anchor points are interpolated onto a 100 × 100 display grid; the model does not predict those 10,000 cells. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<figure><a href="plots/lstm_interpolated_end.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: LSTM-assisted interpolated field at the end of the test period"><img src="plots/lstm_interpolated_end.png" width="3146" height="1384" alt="LSTM-assisted interpolated field at the end of the test period" loading="lazy" decoding="async"></a><figcaption>End of the LSTM prediction period. Five anchor points are interpolated onto a 100 × 100 display grid; the model does not predict those 10,000 cells. <span>Click plot to enlarge ↗</span></figcaption></figure>
+<p class="takeaway"><strong>What this tells us</strong> A smooth contour is not evidence of spatial prediction accuracy. A learned full-field result needs grid-level training targets and independent validation.</p>
+<details><summary>Earlier spatial explorations: XGBoost and inverse-distance interpolation</summary>
+<figure><a href="plots/ml_nowcast_spatial_test_strip.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: Five spatial samples from the earlier XGBoost experiment"><img src="plots/ml_nowcast_spatial_test_strip.png" width="1980" height="2543" alt="Five spatial samples from the earlier XGBoost experiment" loading="lazy" decoding="async"></a><figcaption>Four simulator stations and the XGBoost city estimate, shown as sparse points. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<figure><a href="plots/sim_vs_idw_ml_t2550.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: Simulator versus inverse-distance interpolation at 2550 seconds"><img src="plots/sim_vs_idw_ml_t2550.png" width="2722" height="2373" alt="Simulator versus inverse-distance interpolation at 2550 seconds" loading="lazy" decoding="async"></a><figcaption>Earlier XGBoost experiment: simulator field on the left; inverse-distance fill of station values and the city estimate on the right. This differs from the LSTM interpolation method above. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<figure><a href="plots/sim_vs_idw_ml_t2775.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: Simulator versus inverse-distance interpolation at 2775 seconds"><img src="plots/sim_vs_idw_ml_t2775.png" width="2722" height="2373" alt="Simulator versus inverse-distance interpolation at 2775 seconds" loading="lazy" decoding="async"></a><figcaption>Earlier XGBoost experiment: simulator field on the left; inverse-distance fill of station values and the city estimate on the right. This differs from the LSTM interpolation method above. <span>Click plot to enlarge ↗</span></figcaption></figure>
+
+<figure><a href="plots/sim_vs_idw_ml_t2999.png" target="_blank" rel="noopener" aria-label="Open full-resolution plot: Simulator versus inverse-distance interpolation at 2999 seconds"><img src="plots/sim_vs_idw_ml_t2999.png" width="2722" height="2373" alt="Simulator versus inverse-distance interpolation at 2999 seconds" loading="lazy" decoding="async"></a><figcaption>Earlier XGBoost experiment: simulator field on the left; inverse-distance fill of station values and the city estimate on the right. This differs from the LSTM interpolation method above. <span>Click plot to enlarge ↗</span></figcaption></figure>
+</details>
+</section>
+
+<section id="next" class="chapter"><div class="chapter-title"><span class="number">06</span><div><h2>What remains to prove.</h2><p class="question">How do we turn an exploratory experiment into a reliable model?</p></div></div><div class="next-grid"><article><small>01 / EVALUATE FAIRLY</small><h3>Match the experiments.</h3><p>Compare models on the same time windows, inputs and targets. Diagnose errors and test against simple baselines before claiming an improvement.</p></article><article><small>02 / GROUND IN PHYSICS</small><h3>Bring in genuine CFD.</h3><p>Generate and validate flow around the agreed settlement geometry, with documented boundary conditions and solver assumptions.</p></article><article><small>03 / CONNECT THE FIELD</small><h3>Predict across the city.</h3><p>Train for spatial outputs, check unseen wind conditions and connect compatible numerical fields to the interactive city.</p></article></div><p class="closing">The aim is a shared picture of the environment. These experiments show the first steps—and the evidence still needed.</p><div class="actions"><a class="button" href="/#demo">Return to the interactive city ↗</a><a class="button secondary" href="/sensor/">Explore the sensor ↗</a></div></section>
+</div></div></main>
+
+<footer><a class="brand" href="/">Mars<span>WindNet</span></a><p>See the wind. Protect the city.</p><a href="/#demo">Back to city ↑</a></footer>
+</body>
 </html>

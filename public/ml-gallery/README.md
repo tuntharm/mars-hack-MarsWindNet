@@ -1,20 +1,11 @@
-# ML briefing gallery (standalone)
+# Results & modelling story
 
-Static HTML. **Not imported by the React app.** Do not add a route in `src/` unless Tharm asks Codex to integrate it.
+Public page: https://marswindnet.vercel.app/ml-gallery/index.html
 
-## Location
+Standalone HTML and CSS, served by Vite and Vercel. The exact route includes `index.html`.
 
-| What | Path |
-| --- | --- |
-| Page | [`public/ml-gallery/index.html`](index.html) |
-| Plots | [`public/ml-gallery/plots/`](plots/) |
-| Dev URL | http://127.0.0.1:5173/ml-gallery/index.html (use this exact path; `/ml-gallery/` is the SPA) |
-| File URL | open `index.html` directly |
+The six chapters cover synthetic simulation, station inputs, preliminary XGBoost, preliminary LSTM, interpolated displays and next steps. `#s3` remains XGBoost; `#s5` remains spatial interpolation. Main navigation returns to `/#demo` or `/sensor/`.
 
-Vite serves everything under `public/` as static files. The main city demo stays at `/`.
+Original XGBoost and simulation plots remain in `plots/`. LSTM images are byte-for-byte copies from `mars_lstm_predictions/` and `mars_lstm_interpolated_fields/`. Do not present interpolation as full-field inference or synthetic reference values as physical measurements. The original figures are preserved; captions clarify their meaning.
 
-## For Codex
-
-1. Leave `src/App.tsx` and city/3D routes alone unless explicitly integrating.
-2. To hang this off the main site later: link to `/ml-gallery/` or iframe this folder. Copy captions from `index.html` talk-order sections 01–05.
-3. Images are copies of `ML/reports/*.png`. Regenerate reports with `python -m marswindnet_ml.plot_sim_style` then recopy into `plots/` if figures change.
+No training, model fetching or backend is performed by this page.

@@ -42,7 +42,7 @@ The opening film leads into three parts of the project:
 | --- | --- |
 | **Interactive city** | A 500 × 500 m settlement with 3D buildings, moving wind trails, a matching 2D map and sensor monitoring. |
 | **Sensor showcase** | The proposed field station, its instruments and an interactive 3D model that folds between transport and deployed configurations. |
-| **Model results** | Prepared simulation plots, training-data views and prediction comparisons, with explanations of what each result represents. |
+| **Model results** | A guided modelling story: synthetic simulation, preliminary XGBoost and LSTM predictions, and clearly labelled interpolated maps. |
 
 The city has **Mars**, **CFD** and **Structure** views. Select a sensor to inspect its readings, use **Regional view** to see the wider network, or load an illustrative comparison to explore the comparison controls. On mobile, choose **Interact with city** to enable camera gestures.
 
